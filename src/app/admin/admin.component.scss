@@ -1,0 +1,104 @@
+$header-height: 48px;
+
+::ng-serve .mat-drawer-container.mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
+  background-color: #80D2CE;
+  border-radius: 20px;
+  border: 2px solid #f1f2f3;
+}
+
+::ng-serve .mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
+  background-color: #80D2CE;
+  border-radius: 20px;
+  border: 2px solid #f1f2f3;
+}
+
+::ng-serve .mat-drawer.mat-drawer-inner-container::-webkit-scrollbar {
+  -webkit-appearance: none !important;
+}
+
+mat-drawer.mat-drawer-inner-container::-webkit-scrollbar:vertical {
+  width: 10px !important;
+}
+
+mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-button:increment,
+.mat-drawer::-webkit-scrollbar-button {
+  display: none !important;
+}
+
+mat-drawer.mat-drawer-inner-container::-webkit-scrollbar:horizontal {
+  height: 10px !important;
+}
+
+mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
+  background-color: #797979 !important;
+  border-radius: 20px !important;
+  border: 2px solid #f1f2f3 !important;
+}
+
+mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+mat-drawer-container {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  mat-drawer {
+    width: 250px;
+    text-align: left;
+    background: #ffffff;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  mat-drawer-content {
+    mat-toolbar {
+      min-height: $header-height;
+
+      mat-toolbar-row {
+        height: $header-height;
+        display: flex;
+        color: #fff;
+        justify-content: flex-end;
+        background: #80D2CE;
+        height: 64px;
+      }
+    }
+
+    .page-container {
+      padding: 20px 30px;
+    }
+  }
+}
+
+.toolbar-class {
+  display: flex;
+  justify-content: space-between !important;
+}
+
+
+.menu-header {
+  text-align: center;
+
+  img {
+    width: 100%;
+    margin: 20px 0px;
+  }
+
+  hr {
+    border: 1px solid #f4f4f4;
+    margin: 0px 8px;
+  }
+}
+
+mat-list-item {
+  & mat-icon {
+    height: 20px;
+    font-size: 20px;
+    background-position: center;
+    // margin-right: 15px;
+  }
+}

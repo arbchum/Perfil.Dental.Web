@@ -1,0 +1,17 @@
+<div class="flex-container-bt">
+  <div class="item-container">
+    <button mat-icon-button
+        *ngIf="prefixIcon"
+        [matTooltip]="prefixTooltip"
+        (click)="clickPrefix.emit()">
+      <mat-icon class="prefixIcon">{{ prefixIcon }}</mat-icon>
+    </button>
+    <h1>{{ title }}</h1>
+  </div>
+  <div class="item-container" *ngIf="showSuffixButton && suffixIcon">
+    <button mat-fab style="background-color: #80D2CE;" aria-label="Nuevo" [matTooltip]="suffixTooltip" (click)="clickSuffix.emit()">
+      <mat-icon class="suffixIcon">{{ suffixIcon }}</mat-icon>
+    </button>
+  </div>
+</div>
+

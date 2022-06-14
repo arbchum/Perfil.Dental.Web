@@ -1,0 +1,11 @@
+<app-page-title
+  title="LISTADO DE CLIENTES"
+  suffixIcon="add"
+  suffixTooltip="Nuevo Cliente"
+  [showSuffixButton]="true"
+  (clickSuffix)="operModalClienteForm()"
+></app-page-title>
+<app-cliente-table
+  [clientes]="clientes"
+  (sendIdCliente)="getCliente($event)"
+></app-cliente-table>

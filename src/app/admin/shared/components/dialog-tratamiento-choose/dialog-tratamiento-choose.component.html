@@ -1,0 +1,30 @@
+<h1 mat-dialog-title style="text-align: center">SELECTOR DE TRATAMIENTOS</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="container">
+      <table mat-table [dataSource]="dataSource" matSort formArrayName="tratamientos">
+        <ng-container *ngFor="let col of cols;" matColumnDef="{{col.field}}" [ngSwitch]="col.type">
+          <th mat-header-cell class="sticky-header" *matHeaderCellDef [style.width.px]="col.width"> {{col.header}} </th>
+          <td mat-cell *matCellDef="let row" [style.textAlign]="col.align" [formGroup]="row" >
+            <span *ngSwitchCase="null">
+             {{row.get(col.field).value}}
+            </span>
+            <span *ngSwitchCase="'accion'">
+              <mat-checkbox formControlName="isCheck"></mat-checkbox>
+             </span>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <div class="row space_center">
+    <button mat-button color="primary" class="cms-btn-primary" (click)="apply()">Aplicar
+    </button>
+    <button mat-button mat-dialog-close class="cms-btn-secondary" (click)="dialogRef.close()">Cerrar
+    </button>
+  </div>
+</div>
