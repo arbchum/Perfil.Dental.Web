@@ -9,7 +9,7 @@
     </mat-form-field>
   </div>
 </div>
-<div class="container">
+<div class="container" class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
     <ng-container *ngFor="let col of cols;" matColumnDef="{{col.field}}" [ngSwitch]="col.type">
       <th mat-header-cell *matHeaderCellDef [style.width.px]="col.width"> {{col.header}} </th>

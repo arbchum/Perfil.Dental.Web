@@ -5,14 +5,14 @@
       <div class="col-md-6">
         <mat-form-field>
           <mat-label>Apellido Paterno</mat-label>
-          <input matInput formControlName="sApePaterno" class="uppercase" maxlength="50">
+          <input matInput formControlName="sApePaterno" placeholder="Diaz" class="uppercase" maxlength="50">
           <mat-error *ngIf="sApePaternoError">{{ sApePaternoError }}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-md-6">
         <mat-form-field>
           <mat-label>Apellido Materno</mat-label>
-          <input matInput formControlName="sApeMaterno" class="uppercase" maxlength="50">
+          <input matInput formControlName="sApeMaterno" placeholder="Diaz" class="uppercase" maxlength="50">
           <mat-error *ngIf="sApeMaternoError">{{ sApeMaternoError }}</mat-error>
         </mat-form-field>
       </div>
@@ -21,7 +21,7 @@
       <div class="col-md-6">
         <mat-form-field>
           <mat-label>Nombres</mat-label>
-          <input matInput formControlName="sNombres" class="uppercase" maxlength="100">
+          <input matInput formControlName="sNombres" placeholder="Melissa Fiorella" class="uppercase" maxlength="100">
           <mat-error *ngIf="sNombresError">{{ sNombresError }}</mat-error>
         </mat-form-field>
       </div>
