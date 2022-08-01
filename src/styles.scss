@@ -30,7 +30,7 @@ table {
   td.mat-cell:last-of-type,
   th.mat-header-cell:last-of-type {
     padding: 0.25em 0.5em;
-    border: 1px solid #c8c8c8;
+    //border: 1px solid #c8c8c8;
 
     mat-form-field {
       display: block;
@@ -50,7 +50,7 @@ table {
 }
 
 .container {
-  position: relative;
+  // position: relative;
   overflow: auto;
   width: 100%;
 }
