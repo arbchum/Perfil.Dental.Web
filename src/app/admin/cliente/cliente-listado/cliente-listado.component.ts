@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { finalize } from 'rxjs';
+import { finalize, forkJoin } from 'rxjs';
 import { PerfildSweetAlertService } from 'src/app/common';
 import { ClienteHttp } from '../../shared/http';
-import { Cliente, ClienteDto } from '../../shared/interface';
+import { Cliente, ClienteDto, Provincia } from '../../shared/interface';
 import { ClienteFormComponent } from './cliente-form/cliente-form.component';
 
 @Component({
@@ -13,6 +13,7 @@ import { ClienteFormComponent } from './cliente-form/cliente-form.component';
 })
 export class ClienteListadoComponent implements OnInit {
   clientes: ClienteDto[];
+  provincias: Provincia[];
 
   constructor(
     private clienteHttp: ClienteHttp,
@@ -21,7 +22,19 @@ export class ClienteListadoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.listarClientes();
+    this.init();
+  }
+
+  init(): void {
+    this.alert.showLoading();
+    forkJoin({
+      resClientes: this.clienteHttp.getClienteSearch(),
+      resProvincias: this.clienteHttp.getUbigeoAll()
+    }).subscribe(({ resClientes, resProvincias }) => {
+      this.alert.closeLoading()
+      this.clientes = resClientes;
+      this.provincias = resProvincias;
+    });
   }
 
   listarClientes(showMessage?: true): void {
