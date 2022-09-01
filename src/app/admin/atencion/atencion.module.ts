@@ -20,6 +20,7 @@ import { AtencionListadoComponent } from './atencion-listado/atencion-listado.co
 import { AtencionFormComponent } from './atencion-form/atencion-form.component';
 import { ComponentsModule } from '../shared/components/components.module';
 import { AtencionTableComponent } from './atencion-listado/atencion-table/atencion-table.component';
+import { MatSelectModule } from '@angular/material/select';
 
 const ANGULAR_MODULES = [
   CommonModule,
@@ -39,7 +40,8 @@ const MATERIAL_MODULES = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatTooltipModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatSelectModule
 ];
 
 @NgModule({

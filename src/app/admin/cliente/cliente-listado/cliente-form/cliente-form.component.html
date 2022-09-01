@@ -61,9 +61,38 @@
     <div class="row">
       <div class="col-md-3">
         <mat-form-field>
+          <mat-label>Provincia</mat-label>
+          <mat-select formControlName="nIdProvincia">
+            <mat-option *ngFor="let item of data.provincias" [value]="item.nIdUbigeo">
+              {{item.sNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field>
+          <mat-label>Distrito</mat-label>
+          <mat-select formControlName="nIdDistrito">
+            <mat-option *ngFor="let item of distritos" [value]="item.nIdUbigeo">
+              {{item.sNombre}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="sSexoError">{{ sSexoError }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label>Dirección</mat-label>
+          <input matInput formControlName="sDireccion" class="uppercase" maxlength="200">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <mat-form-field>
           <mat-label>Fecha de Nac.</mat-label>
-          <input matInput [matDatepicker]="datepicker" formControlName="dFechaNac">
-          <mat-hint>MM/DD/YYYY</mat-hint>
+          <input matInput [matDatepicker]="datepicker" formControlName="dFechaNac" readonly>
+          <mat-hint>DD/MM/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
           <mat-datepicker #datepicker>
             <mat-datepicker-actions>
@@ -71,12 +100,14 @@
               <button mat-raised-button color="primary" matDatepickerApply>Aplicar</button>
             </mat-datepicker-actions>
           </mat-datepicker>
+          <mat-error *ngIf="dFechaNacError">{{ dFechaNacError }}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-md-9">
         <mat-form-field>
           <mat-label>Correo</mat-label>
           <input matInput formControlName="sCorreo" class="uppercase" maxlength="100">
+          <mat-hint>Ex. pat@example.com</mat-hint>
         </mat-form-field>
       </div>
     </div>

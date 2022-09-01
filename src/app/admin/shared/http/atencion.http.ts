@@ -23,4 +23,8 @@ export class AtencionHttp{
   sendAtencionCreate(atencion: any): Observable<boolean> {
     return this.http.post<boolean>(`${this.api}/Create`, atencion);
   }
+
+  getAtencionHistorical(nIdCliente: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.api}/GetHistorical/${nIdCliente}`);
+  }
 }

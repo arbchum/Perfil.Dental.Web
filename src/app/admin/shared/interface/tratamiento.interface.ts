@@ -1,7 +1,8 @@
 export interface Tratamiento {
+  sCodigo: string;
   nIdTratamiento: number;
   sNombre: string;
   nPrecio: string;
   bActivo: boolean;
-  dFechaReg: Date;
+  sFechaReg: string;
 }

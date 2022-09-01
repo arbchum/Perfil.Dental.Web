@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, forkJoin } from 'rxjs';
 import { PerfildSweetAlertService } from 'src/app/common';
 import { ClienteHttp } from '../../shared/http';
@@ -18,7 +19,9 @@ export class ClienteListadoComponent implements OnInit {
   constructor(
     private clienteHttp: ClienteHttp,
     private dialog: MatDialog,
-    private alert: PerfildSweetAlertService
+    private alert: PerfildSweetAlertService,
+    private router: Router,
+    private activatedRoute : ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -37,13 +40,12 @@ export class ClienteListadoComponent implements OnInit {
     });
   }
 
-  listarClientes(showMessage?: true): void {
+  listarClientes(showMessage?: boolean): void {
     this.alert.showLoading();
     this.clienteHttp
       .getClienteSearch()
-      //.pipe(finalize(() => this.alert.closeLoading()))
       .subscribe(res => {
-        this.alert.closeLoading()
+        this.alert.closeLoading();
         this.clientes = res;
         if (showMessage)
           this.alert.showToast('success');
@@ -54,7 +56,7 @@ export class ClienteListadoComponent implements OnInit {
     this.dialog.open(ClienteFormComponent, {
       width: '600px',
       disableClose: true,
-      data: { 'cliente': cliente }
+      data: { 'cliente': cliente, 'provincias': this.provincias }
     }).afterClosed()
       .subscribe((result: Cliente) => {
         if (result) {
@@ -85,5 +87,9 @@ export class ClienteListadoComponent implements OnInit {
         }
         else this.alert.showMessage('error')
       });
+  }
+
+  navigateHistorico(nIdCliente: number): void {
+    this.router.navigate(['../historico', nIdCliente ?? 0], {relativeTo: this.activatedRoute});
   }
 }

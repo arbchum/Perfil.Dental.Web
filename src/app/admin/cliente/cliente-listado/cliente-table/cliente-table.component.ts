@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ClienteDto } from 'src/app/admin/shared/interface';
@@ -11,6 +11,7 @@ import { ClienteDto } from 'src/app/admin/shared/interface';
 export class ClienteTableComponent implements OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Output() sendIdCliente: EventEmitter<number> = new EventEmitter<number>();
+  @Output() sendIdHistorico: EventEmitter<number> = new EventEmitter<number>();
   @Input() clientes: ClienteDto[] = [];
   dataSource: MatTableDataSource<ClienteDto>;
   displayedColumns: string[];
@@ -20,11 +21,11 @@ export class ClienteTableComponent implements OnChanges {
   cols: any[] = [
     { header: 'Código', field: 'sCodigo', type: null, width: '50', align: 'center' },
     { header: 'Nombre Completo', field: 'sNomCliente', type: null, width: '200', align: 'left' },
-    { header: 'Documento', field: 'sNroDocumento', type: null, width: '100', align: 'center' },
-    { header: 'Edad', field: 'sEdad', type: null, width: '100', align: 'left' },
-    { header: 'Celular', field: 'sCelular', type: null, width: '100', align: 'center' },
-    { header: 'Estado', field: 'sActivo', type: null, width: '80', align: 'center' },
-    { header: 'Acción', field: 'accion', type: 'accion', width: '40', align: 'center' },
+    { header: 'Documento', field: 'sNroDocumento', type: null, width: '80', align: 'center' },
+    { header: 'Edad', field: 'sEdad', type: null, width: '120', align: 'left' },
+    { header: 'Fecha de registro', field: 'sFechaReg', type: null, width: '120', align: 'center' },
+    { header: 'Estado', field: 'sActivo', type: null, width: '60', align: 'center' },
+    { header: 'Acción', field: 'accion', type: 'accion', width: '50', align: 'center' },
   ];
   /* #endregion */
 

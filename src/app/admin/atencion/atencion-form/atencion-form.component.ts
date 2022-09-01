@@ -3,11 +3,11 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { finalize, map, startWith } from 'rxjs';
+import { finalize, map, startWith, takeUntil } from 'rxjs';
 import { PerfildSweetAlertService } from 'src/app/common';
 import { DialogTratamientoChooseComponent } from '../../shared/components/dialog-tratamiento-choose/dialog-tratamiento-choose.component';
 import { AtencionHttp, ClienteHttp, TratamientoHttp } from '../../shared/http';
-import { ClienteDto, Tratamiento } from '../../shared/interface';
+import { ClienteDto, DetAtencion, Tratamiento } from '../../shared/interface';
 
 @Component({
   selector: 'app-atencion-form',
@@ -20,13 +20,16 @@ export class AtencionFormComponent implements OnInit {
   form: FormGroup;
   clientes: ClienteDto[] = [];
   filteredClientes: ClienteDto[];
+  tratamientos: Tratamiento[];
+
 
   /* #region   Asignación nombres de campos y columnas*/
   cols: any[] = [
-    { header: 'Nombre', field: 'sNombre', type: null, width: '350', align: 'left' },
-    { header: 'Cantidad', field: 'nCantidad', type: 'nCantidad', width: '50', align: 'center' },
-    { header: 'Precio', field: 'nPrecio', type: null, width: '50', align: 'right' },
-    { header: 'Acción', field: 'accion', type: 'accion', width: '50', align: 'center' }
+    { header: 'Nro.', field: 'index', type: 'index', width: '50', align: 'center', hidefooter: false, colspan: 3, alignfoot: 'right' },
+    { header: 'Tratamiento', field: 'nIdTratamiento', type: 'nIdTratamiento', width: '350', align: 'left', hidefooter: true, colspan: 1, alignfoot: 'center' },
+    { header: 'Cantidad', field: 'nCantidad', type: 'nCantidad', width: '50', align: 'center', hidefooter: true, colspan: 1, alignfoot: 'center' },
+    { header: 'Precio', field: 'nPrecio', type: 'nPrecio', width: '50', align: 'right', hidefooter: false, colspan: 2, alignfoot: 'center' },
+    { header: 'Acción', field: 'accion', type: 'accion', width: '50', align: 'center', hidefooter: true, colspan: 1, alignfoot: 'center' }
   ];
   /* #endregion */
 
@@ -43,7 +46,8 @@ export class AtencionFormComponent implements OnInit {
     this.displayedColumns = this.cols.map(({ field }) => field);
     this.form = this.fb.group({
       nIdCliente: [null, Validators.required],
-      detAtencion: this.fb.array([])
+      detAtencion: this.fb.array([]),
+      sNota: [null]
     });
   }
 
@@ -79,64 +83,86 @@ export class AtencionFormComponent implements OnInit {
 
   private _filter(name: string): ClienteDto[] {
     const filterValue = name.toLowerCase();
-
     return this.clientes.filter(cliente => cliente.sNomCliente.toLowerCase().includes(filterValue) || cliente.sNroDocumento.includes(filterValue));
   }
 
   goAtencionListado(): void {
-    this.router.navigateByUrl('/atencion/atencion-listado');
+    this.router.navigateByUrl('/atencion/listado');
   }
 
-  chooseTratamiento(tratamientos: Tratamiento[]): void {
-    this.dialog.open(DialogTratamientoChooseComponent, {
-      width: '600px',
-      data: { 'tratamientos': tratamientos }
-    }).afterClosed()
-      .subscribe((result: Tratamiento[]) => {
-        if (result) {
-          result.forEach(item => this.addRow(item));
-          this.dataSource = new MatTableDataSource(this.detAtencionArray.controls);
-        }
-      });
-  }
-
-  private addRow(tratamiento: Tratamiento): void {
+  private addRow(): void {
+    const pForm = this.detAtencionArray.at(this.detAtencionArray.length - 1) as FormGroup;
+    if (pForm) {
+      if (pForm.invalid) {
+        return Object.values(pForm.controls).forEach(control => { control.markAllAsTouched() });
+      }
+      Object.values(pForm.controls).forEach(control => { control.disable() });
+    }
+    const lstIdTratamiento = (this.detAtencionArray.getRawValue() as DetAtencion[]).map(item => item.nIdTratamiento);
+    const filteredTratamientos = this.tratamientos.filter(item => !lstIdTratamiento.includes(item.nIdTratamiento));
     this.detAtencionArray.push(
       this.fb.group({
-        nIdTratamiento: tratamiento.nIdTratamiento,
-        sNombre: tratamiento.sNombre,
-        nCantidad: 1,
-        nPrecio: tratamiento.nPrecio
-      }));
+        nIdTratamiento: [null, Validators.required],
+        lstTratamiento: [filteredTratamientos],
+        sNombre: [null],
+        nCantidad: [1, Validators.required],
+        nPrecio: [null, Validators.required],
+      })
+    );
+    this.dataSource = new MatTableDataSource(this.detAtencionArray.controls);
   }
 
-  getTratamientos(): void {
-    this.alert.showLoading();
-    this.tratamientoHttp
-      .getTratamientoSearch()
-      .pipe(finalize(() => this.alert.closeLoading()))
-      .subscribe(res => this.chooseTratamiento(res));
+  addTratamiento(): void {
+    if (this.tratamientos) {
+      this.addRow();
+    } else {
+      this.alert.showLoading();
+      this.tratamientoHttp
+        .getTratamientoSearch()
+        .pipe(finalize(() => this.alert.closeLoading()))
+        .subscribe(res => {
+          this.tratamientos = res;
+          this.addRow();
+        });
+    }
   }
 
   quitTratamiento(index: number): void {
     this.detAtencionArray.removeAt(index);
+    const pForm = this.detAtencionArray.at(this.detAtencionArray.length - 1) as FormGroup;
+    if (pForm.get('nIdTratamiento')?.enabled) {
+      const lstIdTratamiento = (this.detAtencionArray.getRawValue() as DetAtencion[])
+        .filter(item => item.nIdTratamiento != pForm.get('nIdTratamiento')?.value)
+        .map(item => item.nIdTratamiento);
+      const filteredTratamientos = this.tratamientos.filter(item => !lstIdTratamiento.includes(item.nIdTratamiento));
+      pForm.get('lstTratamiento')?.setValue(filteredTratamientos);
+      this.getPrice(pForm);
+    } else {
+      Object.values(pForm.controls).forEach(control => { control.enable() });
+    }
     this.dataSource = new MatTableDataSource(this.detAtencionArray.controls);
   }
 
-  saveAtencion(): void {
-    if(this.form.invalid){
-      return Object.values(this.form.controls).forEach(control => { control.markAllAsTouched() })
+  getPrice(fb: FormGroup): void {
+    const objTratamiento = this.tratamientos.find(item => item.nIdTratamiento == fb.get('nIdTratamiento')?.value);
+    if (objTratamiento) {
+      fb.get('nPrecio')?.setValue(objTratamiento.nPrecio);
     }
-    if(this.isEmpty){
+  }
+
+  saveAtencion(): void {
+    if (this.form.invalid) {
+      return Object.values(this.form.controls).forEach(control => { control.markAllAsTouched() });
+    }
+    if (this.isEmpty) {
       this.alert.showMessage('warning', 'Seleccione al menos un tratamiento');
       return;
     }
     this.alert.showLoading();
     this.atencionHttp
-      .sendAtencionCreate(this.form.value)
-      // .pipe(finalize(() => this.alert.closeLoading()))
+      .sendAtencionCreate(this.form.getRawValue())
+      .pipe(finalize(() => this.alert.closeLoading()))
       .subscribe(res => {
-        this.alert.closeLoading()
         if (res) {
           this.alert.showToast('success');
           this.goAtencionListado();
@@ -144,4 +170,41 @@ export class AtencionFormComponent implements OnInit {
         else this.alert.showMessage('error')
       });
   }
+
+  getMontoTotal() {
+    return (this.detAtencionArray.getRawValue() as any[])
+      .map(item => +item.nPrecio * +item.nCantidad)
+      .reduce((acc, value) => acc + value, 0);
+  }
+
+  // private addRow(tratamiento: Tratamiento): void {
+  //   this.detAtencionArray.push(
+  //     this.fb.group({
+  //       nIdTratamiento: tratamiento.nIdTratamiento,
+  //       sNombre: tratamiento.sNombre,
+  //       nCantidad: 1,
+  //       nPrecio: tratamiento.nPrecio
+  //     }));
+  // }
+
+  // getTratamientos(): void {
+  //   this.alert.showLoading();
+  //   this.tratamientoHttp
+  //     .getTratamientoSearch()
+  //     .pipe(finalize(() => this.alert.closeLoading()))
+  //     .subscribe(res => this.chooseTratamiento(res));
+  // }
+
+  // chooseTratamiento(tratamientos: Tratamiento[]): void {
+  //   this.dialog.open(DialogTratamientoChooseComponent, {
+  //     width: '600px',
+  //     data: { 'tratamientos': tratamientos }
+  //   }).afterClosed()
+  //     .subscribe((result: Tratamiento[]) => {
+  //       if (result) {
+  //         result.forEach(item => this.addRow(item));
+  //         this.dataSource = new MatTableDataSource(this.detAtencionArray.controls);
+  //       }
+  //     });
+  // }
 }

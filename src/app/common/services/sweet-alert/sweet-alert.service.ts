@@ -64,7 +64,7 @@ export class PerfildSweetAlertService {
         timer,
         heightAuto: false,
         background: this.backgroundColor,
-        position: 'top-end',
+        position: 'center',
         allowOutsideClick: false,
       });
     });

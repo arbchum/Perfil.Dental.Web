@@ -20,6 +20,7 @@ import { ClienteListadoComponent } from './cliente-listado/cliente-listado.compo
 import { ClienteTableComponent } from './cliente-listado/cliente-table/cliente-table.component';
 import { ClienteFormComponent } from './cliente-listado/cliente-form/cliente-form.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ClienteHistoricoAtencionComponent } from './cliente-historico-atencion/cliente-historico-atencion.component';
 
 const ANGULAR_MODULES = [
   CommonModule,
@@ -45,7 +46,8 @@ const MATERIAL_MODULES = [
   declarations: [
     ClienteListadoComponent,
     ClienteTableComponent,
-    ClienteFormComponent
+    ClienteFormComponent,
+    ClienteHistoricoAtencionComponent
   ],
   imports: [
     ClienteRoutingModule,

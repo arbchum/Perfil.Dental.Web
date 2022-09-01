@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Cliente } from 'src/app/admin/shared/interface';
+import { Cliente, Distrito, Provincia } from 'src/app/admin/shared/interface';
 
 @Component({
   selector: 'app-cliente-form',
@@ -11,13 +11,13 @@ import { Cliente } from 'src/app/admin/shared/interface';
 export class ClienteFormComponent implements OnInit {
   form: FormGroup;
   title: string;
+  distritos: Distrito[];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { cliente: Cliente },
+    @Inject(MAT_DIALOG_DATA) public data: { cliente: Cliente, provincias: Provincia[] },
     public dialogRef: MatDialogRef<ClienteFormComponent>,
     private fb: FormBuilder
   ) {
-    this.title = 'CLIENTE NUEVO';
     this.form = this.fb.group({
       sApePaterno: [null, Validators.required],
       sApeMaterno: [null, Validators.required],
@@ -26,7 +26,10 @@ export class ClienteFormComponent implements OnInit {
       sSexo: [null, Validators.required],
       sCelular: [null],
       sTelefono: [null],
-      dFechaNac: [null],
+      nIdProvincia: [null, Validators.required],
+      nIdDistrito: [null, Validators.required],
+      sDireccion: [null],
+      dFechaNac: [null, Validators.required],
       sCorreo: [null],
     })
   }
@@ -36,20 +39,40 @@ export class ClienteFormComponent implements OnInit {
   get sNombresCtrl(): FormControl { return this.form.get('sNombres') as FormControl }
   get sNroDocumentoCtrl(): FormControl { return this.form.get('sNroDocumento') as FormControl }
   get sSexoCtrl(): FormControl { return this.form.get('sSexo') as FormControl }
+  get nIdProvinciaCtrl(): FormControl { return this.form.get('nIdProvincia') as FormControl }
+  get nIdDistritoCtrl(): FormControl { return this.form.get('nIdDistrito') as FormControl }
+  get dFechaNacCtrl(): FormControl { return this.form.get('dFechaNac') as FormControl }
 
   get sApePaternoError(): unknown { return this.sApePaternoCtrl.hasError('required') ? 'campo requerido' : null }
   get sApeMaternoError(): unknown { return this.sApeMaternoCtrl.hasError('required') ? 'campo requerido' : null }
   get sNombresError(): unknown { return this.sNombresCtrl.hasError('required') ? 'campo requerido' : null }
   get sNroDocumentoError(): unknown { return this.sNroDocumentoCtrl.hasError('required') ? 'campo requerido' : null }
   get sSexoError(): unknown { return this.sSexoCtrl.hasError('required') ? 'campo requerido' : null }
+  get nIdDistritoError(): unknown { return this.nIdDistritoCtrl.hasError('required') ? 'campo requerido' : null }
+  get dFechaNacError(): unknown { return this.dFechaNacCtrl.hasError('required') ? 'campo requerido' : null }
 
   ngOnInit(): void {
+    this.changeProvincia();
+    this.nIdProvinciaCtrl.setValue(153);
+    this.title = 'PACIENTE';
     if (this.data.cliente) {
       this.form.patchValue(this.data.cliente);
+      this.title += ' EDICIÓN';
+    } else {
+      this.title += ' NUEVO';
     }
   }
 
+  changeProvincia(): void {
+    this.nIdProvinciaCtrl.valueChanges.subscribe(value => {
+      this.distritos = this.data.provincias.find(obj => obj.nIdUbigeo == value)?.distritos ?? [];
+    });
+  }
+
   saveCliente(): void {
+    if (this.form.invalid) {
+      return Object.values(this.form.controls).forEach(ctrl => ctrl.markAsTouched());
+    }
     this.dialogRef.close(this.form.value);
   }
 }

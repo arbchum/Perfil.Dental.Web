@@ -21,10 +21,10 @@ export class AtencionListadoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.listarClientes();
+    this.listarAtenciones();
   }
 
-  listarClientes(showMessage?: true): void {
+  listarAtenciones(showMessage?: true): void {
     this.alert.showLoading();
     this.atencionHttp
       .getAtencionSearch()
@@ -37,7 +37,7 @@ export class AtencionListadoComponent implements OnInit {
   }
 
   goAtencionForm(id?: number):void{
-    this.router.navigate(['../atencion-form', id ?? 0], {relativeTo: this.activatedRoute});
+    this.router.navigate(['../nuevo', id ?? 0], {relativeTo: this.activatedRoute});
   }
 
 }

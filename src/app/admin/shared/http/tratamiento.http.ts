@@ -20,4 +20,8 @@ export class TratamientoHttp {
   getTratamientoSearch(): Observable<Tratamiento[]> {
     return this.http.get<Tratamiento[]>(`${this.api}/GetSearch`);
   }
+
+  sendTratamientoCreateOrUpdate(tratamiento: Tratamiento): Observable<boolean> {
+    return this.http.post<boolean>(`${this.api}/CreateOrUpdate`, tratamiento);
+  }
 }

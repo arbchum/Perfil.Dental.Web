@@ -19,4 +19,5 @@ export interface ClienteDto{
   sEdad: string;
   sCelular: string;
   sActivo: string;
+  sFechaReg: string;
 }

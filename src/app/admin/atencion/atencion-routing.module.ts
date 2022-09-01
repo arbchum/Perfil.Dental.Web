@@ -5,11 +5,11 @@ import { AtencionListadoComponent } from './atencion-listado/atencion-listado.co
 
 const routes: Routes = [
   {
-    path: 'atencion-listado',
+    path: 'listado',
     component: AtencionListadoComponent
   },
   {
-    path: 'atencion-form/:id',
+    path: 'nuevo/:id',
     component: AtencionFormComponent
   }
 ];
