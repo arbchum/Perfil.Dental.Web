@@ -6,9 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { ClienteModule } from './admin/cliente/cliente.module';
 import { AtencionModule } from './admin/atencion/atencion.module';
-import { DateAdapter, MatDateFormats, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getSpanishPaginatorIntl } from './common/services/paginator/paginator';
+import { SpinnerModule } from './common/components/spinner/spinner.module';
 
 // export const MY_FORMATS: MatDateFormats = {
 //   parse: {
@@ -30,10 +31,10 @@ import { getSpanishPaginatorIntl } from './common/services/paginator/paginator';
     AppRoutingModule,
     BrowserAnimationsModule,
     ClienteModule,
-    AtencionModule
+    AtencionModule,
+    SpinnerModule
   ],
   providers: [
-    // { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() }
   ],

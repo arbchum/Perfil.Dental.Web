@@ -10,18 +10,31 @@ import { Cliente, Distrito, Provincia } from 'src/app/admin/shared/interface';
 })
 export class ClienteFormComponent implements OnInit {
   form: FormGroup;
-  title: string;
   distritos: Distrito[];
+  title: string;
+  labelDocumento: string;
+  minDate: Date;
+  maxDate: Date;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { cliente: Cliente, provincias: Provincia[] },
     public dialogRef: MatDialogRef<ClienteFormComponent>,
     private fb: FormBuilder
   ) {
+    this.initForm();
+    this.labelDocumento = 'Documento';
+    // this.minDate = new Date(currentYear - 20, 0, 1);
+    // this.maxDate = new Date(currentYear + 1, 11, 31);
+   
+  }
+
+  initForm(): void {
     this.form = this.fb.group({
       sApePaterno: [null, Validators.required],
       sApeMaterno: [null, Validators.required],
       sNombres: [null, Validators.required],
+      tipo: [0, Validators.required],
+      bMenor: [0, Validators.required],
       sNroDocumento: [null, Validators.required],
       sSexo: [null, Validators.required],
       sCelular: [null],
@@ -42,6 +55,7 @@ export class ClienteFormComponent implements OnInit {
   get nIdProvinciaCtrl(): FormControl { return this.form.get('nIdProvincia') as FormControl }
   get nIdDistritoCtrl(): FormControl { return this.form.get('nIdDistrito') as FormControl }
   get dFechaNacCtrl(): FormControl { return this.form.get('dFechaNac') as FormControl }
+  get bMenorCtrl(): FormControl { return this.form.get('bMenor') as FormControl }
 
   get sApePaternoError(): unknown { return this.sApePaternoCtrl.hasError('required') ? 'campo requerido' : null }
   get sApeMaternoError(): unknown { return this.sApeMaternoCtrl.hasError('required') ? 'campo requerido' : null }
@@ -53,6 +67,7 @@ export class ClienteFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.changeProvincia();
+    this.changeEtapa();
     this.nIdProvinciaCtrl.setValue(153);
     this.title = 'PACIENTE';
     if (this.data.cliente) {
@@ -66,6 +81,12 @@ export class ClienteFormComponent implements OnInit {
   changeProvincia(): void {
     this.nIdProvinciaCtrl.valueChanges.subscribe(value => {
       this.distritos = this.data.provincias.find(obj => obj.nIdUbigeo == value)?.distritos ?? [];
+    });
+  }
+
+  changeEtapa(): void {
+    this.bMenorCtrl.valueChanges.subscribe(value => {
+      this.labelDocumento = `Documento${value == 0 ? '' : ' del padre'}`;
     });
   }
 

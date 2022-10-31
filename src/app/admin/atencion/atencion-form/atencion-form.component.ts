@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
-import { finalize, map, startWith, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
+import { map, startWith } from 'rxjs';
 import { PerfildSweetAlertService } from 'src/app/common';
-import { DialogTratamientoChooseComponent } from '../../shared/components/dialog-tratamiento-choose/dialog-tratamiento-choose.component';
 import { AtencionHttp, ClienteHttp, TratamientoHttp } from '../../shared/http';
 import { ClienteDto, DetAtencion, Tratamiento } from '../../shared/interface';
 
@@ -39,9 +37,7 @@ export class AtencionFormComponent implements OnInit {
     private tratamientoHttp: TratamientoHttp,
     private atencionHttp: AtencionHttp,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private alert: PerfildSweetAlertService,
-    private dialog: MatDialog
+    private alert: PerfildSweetAlertService
   ) {
     this.displayedColumns = this.cols.map(({ field }) => field);
     this.form = this.fb.group({
@@ -67,13 +63,11 @@ export class AtencionFormComponent implements OnInit {
   get sNomClienteError(): unknown { return this.sNomClienteCtrl.hasError('required') ? 'campo requerido' : null }
 
   listarClientes(): void {
-    this.alert.showLoading();
-    this.clienteHttp
-      .getClienteSearch()
-      .pipe(finalize(() => this.alert.closeLoading()))
-      .subscribe(res => {
+    this.clienteHttp.getClienteSearch().subscribe(
+      res => {
         this.clientes = res;
-      });
+      }
+    );
   }
 
   displayFn(nIdCliente: number): string {
@@ -116,14 +110,12 @@ export class AtencionFormComponent implements OnInit {
     if (this.tratamientos) {
       this.addRow();
     } else {
-      this.alert.showLoading();
-      this.tratamientoHttp
-        .getTratamientoSearch()
-        .pipe(finalize(() => this.alert.closeLoading()))
-        .subscribe(res => {
+      this.tratamientoHttp.getTratamientoSearch().subscribe(
+        res => {
           this.tratamientos = res;
           this.addRow();
-        });
+        }
+      );
     }
   }
 
@@ -158,17 +150,15 @@ export class AtencionFormComponent implements OnInit {
       this.alert.showMessage('warning', 'Seleccione al menos un tratamiento');
       return;
     }
-    this.alert.showLoading();
-    this.atencionHttp
-      .sendAtencionCreate(this.form.getRawValue())
-      .pipe(finalize(() => this.alert.closeLoading()))
-      .subscribe(res => {
+    this.atencionHttp.sendAtencionCreate(this.form.getRawValue()).subscribe(
+      res => {
         if (res) {
           this.alert.showToast('success');
           this.goAtencionListado();
         }
         else this.alert.showMessage('error')
-      });
+      }
+    );
   }
 
   getMontoTotal() {

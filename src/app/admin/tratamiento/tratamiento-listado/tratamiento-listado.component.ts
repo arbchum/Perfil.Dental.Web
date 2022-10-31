@@ -24,16 +24,12 @@ export class TratamientoListadoComponent implements OnInit {
     this.listarTratamientos();
   }
 
-  listarTratamientos(showMessage?: boolean): void {
-    this.alert.showLoading();
-    this.tratamientoHttp
-      .getTratamientoSearch()
-      .subscribe(res => {
-        this.alert.closeLoading();
+  listarTratamientos(): void {
+    this.tratamientoHttp.getTratamientoSearch().subscribe(
+      res => {
         this.tratamientos = res;
-        if (showMessage)
-          this.alert.showToast('success');
-      });
+      }
+    );
   }
 
   operModalTratamientoForm(tratamiento?: Tratamiento): void {
@@ -51,15 +47,14 @@ export class TratamientoListadoComponent implements OnInit {
   }
 
   saveTratamiento(tratamiento: Tratamiento): void {
-    this.alert.showLoading();
-    this.tratamientoHttp
-      .sendTratamientoCreateOrUpdate(tratamiento)
-      .pipe(finalize(() => this.alert.closeLoading()))
-      .subscribe(res => {
+    this.tratamientoHttp.sendTratamientoCreateOrUpdate(tratamiento).subscribe(
+      res => {
         if (res) {
-          this.listarTratamientos(true);
+          this.alert.showToast('success');
+          this.listarTratamientos();
         }
         else this.alert.showMessage('error')
-      });
+      }
+    );
   }
 }

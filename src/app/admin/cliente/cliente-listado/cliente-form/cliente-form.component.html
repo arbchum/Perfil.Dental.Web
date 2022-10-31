@@ -25,9 +25,25 @@
           <mat-error *ngIf="sNombresError">{{ sNombresError }}</mat-error>
         </mat-form-field>
       </div>
+      <div class="col-md-6 radio_align_center">
+        <mat-radio-group formControlName="tipo">
+          <mat-label>¿Agregar a ortodoncia?:</mat-label>
+          <mat-radio-button [value]="1">Sí</mat-radio-button>
+          <mat-radio-button [value]="0">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 radio_align_center">
+        <mat-radio-group formControlName="bMenor">
+          <mat-label>Etapa:</mat-label>
+          <mat-radio-button [value]="0">Adulta</mat-radio-button>
+          <mat-radio-button [value]="1">Niñez</mat-radio-button>
+        </mat-radio-group>
+      </div>
       <div class="col-md-6">
         <mat-form-field>
-          <mat-label>Documento</mat-label>
+          <mat-label>{{labelDocumento}}</mat-label>
           <input matInput formControlName="sNroDocumento" class="uppercase" maxlength="10">
           <mat-error *ngIf="sNroDocumentoError">{{ sNroDocumentoError }}</mat-error>
         </mat-form-field>

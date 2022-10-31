@@ -2,17 +2,22 @@ import { Injectable } from '@angular/core';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 import { PerfildSweetAlertModule } from './sweet-alert.module';
 
+
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
   showConfirmButton: false,
   timer: 3000,
   timerProgressBar: true,
+  backdrop:true,
+  allowOutsideClick: false,
+  allowEscapeKey: false,
+  allowEnterKey: false,
   didOpen: (toast) => {
     toast.addEventListener('mouseenter', Swal.stopTimer)
     toast.addEventListener('mouseleave', Swal.resumeTimer)
   }
-})
+});
 
 @Injectable({
   providedIn: PerfildSweetAlertModule

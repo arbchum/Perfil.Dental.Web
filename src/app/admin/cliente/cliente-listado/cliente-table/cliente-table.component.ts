@@ -20,10 +20,10 @@ export class ClienteTableComponent implements OnChanges {
   /* #region   Asignación nombres de campos y columnas*/
   cols: any[] = [
     { header: 'Código', field: 'sCodigo', type: null, width: '50', align: 'center' },
-    { header: 'Nombre Completo', field: 'sNomCliente', type: null, width: '200', align: 'left' },
-    { header: 'Documento', field: 'sNroDocumento', type: null, width: '80', align: 'center' },
-    { header: 'Edad', field: 'sEdad', type: null, width: '120', align: 'left' },
-    { header: 'Fecha de registro', field: 'sFechaReg', type: null, width: '120', align: 'center' },
+    { header: 'Nombre Completo', field: 'sNomCliente', type: null, width: '180', align: 'left' },
+    { header: 'Documento', field: 'sNroDocumento', type: null, width: '70', align: 'center' },
+    { header: 'Edad', field: 'sEdad', type: null, width: '130', align: 'left' },
+    { header: 'Fecha de registro', field: 'sFechaReg', type: null, width: '130', align: 'center' },
     { header: 'Estado', field: 'sActivo', type: null, width: '60', align: 'center' },
     { header: 'Acción', field: 'accion', type: 'accion', width: '50', align: 'center' },
   ];

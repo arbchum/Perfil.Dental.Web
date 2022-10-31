@@ -40,22 +40,20 @@ export class ClienteHistoricoAtencionComponent implements OnInit {
   }
 
   getAtencionHistorical(nIdCliente: number) {
-    this.alert.showLoading();
-    this.atencionHttp
-      .getAtencionHistorical(nIdCliente)
-      .pipe(finalize(() => this.alert.closeLoading()))
-      .subscribe(res => {
+    this.atencionHttp.getAtencionHistorical(nIdCliente).subscribe(
+      res => {
         this.dataSource = res;
-      });
+      }
+    );
   }
 
-  getCliente(nIdCliente: number){
-    this.clienteHttp.getClienteOne(nIdCliente).subscribe(res=>{
+  getCliente(nIdCliente: number) {
+    this.clienteHttp.getClienteOne(nIdCliente).subscribe(res => {
       this.paciente = `${res.sNombres} ${res.sApePaterno} ${res.sApeMaterno}`;
     });
   }
 
-  goListadoCliente():void{
+  goListadoCliente(): void {
     this.router.navigateByUrl('/cliente/listado');
   }
 }
