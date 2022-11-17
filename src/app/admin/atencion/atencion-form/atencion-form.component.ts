@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { map, startWith } from 'rxjs';
+import { forkJoin, map, startWith } from 'rxjs';
 import { PerfildSweetAlertService } from 'src/app/common';
+import { dataAutocompleteValidator } from '../../shared/components/autocomplete/autocomplete.component';
 import { AtencionHttp, ClienteHttp, TratamientoHttp } from '../../shared/http';
-import { ClienteDto, DetAtencion, Tratamiento } from '../../shared/interface';
+import { ClienteDto, ConfigAutocomplete, DetAtencion, Tratamiento } from '../../shared/interface';
+import { AtencionRequest, AtencionUI } from '../../shared/model';
 
 @Component({
   selector: 'app-atencion-form',
@@ -16,10 +18,11 @@ export class AtencionFormComponent implements OnInit {
   dataSource: MatTableDataSource<AbstractControl> = new MatTableDataSource();
   displayedColumns: string[] = [];
   form: FormGroup;
-  clientes: ClienteDto[] = [];
+  clientes: ClienteDto[];
   filteredClientes: ClienteDto[];
   tratamientos: Tratamiento[];
-
+  configuracion: ConfigAutocomplete = { idField: 'nIdCliente', textField: 'sNomCliente', label: 'Cliente' };
+  configuracionTratamiento: ConfigAutocomplete = { idField: 'nIdTratamiento', textField: 'sNombre' };
 
   /* #region   Asignación nombres de campos y columnas*/
   cols: any[] = [
@@ -48,49 +51,35 @@ export class AtencionFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listarClientes();
-    this.sNomClienteCtrl.valueChanges.pipe(
-      startWith(''),
-      map(value => (typeof value === 'string' ? value : value.name)),
-      map(name => (name ? this._filter(name) : this.clientes.slice()))
-    ).subscribe(res => this.filteredClientes = res);
+    this.init();
   }
 
   get isEmpty(): boolean { return this.dataSource?.data?.length == 0 }
-  get sNomClienteCtrl(): FormControl { return this.form.get('nIdCliente') as FormControl; }
   get detAtencionArray(): FormArray { return this.form.get('detAtencion') as FormArray; }
 
-  get sNomClienteError(): unknown { return this.sNomClienteCtrl.hasError('required') ? 'campo requerido' : null }
-
-  listarClientes(): void {
-    this.clienteHttp.getClienteSearch().subscribe(
-      res => {
-        this.clientes = res;
-      }
-    );
-  }
-
-  displayFn(nIdCliente: number): string {
-    const cliente = this.clientes.find(item => item.nIdCliente == nIdCliente);
-    return cliente ? `${cliente.sNroDocumento} - ${cliente.sNomCliente}` : '';
-  }
-
-  private _filter(name: string): ClienteDto[] {
-    const filterValue = name.toLowerCase();
-    return this.clientes.filter(cliente => cliente.sNomCliente.toLowerCase().includes(filterValue) || cliente.sNroDocumento.includes(filterValue));
+  init():void{
+    forkJoin({
+      resClientes: this.clienteHttp.getClienteSearch(),
+      resTratamientos: this.tratamientoHttp.getTratamientoSearch()
+    }).subscribe(({resClientes, resTratamientos})=>{
+      this.clientes = resClientes;
+      this.tratamientos = resTratamientos;
+      this.addTratamiento();
+    });
   }
 
   goAtencionListado(): void {
     this.router.navigateByUrl('/atencion/listado');
   }
 
-  private addRow(): void {
+  addTratamiento(): void {
     const pForm = this.detAtencionArray.at(this.detAtencionArray.length - 1) as FormGroup;
     if (pForm) {
       if (pForm.invalid) {
         return Object.values(pForm.controls).forEach(control => { control.markAllAsTouched() });
       }
-      Object.values(pForm.controls).forEach(control => { control.disable() });
+      //Object.values(pForm.controls).forEach(control => { control.disable() });
+      pForm.get('nIdTratamiento')?.disable();
     }
     const lstIdTratamiento = (this.detAtencionArray.getRawValue() as DetAtencion[]).map(item => item.nIdTratamiento);
     const filteredTratamientos = this.tratamientos.filter(item => !lstIdTratamiento.includes(item.nIdTratamiento));
@@ -98,7 +87,6 @@ export class AtencionFormComponent implements OnInit {
       this.fb.group({
         nIdTratamiento: [null, Validators.required],
         lstTratamiento: [filteredTratamientos],
-        sNombre: [null],
         nCantidad: [1, Validators.required],
         nPrecio: [null, Validators.required],
       })
@@ -106,18 +94,18 @@ export class AtencionFormComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.detAtencionArray.controls);
   }
 
-  addTratamiento(): void {
-    if (this.tratamientos) {
-      this.addRow();
-    } else {
-      this.tratamientoHttp.getTratamientoSearch().subscribe(
-        res => {
-          this.tratamientos = res;
-          this.addRow();
-        }
-      );
-    }
-  }
+  // addTratamiento(): void {
+  //   if (this.tratamientos) {
+  //     this.addRow();
+  //   } else {
+  //     this.tratamientoHttp.getTratamientoSearch().subscribe(
+  //       res => {
+  //         this.tratamientos = res;
+  //         this.addRow();
+  //       }
+  //     );
+  //   }
+  // }
 
   quitTratamiento(index: number): void {
     this.detAtencionArray.removeAt(index);
@@ -128,9 +116,11 @@ export class AtencionFormComponent implements OnInit {
         .map(item => item.nIdTratamiento);
       const filteredTratamientos = this.tratamientos.filter(item => !lstIdTratamiento.includes(item.nIdTratamiento));
       pForm.get('lstTratamiento')?.setValue(filteredTratamientos);
+      pForm.get('nIdTratamiento')?.setValidators([Validators.required, dataAutocompleteValidator(filteredTratamientos,'nIdTratamiento')]);
       this.getPrice(pForm);
     } else {
-      Object.values(pForm.controls).forEach(control => { control.enable() });
+      //Object.values(pForm.controls).forEach(control => { control.enable() });
+      pForm.get('nIdTratamiento')?.enable();
     }
     this.dataSource = new MatTableDataSource(this.detAtencionArray.controls);
   }
@@ -150,7 +140,9 @@ export class AtencionFormComponent implements OnInit {
       this.alert.showMessage('warning', 'Seleccione al menos un tratamiento');
       return;
     }
-    this.atencionHttp.sendAtencionCreate(this.form.getRawValue()).subscribe(
+
+    const request = new AtencionRequest(this.form.getRawValue() as AtencionUI);
+    this.atencionHttp.sendAtencionCreate(request).subscribe(
       res => {
         if (res) {
           this.alert.showToast('success');

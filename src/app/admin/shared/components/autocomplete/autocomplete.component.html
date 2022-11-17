@@ -1,0 +1,17 @@
+<mat-form-field [appearance]="apariencia">
+  <mat-label *ngIf="configuracion.label">{{configuracion.label}}</mat-label>
+  <input matInput
+    [formControl]="ctrl"
+    [placeholder]="placeholder"
+    [matAutocomplete]="auto">
+  <mat-autocomplete #auto="matAutocomplete" 
+    [displayWith]="displayFn.bind(this)">
+    <mat-option *ngFor="let option of dataFiltered" [value]="option[configuracion.idField]">
+      {{option[configuracion.textField]}}
+    </mat-option>
+  </mat-autocomplete>
+  <button *ngIf="ctrl.value" matSuffix mat-icon-button (click)="clean()" [disabled]="ctrl.disabled">
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-error *ngIf="sError && shoMessage">{{ sError }}</mat-error>
+</mat-form-field>

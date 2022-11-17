@@ -17,19 +17,21 @@ table {
   width: 100%;
 
   .mat-header-cell {
-    font-weight: bolder;
-    color: #333333;
-    background-color: #e0e0e0;
+    color: #ffffff;
+    background-color: #0975bb;
+    border-right-width: 1px;
+    border-right-style: solid;
   }
 
   th.mat-header-cell,
   td.mat-cell,
-  td.mat-footer-cell,
+  //td.mat-footer-cell,
   th.mat-header-cell:first-of-type,
   td.mat-cell:first-of-type,
   td.mat-cell:last-of-type,
   th.mat-header-cell:last-of-type {
     padding: 0.25em 0.5em;
+    border-bottom-color: #9fdce5 !important;
 
     //border: 1px solid #c8c8c8;
     mat-form-field {
@@ -37,9 +39,19 @@ table {
     }
   }
 
+  th.mat-header-cell:last-of-type{
+    border-right-width: 0;
+    border-right-style: none;
+  }
+
   th.mat-header-cell {
     text-align: center !important;
     font-size: 14px;
+  }
+
+  td.mat-footer-cell{
+    border-bottom-width: 0;
+    border-bottom-style: none;
   }
 
   .mat-icon-button {
@@ -50,7 +62,7 @@ table {
 
   tr.rowhover:hover {
     cursor: pointer;
-    background-color: lavender;
+    background-color: #e5eff3;
   }
 }
 
@@ -331,7 +343,7 @@ table {
   margin: 0 !important;
 }
 
-mat-radio-group{
+mat-radio-group {
   display: flex;
   justify-content: space-between;
 }

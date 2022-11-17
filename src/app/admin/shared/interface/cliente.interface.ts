@@ -9,6 +9,8 @@ export interface Cliente {
   sCelular: string;
   sTelefono: string;
   sCorreo: string;
+  sDireccion: string;
+  bMayor: boolean;
 }
 
 export interface ClienteDto{

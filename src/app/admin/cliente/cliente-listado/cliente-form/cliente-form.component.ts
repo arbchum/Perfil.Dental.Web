@@ -34,7 +34,7 @@ export class ClienteFormComponent implements OnInit {
       sApeMaterno: [null, Validators.required],
       sNombres: [null, Validators.required],
       tipo: [0, Validators.required],
-      bMenor: [0, Validators.required],
+      bMayor: [1, Validators.required],
       sNroDocumento: [null, Validators.required],
       sSexo: [null, Validators.required],
       sCelular: [null],
@@ -55,7 +55,7 @@ export class ClienteFormComponent implements OnInit {
   get nIdProvinciaCtrl(): FormControl { return this.form.get('nIdProvincia') as FormControl }
   get nIdDistritoCtrl(): FormControl { return this.form.get('nIdDistrito') as FormControl }
   get dFechaNacCtrl(): FormControl { return this.form.get('dFechaNac') as FormControl }
-  get bMenorCtrl(): FormControl { return this.form.get('bMenor') as FormControl }
+  get bMenorCtrl(): FormControl { return this.form.get('bMayor') as FormControl }
 
   get sApePaternoError(): unknown { return this.sApePaternoCtrl.hasError('required') ? 'campo requerido' : null }
   get sApeMaternoError(): unknown { return this.sApeMaternoCtrl.hasError('required') ? 'campo requerido' : null }
@@ -86,7 +86,7 @@ export class ClienteFormComponent implements OnInit {
 
   changeEtapa(): void {
     this.bMenorCtrl.valueChanges.subscribe(value => {
-      this.labelDocumento = `Documento${value == 0 ? '' : ' del padre'}`;
+      this.labelDocumento = `Documento${value == 1 ? '' : ' del padre'}`;
     });
   }
 

@@ -6,16 +6,12 @@
 <form [formGroup]="form" autocomplete="off">
   <div class="row">
     <div class="col-md-5">
-      <mat-form-field appearance="fill">
-        <mat-label>Cliente</mat-label>
-        <input matInput formControlName="nIdCliente" [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this)">
-          <mat-option *ngFor="let option of filteredClientes" [value]="option.nIdCliente">
-            {{option.sNroDocumento}} - {{option.sNomCliente}}
-          </mat-option>
-        </mat-autocomplete>
-        <mat-error *ngIf="sNomClienteError">{{ sNomClienteError }}</mat-error>
-      </mat-form-field>
+      <app-autocomplete *ngIf="clientes"
+        formControlName="nIdCliente"
+        [apariencia]="'fill'"
+        [configuracion]="configuracion"
+        [data]="clientes">
+      </app-autocomplete>
     </div>
     <div class="col-md-7">
       <mat-form-field appearance="outline">
@@ -30,9 +26,20 @@
       <!-- <button mat-raised-button class="cms-btn-primary" (click)="getTratamientos()">Seleccionar
         <mat-icon>add</mat-icon>
       </button> -->
-      <button mat-raised-button class="cms-btn-primary" (click)="addTratamiento()">Agregar
-        <mat-icon>add</mat-icon>
-      </button>
+      <!-- <button mat-raised-button  (click)="addTratamiento()">
+          <p class="btnText">Agregar</p>
+          <div class="btnTwo">
+            <p class="btnText2">
+              <mat-icon>add</mat-icon>
+            </p>
+          </div>
+      </button> -->
+      <button mat-raised-button  (click)="addTratamiento()">
+        <p class="btnText">Agregar</p>
+        <div class="btnTwo">
+          <mat-icon>add</mat-icon>
+        </div>
+    </button>
     </mat-card-header>
     <mat-card-content>
       <!-- <ng-container *ngIf="isEmpty; then placeholderTemp; else tableTemp"></ng-container> -->
@@ -50,13 +57,13 @@
                 {{i + 1}}
               </span>
               <span *ngSwitchCase="'nIdTratamiento'">
-                <mat-form-field appearance="outline">
-                  <mat-select formControlName="nIdTratamiento" (selectionChange)="getPrice(row)">
-                    <mat-option *ngFor="let item of row.get('lstTratamiento').value" [value]="item.nIdTratamiento">
-                      {{item.sNombre}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+                <app-autocomplete
+                  formControlName="nIdTratamiento"                  
+                  [configuracion]="configuracionTratamiento"
+                  [apariencia]="'outline'"
+                  [shoMessage]="false"
+                  [data]="row.get('lstTratamiento').value">
+                </app-autocomplete>
               </span>
               <span *ngSwitchCase="'nCantidad'">
                 <mat-form-field appearance="outline">

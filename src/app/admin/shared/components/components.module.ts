@@ -10,23 +10,31 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PageTitleComponent } from './page-title/page-title.component';
 import { DialogTratamientoChooseComponent } from './dialog-tratamiento-choose/dialog-tratamiento-choose.component';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 const COMPONENTS = [
   PageTitleComponent,
-  DialogTratamientoChooseComponent
+  DialogTratamientoChooseComponent,
+  AutocompleteComponent
 ]
 
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    MatFormFieldModule,
     MatTooltipModule,
     MatIconModule,
     MatButtonModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatAutocompleteModule,
+    MatInputModule
   ],
   exports: [...COMPONENTS]
 })
