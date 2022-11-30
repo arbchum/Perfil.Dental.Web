@@ -1,10 +1,12 @@
-<app-page-title
-  title="LISTADO DE ATENCIONES"
-  suffixIcon="add"
-  suffixTooltip="Nueva Atención"
-  [showSuffixButton]="true"
-  (clickSuffix)="goAtencionForm()"
-></app-page-title>
-<app-atencion-table
-  [atenciones]="atenciones">
-</app-atencion-table>
+<mat-card>
+  <app-page-title
+    title="LISTADO DE ATENCIONES"
+    suffixIcon="add"
+    suffixTooltip="Nueva Atención"
+    [showSuffixButton]="true"
+    (clickSuffix)="goAtencionForm()"
+  ></app-page-title>
+  <app-atencion-table
+    [atenciones]="atenciones">
+  </app-atencion-table>
+</mat-card>

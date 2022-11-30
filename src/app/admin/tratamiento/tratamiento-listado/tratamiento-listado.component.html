@@ -1,11 +1,13 @@
-<app-page-title
-  title="LISTADO DE TRATAMIENTOS"
-  suffixIcon="add"
-  suffixTooltip="Nuevo Tratamiento"
-  [showSuffixButton]="true"
-  (clickSuffix)="operModalTratamientoForm()"
-></app-page-title>
-<app-tratamiento-table
-  [tratamientos]="tratamientos"
-  (sendTratamiento)="operModalTratamientoForm($event)">
-</app-tratamiento-table>
+<mat-card>
+  <app-page-title
+    title="LISTADO DE TRATAMIENTOS"
+    suffixIcon="add"
+    suffixTooltip="Nuevo Tratamiento"
+    [showSuffixButton]="true"
+    (clickSuffix)="operModalTratamientoForm()"
+  ></app-page-title>
+  <app-tratamiento-table
+    [tratamientos]="tratamientos"
+    (sendTratamiento)="operModalTratamientoForm($event)">
+  </app-tratamiento-table>
+</mat-card>

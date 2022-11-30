@@ -14,15 +14,17 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ButtonPerfilDentalComponent } from './button-perfil-dental/button-perfil-dental.component';
 
 const COMPONENTS = [
   PageTitleComponent,
   DialogTratamientoChooseComponent,
-  AutocompleteComponent
+  AutocompleteComponent,
+  ButtonPerfilDentalComponent
 ]
 
 @NgModule({
-  declarations: [...COMPONENTS, ],
+  declarations: [...COMPONENTS ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

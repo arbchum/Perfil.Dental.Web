@@ -22,6 +22,7 @@ import { ClienteTableComponent } from './cliente-listado/cliente-table/cliente-t
 import { ClienteFormComponent } from './cliente-listado/cliente-form/cliente-form.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ClienteHistoricoAtencionComponent } from './cliente-historico-atencion/cliente-historico-atencion.component';
+import { MatCardModule } from '@angular/material/card';
 
 const ANGULAR_MODULES = [
   CommonModule,
@@ -41,7 +42,8 @@ const MATERIAL_MODULES = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatTooltipModule,
-  MatRadioModule
+  MatRadioModule,
+  MatCardModule
 ];
 
 @NgModule({

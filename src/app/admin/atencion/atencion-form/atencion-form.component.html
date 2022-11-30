@@ -1,108 +1,90 @@
-<app-page-title title="ATENCIÓN NUEVA" prefixIcon="keyboard_arrow_left" prefixTooltip="Regresar"
-  (clickPrefix)="goAtencionListado()" suffixIcon="save" suffixTooltip="Guardar" [showSuffixButton]="true"
-  (clickSuffix)="saveAtencion()">
-</app-page-title>
 
-<form [formGroup]="form" autocomplete="off">
-  <div class="row">
-    <div class="col-md-5">
-      <app-autocomplete *ngIf="clientes"
-        formControlName="nIdCliente"
-        [apariencia]="'fill'"
-        [configuracion]="configuracion"
-        [data]="clientes">
-      </app-autocomplete>
-    </div>
-    <div class="col-md-7">
-      <mat-form-field appearance="outline">
-        <mat-label>Notas</mat-label>
-        <textarea matInput formControlName="sNota" class="uppercase" maxlength="100" rows="4"></textarea>
-      </mat-form-field>
-    </div>
-  </div>
-  <mat-card class="mat-elevation-z2">
-    <mat-card-header class="space_between">
-      <mat-card-subtitle>Tratamientos</mat-card-subtitle>
-      <!-- <button mat-raised-button class="cms-btn-primary" (click)="getTratamientos()">Seleccionar
-        <mat-icon>add</mat-icon>
-      </button> -->
-      <!-- <button mat-raised-button  (click)="addTratamiento()">
-          <p class="btnText">Agregar</p>
-          <div class="btnTwo">
-            <p class="btnText2">
-              <mat-icon>add</mat-icon>
-            </p>
-          </div>
-      </button> -->
-      <button mat-raised-button  (click)="addTratamiento()">
-        <p class="btnText">Agregar</p>
-        <div class="btnTwo">
-          <mat-icon>add</mat-icon>
-        </div>
-    </button>
-    </mat-card-header>
-    <mat-card-content>
-      <!-- <ng-container *ngIf="isEmpty; then placeholderTemp; else tableTemp"></ng-container> -->
-      <!-- <ng-template #tableTemp> -->
-      <div class="container atencion_table">
-        <table mat-table [dataSource]="dataSource" formArrayName="detAtencion">
-          <ng-container *ngFor="let col of cols;" matColumnDef="{{col.field}}" [ngSwitch]="col.type">
-            <th mat-header-cell class="sticky-header" *matHeaderCellDef [style.width.px]="col.width"> {{col.header}}
-            </th>
-            <td mat-cell *matCellDef="let row; let i = index" [style.textAlign]="col.align" [formGroup]="row">
-              <span *ngSwitchCase="null">
-                {{row.get(col.field).value}}
-              </span>
-              <span *ngSwitchCase="'index'">
-                {{i + 1}}
-              </span>
-              <span *ngSwitchCase="'nIdTratamiento'">
-                <app-autocomplete
-                  formControlName="nIdTratamiento"                  
-                  [configuracion]="configuracionTratamiento"
-                  [apariencia]="'outline'"
-                  [shoMessage]="false"
-                  [data]="row.get('lstTratamiento').value">
-                </app-autocomplete>
-              </span>
-              <span *ngSwitchCase="'nCantidad'">
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="nCantidad" type="number">
-                </mat-form-field>
-              </span>
-              <span *ngSwitchCase="'nPrecio'">
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="nPrecio">
-                </mat-form-field>
-              </span>
-              <span *ngSwitchCase="'accion'">
-                <button mat-icon-button matTooltip="Eliminar" (click)="quitTratamiento(i)">
-                  <mat-icon>close</mat-icon>
-                </button>
-              </span>
-            </td>
-            <td mat-footer-cell class="atencion_foot" *matFooterCellDef [hidden]="col.hidefooter"
-              [attr.colspan]="col.colspan" [style.textAlign]="col.alignfoot">
-              <span *ngSwitchCase="'index'" style="text-align: right;">Total</span>
-              <span *ngSwitchCase="'nPrecio'" style="text-align: center;">{{getMontoTotal() | number : '1.2-2'}}</span>
-            </td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
-        </table>
+<mat-card>
+  <app-page-title 
+    title="ATENCIÓN NUEVA" 
+    prefixIcon="keyboard_arrow_left" 
+    prefixTooltip="Regresar"
+    (clickPrefix)="goAtencionListado()" 
+    suffixIcon="save" 
+    suffixTooltip="Guardar" 
+    [showSuffixButton]="true"
+    (clickSuffix)="saveAtencion()">
+  </app-page-title>
+
+  <form [formGroup]="form" autocomplete="off">
+    <div class="row">
+      <div class="col-md-5">
+        <app-autocomplete *ngIf="clientes"
+          formControlName="nIdCliente"
+          apariencia="fill"
+          [configuracion]="configuracionCliente"
+          [data]="clientes">
+        </app-autocomplete>
       </div>
-      <!-- </ng-template> -->
-      <!-- <ng-template #placeholderTemp>Seleccione tratamientos</ng-template> -->
-      <!-- <ng-template>Seleccione tratamientos</ng-template> -->
-      <!-- <div class="row">
-        <div class="col-md-12">
-          <mat-form-field appearance="outline">
-            <mat-label>Notas</mat-label>
-            <textarea matInput formControlName="sNota" class="uppercase" maxlength="100" rows="10"></textarea>
-          </mat-form-field>
+      <div class="col-md-7">  
+        <mat-form-field appearance="outline">
+          <mat-label>Notas</mat-label>
+          <textarea matInput formControlName="sNota" class="uppercase" [maxLength]="sNotaMaxLength" rows="4"></textarea>
+          <mat-hint align="end">{{sNotaCtrl.value?.length ?? 0}}/{{sNotaMaxLength}}</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-card class="mat-elevation-z2">
+      <mat-card-header class="space_between">
+        <mat-card-subtitle>Tratamientos</mat-card-subtitle>
+        <button-perfil-dental name="Agregar" icon="add" (click)="addTratamiento()"></button-perfil-dental>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="container atencion_table">
+          <table mat-table [dataSource]="dataSource" formArrayName="detAtencion">
+            <ng-container *ngFor="let col of cols;" matColumnDef="{{col.field}}" [ngSwitch]="col.type">
+              <th mat-header-cell class="sticky-header" *matHeaderCellDef [style.width.px]="col.width"> {{col.header}}
+              </th>
+              <td mat-cell *matCellDef="let row; let i = index;" [style.textAlign]="col.align" [formGroup]="row">
+                <span *ngSwitchCase="null">
+                  {{row.get(col.field).value}}
+                </span>
+                <span *ngSwitchCase="'index'">
+                  {{i + 1}}
+                </span>
+                <span *ngSwitchCase="'nIdTratamiento'">
+                  <app-autocomplete
+                    formControlName="nIdTratamiento"                  
+                    [configuracion]="configuracionTratamiento"
+                    apariencia="outline"
+                    [showMessage]="false"
+                    [data]="row.get('lstTratamiento').value"
+                    (sendValue)="getPrice(i, $event)">
+                  </app-autocomplete>
+                </span>
+                <span *ngSwitchCase="'nCantidad'">
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="nCantidad" type="number">
+                  </mat-form-field>
+                </span>
+                <span *ngSwitchCase="'nPrecio'">
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="nPrecio">
+                  </mat-form-field>
+                </span>
+                <span *ngSwitchCase="'accion'">
+                  <button mat-mini-fab color="accent" matTooltip="Eliminar" (click)="quitTratamiento(i)" [disabled]="hasOneDetail">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </span>
+              </td>
+              <td mat-footer-cell class="atencion_foot" *matFooterCellDef [hidden]="col.hidefooter"
+                [attr.colspan]="col.colspan" [style.textAlign]="col.alignfoot">
+                <span *ngSwitchCase="'index'" style="text-align: right;">Total</span>
+                <span *ngSwitchCase="'nPrecio'" style="text-align: center;">{{getMontoTotal() | number : '1.2-2'}}</span>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+          </table>
         </div>
-      </div> -->
-    </mat-card-content>
-  </mat-card>
-</form>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</mat-card>

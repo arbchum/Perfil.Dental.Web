@@ -21,8 +21,9 @@ export class AtencionFormComponent implements OnInit {
   clientes: ClienteDto[];
   filteredClientes: ClienteDto[];
   tratamientos: Tratamiento[];
-  configuracion: ConfigAutocomplete = { idField: 'nIdCliente', textField: 'sNomCliente', label: 'Cliente' };
+  configuracionCliente: ConfigAutocomplete = { idField: 'nIdCliente', textField: 'sNomCliente', label: 'Cliente' };
   configuracionTratamiento: ConfigAutocomplete = { idField: 'nIdTratamiento', textField: 'sNombre' };
+  sNotaMaxLength: number = 500;
 
   /* #region   Asignación nombres de campos y columnas*/
   cols: any[] = [
@@ -56,12 +57,14 @@ export class AtencionFormComponent implements OnInit {
 
   get isEmpty(): boolean { return this.dataSource?.data?.length == 0 }
   get detAtencionArray(): FormArray { return this.form.get('detAtencion') as FormArray; }
+  get hasOneDetail(): boolean { return this.detAtencionArray.controls.length == 1 }
+  get sNotaCtrl(): FormControl { return this.form.get('sNota') as FormControl }
 
-  init():void{
+  init(): void {
     forkJoin({
       resClientes: this.clienteHttp.getClienteSearch(),
       resTratamientos: this.tratamientoHttp.getTratamientoSearch()
-    }).subscribe(({resClientes, resTratamientos})=>{
+    }).subscribe(({ resClientes, resTratamientos }) => {
       this.clientes = resClientes;
       this.tratamientos = resTratamientos;
       this.addTratamiento();
@@ -78,7 +81,6 @@ export class AtencionFormComponent implements OnInit {
       if (pForm.invalid) {
         return Object.values(pForm.controls).forEach(control => { control.markAllAsTouched() });
       }
-      //Object.values(pForm.controls).forEach(control => { control.disable() });
       pForm.get('nIdTratamiento')?.disable();
     }
     const lstIdTratamiento = (this.detAtencionArray.getRawValue() as DetAtencion[]).map(item => item.nIdTratamiento);
@@ -94,19 +96,6 @@ export class AtencionFormComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.detAtencionArray.controls);
   }
 
-  // addTratamiento(): void {
-  //   if (this.tratamientos) {
-  //     this.addRow();
-  //   } else {
-  //     this.tratamientoHttp.getTratamientoSearch().subscribe(
-  //       res => {
-  //         this.tratamientos = res;
-  //         this.addRow();
-  //       }
-  //     );
-  //   }
-  // }
-
   quitTratamiento(index: number): void {
     this.detAtencionArray.removeAt(index);
     const pForm = this.detAtencionArray.at(this.detAtencionArray.length - 1) as FormGroup;
@@ -116,18 +105,17 @@ export class AtencionFormComponent implements OnInit {
         .map(item => item.nIdTratamiento);
       const filteredTratamientos = this.tratamientos.filter(item => !lstIdTratamiento.includes(item.nIdTratamiento));
       pForm.get('lstTratamiento')?.setValue(filteredTratamientos);
-      pForm.get('nIdTratamiento')?.setValidators([Validators.required, dataAutocompleteValidator(filteredTratamientos,'nIdTratamiento')]);
-      this.getPrice(pForm);
+      pForm.get('nIdTratamiento')?.setValidators([Validators.required, dataAutocompleteValidator(filteredTratamientos, 'nIdTratamiento')]);
     } else {
-      //Object.values(pForm.controls).forEach(control => { control.enable() });
       pForm.get('nIdTratamiento')?.enable();
     }
     this.dataSource = new MatTableDataSource(this.detAtencionArray.controls);
   }
 
-  getPrice(fb: FormGroup): void {
-    const objTratamiento = this.tratamientos.find(item => item.nIdTratamiento == fb.get('nIdTratamiento')?.value);
+  getPrice(index: number, value: number): void {
+    const objTratamiento = this.tratamientos.find(item => item.nIdTratamiento == value);
     if (objTratamiento) {
+      const fb = this.detAtencionArray.at(index);
       fb.get('nPrecio')?.setValue(objTratamiento.nPrecio);
     }
   }

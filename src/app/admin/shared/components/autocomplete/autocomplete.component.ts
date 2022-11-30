@@ -10,10 +10,11 @@ import { ConfigAutocomplete } from '../../interface';
   styleUrls: ['./autocomplete.component.scss']
 })
 export class AutocompleteComponent implements OnInit, ControlValueAccessor {
+  @Output() sendValue: EventEmitter<any> = new EventEmitter<any>();
   @Input() data: any[] = [];
   @Input() placeholder = 'Seleccione';
   @Input() apariencia: MatFormFieldAppearance;
-  @Input() shoMessage = true;
+  @Input() showMessage = true;
   @Input() configuracion: ConfigAutocomplete;
   // @Output() blur: EventEmitter<void> = new EventEmitter<void>();
   // onChange: (value: any) => void = () => { };
@@ -83,6 +84,10 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
   getCadena(id: number): string {
     const item = this.data.find(item => item[this.configuracion.idField] == id);
     return item ? item[this.configuracion.textField] : null;
+  }
+
+  selectedOption(): void{
+    this.sendValue.emit(this.ctrl.value);
   }
 
   clean(): void {

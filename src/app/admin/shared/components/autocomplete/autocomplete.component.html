@@ -5,7 +5,8 @@
     [placeholder]="placeholder"
     [matAutocomplete]="auto">
   <mat-autocomplete #auto="matAutocomplete" 
-    [displayWith]="displayFn.bind(this)">
+    [displayWith]="displayFn.bind(this)"
+    (optionSelected)="selectedOption()">
     <mat-option *ngFor="let option of dataFiltered" [value]="option[configuracion.idField]">
       {{option[configuracion.textField]}}
     </mat-option>
@@ -13,5 +14,5 @@
   <button *ngIf="ctrl.value" matSuffix mat-icon-button (click)="clean()" [disabled]="ctrl.disabled">
     <mat-icon>close</mat-icon>
   </button>
-  <mat-error *ngIf="sError && shoMessage">{{ sError }}</mat-error>
+  <mat-error *ngIf="sError && showMessage">{{ sError }}</mat-error>
 </mat-form-field>

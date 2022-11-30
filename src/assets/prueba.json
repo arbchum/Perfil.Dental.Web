@@ -1,15 +1,13 @@
 {
-  "FolioCH": 2229887,
-  "cuentaCargo": "55503236774",
-  "ordenante": "MA LETICIA CONZUELO MIRABA",
-  "rfcOrdenante": "COML8602113S6",
-  "cuentaAbono": "555032367742342456",
-  "beneficiario": "ERNESTO ARBULU",
-  "rfcBeneficiario": "ASSA1212015F6",
-  "bancoReceptor": "",
-  "sucursal": "0001",
-  "importe": "0",
-  "plazaBanxico": "032",
-  "concepto": "",
-  "referenciaOrdenante": "30"
+  "FolioCH": 2330596,
+  "Acreditado": {
+    "Cuenta": "23002565293",
+    "Nombre": "ISRAEL JACONTA GUERRA GUERRA",
+    "Rfc": "GUGI7902192K7"
+  },
+  "Vendedor": {
+    "Cuenta": "23002565123",
+    "Nombre": "ABELBUENFIL RICARDA ROSILES ROSILES",
+    "Rfc": "RORA770723115"
+  }
 }

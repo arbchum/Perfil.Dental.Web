@@ -15,7 +15,7 @@ export class ClienteTableComponent implements OnChanges {
   @Input() clientes: ClienteDto[] = [];
   dataSource: MatTableDataSource<ClienteDto>;
   displayedColumns: string[];
-  pageSizeOptions: number[] = [10, 50, 100];
+  pageSizeOptions: number[] = [5, 10, 50];
 
   /* #region   Asignación nombres de campos y columnas*/
   cols: any[] = [

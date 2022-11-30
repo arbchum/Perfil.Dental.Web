@@ -15,7 +15,7 @@ export class TratamientoTableComponent implements OnInit {
   @Input() tratamientos: Tratamiento[];
   dataSource: MatTableDataSource<Tratamiento>;
   displayedColumns: string[] = [];
-  pageSizeOptions: number[] = [10, 50, 100];
+  pageSizeOptions: number[] = [5, 10, 50];
 
   /* #region   Asignación nombres de campos y columnas*/
   cols: any[] = [
