@@ -16,6 +16,7 @@ import { ComponentsModule } from '../shared/components/components.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TratamientoFormComponent } from './tratamiento-listado/tratamiento-form/tratamiento-form.component';
 import { MatCardModule } from '@angular/material/card';
+import { DirectivesModule } from 'src/app/common/directives/directives.module';
 
 const ANGULAR_MODULES = [
   CommonModule,
@@ -47,7 +48,8 @@ const MATERIAL_MODULES = [
     TratamientoRoutingModule,
     ...ANGULAR_MODULES,
     ...MATERIAL_MODULES,
-    ComponentsModule
+    ComponentsModule,
+    DirectivesModule
   ]
 })
 export class TratamientoModule { }

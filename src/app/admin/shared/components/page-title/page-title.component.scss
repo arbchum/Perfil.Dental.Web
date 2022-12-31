@@ -1,14 +1,25 @@
 @import "node_modules/@angular/material/theming";
+@font-face {
+  font-family: "Callgest";
+  src: local("Callgest"), url(../../../../../assets/fonts/CallgestRegular.ttf) format("truetype");
+}
 :host {
-  // display: flex;
   margin-bottom: 20px;
 
-  h1 {
-    margin-top: 5px;
-    margin-bottom: 0;
+  // h1 {
+  //   margin-top: 5px;
+  //   margin-bottom: 0;
+  //   font-family: "Callgest", Arial, Helvetica, sans-serif;
+  // }
+
+  .test{
+    display: flex;
+    align-items: center;
+    font-size: 35px;
+    font-family: "Callgest", Arial, Helvetica, sans-serif;
+    color: gold;
   }
   .prefixIcon{
-    //color: mat-color($mat-pink, 500);
     color: #3D4C53;
   }
 

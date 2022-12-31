@@ -23,6 +23,11 @@ export class AdminComponent implements OnInit {
       url: '/cliente/listado'
     },
     {
+      title: 'Ortodoncia',
+      icon: 'group',
+      url: '/ortodoncia/listado'
+    },
+    {
       title: 'Tratamientos',
       icon: 'volunteer_activism',
       url: '/tratamiento/listado'

@@ -1,13 +1,11 @@
 {
-  "FolioCH": 2330596,
+  "FolioCH": 2340801,
   "Acreditado": {
-    "Cuenta": "23002565293",
-    "Nombre": "ISRAEL JACONTA GUERRA GUERRA",
-    "Rfc": "GUGI7902192K7"
+    "Code": "001",
+    "Message": "No se obtuvo información de la cuenta 12221212121"
   },
   "Vendedor": {
-    "Cuenta": "23002565123",
-    "Nombre": "ABELBUENFIL RICARDA ROSILES ROSILES",
-    "Rfc": "RORA770723115"
+    "Code": "001",
+    "Message": "No se obtuvo información de la cuenta 12345678901"
   }
 }

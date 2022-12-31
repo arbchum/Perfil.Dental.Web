@@ -16,13 +16,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+
+import { DirectivesModule } from 'src/app/common/directives/directives.module';
 
 import { ClienteListadoComponent } from './cliente-listado/cliente-listado.component';
 import { ClienteTableComponent } from './cliente-listado/cliente-table/cliente-table.component';
 import { ClienteFormComponent } from './cliente-listado/cliente-form/cliente-form.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ClienteHistoricoAtencionComponent } from './cliente-historico-atencion/cliente-historico-atencion.component';
-import { MatCardModule } from '@angular/material/card';
 
 const ANGULAR_MODULES = [
   CommonModule,
@@ -57,7 +59,8 @@ const MATERIAL_MODULES = [
     ClienteRoutingModule,
     ...ANGULAR_MODULES,
     ...MATERIAL_MODULES,
-    ComponentsModule
+    ComponentsModule,
+    DirectivesModule
   ],
   exports: [ClienteListadoComponent]
 })

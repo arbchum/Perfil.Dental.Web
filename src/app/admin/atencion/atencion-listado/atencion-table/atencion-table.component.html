@@ -2,7 +2,7 @@
   <div class="col-md-4">
     <mat-form-field>
       <mat-label>Filtrar:</mat-label>
-      <input matInput (keyup)="applyFilter($event)" autocomplete="off" #inputFilter>
+      <input matInput (keyup)="applyFilter($event)" autocomplete="off" #inputFilter uppercase>
       <button *ngIf="inputFilter.value" matSuffix mat-icon-button (click)="fnClean(); inputFilter.value = ''">
         <mat-icon>close</mat-icon>
       </button>

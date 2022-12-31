@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AtencionRoutingModule } from './atencion-routing.module';
+
+import { OrtodonciaRoutingModule } from './ortodoncia-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComponentsModule } from '../shared/components/components.module';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -9,7 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -18,10 +19,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { DirectivesModule } from 'src/app/common/directives/directives.module';
 
-import { AtencionListadoComponent } from './atencion-listado/atencion-listado.component';
-import { AtencionFormComponent } from './atencion-form/atencion-form.component';
-import { ComponentsModule } from '../shared/components/components.module';
-import { AtencionTableComponent } from './atencion-listado/atencion-table/atencion-table.component';
+import { OrtodonciaListadoComponent } from './ortodoncia-listado/ortodoncia-listado.component';
+import { OrtodonciaTableComponent } from './ortodoncia-listado/ortodoncia-table/ortodoncia-table.component';
 
 const ANGULAR_MODULES = [
   CommonModule,
@@ -36,7 +35,6 @@ const MATERIAL_MODULES = [
   MatTableModule,
   MatPaginatorModule,
   MatCardModule,
-  MatDialogModule,
   MatButtonModule,
   MatDatepickerModule,
   MatNativeDateModule,
@@ -46,17 +44,16 @@ const MATERIAL_MODULES = [
 
 @NgModule({
   declarations: [
-    AtencionListadoComponent,
-    AtencionFormComponent,
-    AtencionTableComponent
+    OrtodonciaListadoComponent,
+    OrtodonciaTableComponent
   ],
   imports: [
     CommonModule,
-    AtencionRoutingModule,
+    OrtodonciaRoutingModule,
     ...ANGULAR_MODULES,
     ...MATERIAL_MODULES,
     ComponentsModule,
     DirectivesModule
   ]
 })
-export class AtencionModule { }
+export class OrtodonciaModule { }

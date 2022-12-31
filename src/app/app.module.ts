@@ -30,8 +30,6 @@ import { SpinnerModule } from './common/components/spinner/spinner.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ClienteModule,
-    AtencionModule,
     SpinnerModule
   ],
   providers: [

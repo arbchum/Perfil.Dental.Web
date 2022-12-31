@@ -3,7 +3,8 @@
   <input matInput
     [formControl]="ctrl"
     [placeholder]="placeholder"
-    [matAutocomplete]="auto">
+    [matAutocomplete]="auto"
+    uppercase>
   <mat-autocomplete #auto="matAutocomplete" 
     [displayWith]="displayFn.bind(this)"
     (optionSelected)="selectedOption()">

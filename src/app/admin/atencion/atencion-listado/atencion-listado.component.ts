@@ -16,8 +16,7 @@ export class AtencionListadoComponent implements OnInit {
   constructor(
     private atencionHttp: AtencionHttp,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private alert: PerfildSweetAlertService
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {

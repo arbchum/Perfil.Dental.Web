@@ -1,43 +1,47 @@
 $header-height: 48px;
 
-::ng-serve .mat-drawer-container.mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
-  background-color: #80D2CE;
-  border-radius: 20px;
-  border: 2px solid #f1f2f3;
-}
-
-::ng-serve .mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
-  background-color: #80D2CE;
-  border-radius: 20px;
-  border: 2px solid #f1f2f3;
-}
-
-::ng-serve .mat-drawer.mat-drawer-inner-container::-webkit-scrollbar {
-  -webkit-appearance: none !important;
-}
-
-mat-drawer.mat-drawer-inner-container::-webkit-scrollbar:vertical {
-  width: 10px !important;
-}
-
-mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-button:increment,
-.mat-drawer::-webkit-scrollbar-button {
+:host::ng-deep .mat-drawer-inner-container::-webkit-scrollbar {
   display: none !important;
 }
 
-mat-drawer.mat-drawer-inner-container::-webkit-scrollbar:horizontal {
-  height: 10px !important;
-}
+// ::ng-serve .mat-drawer-container.mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
+//   background-color: #80D2CE;
+//   border-radius: 20px;
+//   border: 2px solid #f1f2f3;
+// }
 
-mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
-  background-color: #797979 !important;
-  border-radius: 20px !important;
-  border: 2px solid #f1f2f3 !important;
-}
+// ::ng-serve .mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
+//   background-color: #80D2CE;
+//   border-radius: 20px;
+//   border: 2px solid #f1f2f3;
+// }
 
-mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
+// ::ng-serve .mat-drawer.mat-drawer-inner-container::-webkit-scrollbar {
+//   //-webkit-appearance: none !important;
+// }
+
+// mat-drawer.mat-drawer-inner-container::-webkit-scrollbar:vertical {
+//   width: 10px !important;
+// }
+
+// mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-button:increment,
+// .mat-drawer::-webkit-scrollbar-button {
+//   display: none !important;
+// }
+
+// mat-drawer.mat-drawer-inner-container::-webkit-scrollbar:horizontal {
+//   height: 10px !important;
+// }
+
+// mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
+//   background-color: #797979 !important;
+//   border-radius: 20px !important;
+//   border: 2px solid #f1f2f3 !important;
+// }
+
+// mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-track {
+//   border-radius: 10px;
+// }
 
 mat-drawer-container {
   display: block;
@@ -49,21 +53,30 @@ mat-drawer-container {
 
   mat-drawer {
     width: 250px;
-    
+
     mat-nav-list {
-      overflow: hidden !important;
       width: 100%;
-      min-height:550px;
+      min-height: 450px;
       background-size: cover;
-      background-position: left;
+      background-repeat: repeat-y;
       background-image: url('../../assets/images/dentimelidiaz.jpg');
-      margin-top: -10px
+      margin-top: -10px;
+      padding: 0 0 90% 0;
+      //background: url('../../assets/images/dentimelidiaz.jpg') no-repeat top;
+      background-position: 0px 0px;
+
+      animation: animatedBackground 10s linear infinite;
+      -moz-animation: animatedBackground 10s linear infinite;
+      -webkit-animation: animatedBackground 10s linear infinite;
+      -ms-animation: animatedBackground 10s linear infinite;
+      -o-animation: animatedBackground 10s linear infinite;
     }
   }
 
   mat-drawer-content {
     background-repeat: repeat;
     background-image: url('../../assets/images/mosaico.jpg');
+
     mat-toolbar {
       min-height: $header-height;
 
@@ -109,11 +122,62 @@ mat-drawer-container {
   font-size: x-large;
 }
 
-::ng-deep mat-list-item:hover{
+::ng-deep mat-list-item:hover {
   background-color: #0975bb !important;
 }
 
 .active-list-item {
   color: gold !important;
   background-color: black !important;
+}
+
+
+@keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -180px 0;
+  }
+}
+
+@-moz-keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -180px 0;
+  }
+}
+
+@-webkit-keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -180px 0;
+  }
+}
+
+@-ms-keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -180px 0;
+  }
+}
+
+@-o-keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -180px 0;
+  }
 }

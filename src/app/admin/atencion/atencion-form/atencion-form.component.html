@@ -24,7 +24,9 @@
       <div class="col-md-7">  
         <mat-form-field appearance="outline">
           <mat-label>Notas</mat-label>
-          <textarea matInput formControlName="sNota" class="uppercase" [maxLength]="sNotaMaxLength" rows="4"></textarea>
+          <textarea matInput formControlName="sNota" class="uppercase" [maxLength]="sNotaMaxLength" rows="4" 
+            uppercase>
+          </textarea>
           <mat-hint align="end">{{sNotaCtrl.value?.length ?? 0}}/{{sNotaMaxLength}}</mat-hint>
         </mat-form-field>
       </div>

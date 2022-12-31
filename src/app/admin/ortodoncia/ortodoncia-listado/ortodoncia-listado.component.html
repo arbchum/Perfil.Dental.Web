@@ -1,0 +1,12 @@
+<mat-card>
+  <app-page-title
+    title="LISTADO DE PACIENTES DE ORTODONCIA"
+    suffixIcon="add"
+    suffixTooltip="Nuevo paciente de ortodoncia"
+    [showSuffixButton]="true"
+    (clickSuffix)="goOrtodonciaForm()"
+  ></app-page-title>
+  <app-ortodoncia-table
+    [ortodoncias]="ortodoncias">
+  </app-ortodoncia-table>
+</mat-card>
