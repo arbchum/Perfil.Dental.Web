@@ -1,0 +1,27 @@
+<form [formGroup]="form" autocomplete="off">
+  <div class="row">
+    <div class="col-md-5">
+      <app-autocomplete *ngIf="clientes"
+        formControlName="nIdPaciente"
+        apariencia="fill"
+        [configuracion]="configuracionCliente"
+        [data]="clientes">
+      </app-autocomplete>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha de Instalación</mat-label>
+        <input matInput [matDatepicker]="datepicker" formControlName="dFechaInstalacion" readonly>
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker startView="multi-year">
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancelar</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Aplicar</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+        <!-- <mat-error *ngIf="dFechaIngresoError">{{ dFechaIngresoError }}</mat-error> -->
+      </mat-form-field>
+    </div>
+  </div>
+</form>

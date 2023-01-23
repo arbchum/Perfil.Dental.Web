@@ -21,6 +21,9 @@ import { DirectivesModule } from 'src/app/common/directives/directives.module';
 
 import { OrtodonciaListadoComponent } from './ortodoncia-listado/ortodoncia-listado.component';
 import { OrtodonciaTableComponent } from './ortodoncia-listado/ortodoncia-table/ortodoncia-table.component';
+import { OrtodonciaNuevoComponent } from './ortodoncia-nuevo/ortodoncia-nuevo.component';
+import { OrtodonciaNuevoHeaderComponent } from './ortodoncia-nuevo/ortodoncia-nuevo-header/ortodoncia-nuevo-header.component';
+import { OrtodonciaNuevoBodyComponent } from './ortodoncia-nuevo/ortodoncia-nuevo-body/ortodoncia-nuevo-body.component';
 
 const ANGULAR_MODULES = [
   CommonModule,
@@ -45,7 +48,10 @@ const MATERIAL_MODULES = [
 @NgModule({
   declarations: [
     OrtodonciaListadoComponent,
-    OrtodonciaTableComponent
+    OrtodonciaTableComponent,
+    OrtodonciaNuevoComponent,
+    OrtodonciaNuevoHeaderComponent,
+    OrtodonciaNuevoBodyComponent
   ],
   imports: [
     CommonModule,

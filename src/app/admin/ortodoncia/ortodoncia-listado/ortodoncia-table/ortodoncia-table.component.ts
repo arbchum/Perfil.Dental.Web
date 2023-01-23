@@ -22,7 +22,7 @@ export class OrtodonciaTableComponent implements OnChanges {
     { header: 'Código', field: 'sCodigo', type: null, width: '50', align: 'center' },
     { header: 'Paciente', field: 'sNomPaciente', type: null, width: '200', align: 'left' },
     { header: 'Nro. de ajustes', field: 'nCantidadSesiones', type: null, width: '80', align: 'right' },
-    { header: 'Ingreso', field: 'sFechaIngreso', type: null, width: '100', align: 'center' },
+    { header: 'Instalación', field: 'sFechaInstalacion', type: null, width: '100', align: 'center' },
     { header: 'Término', field: 'sFechaTermino', type: null, width: '100', align: 'center' },
     { header: 'Fecha de registro', field: 'sFechaReg', type: null, width: '100', align: 'center' },
     { header: 'Acción', field: 'accion', type: 'accion', width: '60', align: 'center' },

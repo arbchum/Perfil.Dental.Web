@@ -130,7 +130,7 @@ export class AtencionFormComponent implements OnInit {
     }
 
     const request = new AtencionRequest(this.form.getRawValue() as AtencionUI);
-    this.atencionHttp.sendAtencionCreate(request).subscribe(
+    this.atencionHttp.createAtencion(request).subscribe(
       res => {
         if (res) {
           this.alert.showToast('success');

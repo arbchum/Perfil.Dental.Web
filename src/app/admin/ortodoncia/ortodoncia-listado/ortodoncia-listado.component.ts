@@ -13,8 +13,7 @@ export class OrtodonciaListadoComponent implements OnInit {
 
   constructor(
     private ortodonciaHttp: OrtodonciaHttp,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -29,8 +28,7 @@ export class OrtodonciaListadoComponent implements OnInit {
     );
   }
 
-  goOrtodonciaForm(id?: number): void {
-    this.router.navigate(['../nuevo', id ?? 0], { relativeTo: this.activatedRoute });
+  goOrtodonciaForm(): void {
+    this.router.navigateByUrl('/ortodoncia/nuevo');
   }
-
 }

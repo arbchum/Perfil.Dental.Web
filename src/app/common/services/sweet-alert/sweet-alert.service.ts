@@ -44,7 +44,7 @@ export class PerfildSweetAlertService {
     Swal.close();
   }
 
-  showMessage(icon: SweetAlertIcon, title?: string, timer = 2000): void {
+  showMessage(icon: SweetAlertIcon, title?: string, timer = 100000): void {
     if (icon == 'success') {
       this.iconColor = '#80D2CE';
       this.backgroundColor = '#c8e6c9';
@@ -69,8 +69,7 @@ export class PerfildSweetAlertService {
         timer,
         heightAuto: false,
         background: this.backgroundColor,
-        position: 'center',
-        allowOutsideClick: false,
+        position: 'center'
       });
     });
   }

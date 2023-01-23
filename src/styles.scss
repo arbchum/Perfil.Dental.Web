@@ -14,7 +14,10 @@ body {
 table {
   border-collapse: collapse;
   table-layout: fixed;
-  width: 100%;
+  //width: 100%;
+  width: 100vw;
+  max-width: 100%;
+  overflow: auto;
 
   .mat-header-cell {
     color: #ffffff;
@@ -38,7 +41,7 @@ table {
     }
   }
 
-  th.mat-header-cell:last-of-type{
+  th.mat-header-cell:last-of-type {
     border-right-width: 0;
     border-right-style: none;
   }
@@ -48,7 +51,7 @@ table {
     font-size: 14px;
   }
 
-  td.mat-footer-cell{
+  td.mat-footer-cell {
     border-bottom-width: 0;
     border-bottom-style: none;
   }
@@ -63,12 +66,21 @@ table {
     cursor: pointer;
     background-color: #e5eff3;
   }
+
+  .mat-row,
+  .mat-header-row {
+    min-width: 800px;
+  }
+
+  .mat-form-field-infix{
+    border-top: 0 solid transparent !important;
+  }
 }
 
 .container {
   // position: relative;
   overflow: auto;
-  width: 100%;
+  max-width: 100%;
 }
 
 /////////////////////////////////////////////////////////@at-root

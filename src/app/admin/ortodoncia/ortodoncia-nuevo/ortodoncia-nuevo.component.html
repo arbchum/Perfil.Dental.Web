@@ -1,0 +1,20 @@
+<mat-card>
+  <app-page-title 
+    title="NUEVO PACIENTE DE ORTODONCIA" 
+    prefixIcon="keyboard_arrow_left" 
+    prefixTooltip="Regresar"
+    (clickPrefix)="goOrtodonciaListado()" 
+    suffixIcon="save" 
+    suffixTooltip="Guardar" 
+    [showSuffixButton]="true"
+    (clickSuffix)="saveOrtodoncia()">
+  </app-page-title>
+  <app-ortodoncia-nuevo-header
+    [form]="form"
+    [clientes]="clientes">
+  </app-ortodoncia-nuevo-header>
+  <app-ortodoncia-nuevo-body
+    [detOrtodonciaArray]="formBody"
+    [fechaInstalacion]="fechaInstalacion"> 
+  </app-ortodoncia-nuevo-body>
+</mat-card>

@@ -21,7 +21,7 @@ export class AtencionHttp{
     return this.http.get<any[]>(`${this.api}/GetSearch`);
   }
 
-  sendAtencionCreate(request: AtencionRequest): Observable<boolean> {
+  createAtencion(request: AtencionRequest): Observable<boolean> {
     return this.http.post<boolean>(`${this.api}/Create`, request);
   }
 

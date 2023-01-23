@@ -24,8 +24,7 @@
       <div class="col-md-7">  
         <mat-form-field appearance="outline">
           <mat-label>Notas</mat-label>
-          <textarea matInput formControlName="sNota" class="uppercase" [maxLength]="sNotaMaxLength" rows="4" 
-            uppercase>
+          <textarea matInput formControlName="sNota" [maxLength]="sNotaMaxLength" rows="4" uppercase>
           </textarea>
           <mat-hint align="end">{{sNotaCtrl.value?.length ?? 0}}/{{sNotaMaxLength}}</mat-hint>
         </mat-form-field>
@@ -33,7 +32,7 @@
     </div>
     <mat-card class="mat-elevation-z2">
       <mat-card-header class="space_between">
-        <mat-card-subtitle>Tratamientos</mat-card-subtitle>
+        <mat-card-title>Tratamientos</mat-card-title>
         <button-perfil-dental name="Agregar" icon="add" (click)="addTratamiento()"></button-perfil-dental>
       </mat-card-header>
       <mat-card-content>
