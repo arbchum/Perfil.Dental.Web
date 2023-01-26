@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PerfildSweetAlertService } from 'src/app/common';
 import { ClienteHttp, OrtodonciaHttp } from '../../shared/http';
-import { ClienteDto } from '../../shared/interface';
+import { ClienteDto, OrtodonciaDto } from '../../shared/interface';
 import { OrtodonciaRequest, OrtodonciaUI } from '../../shared/model';
 
 @Component({
@@ -14,6 +14,8 @@ import { OrtodonciaRequest, OrtodonciaUI } from '../../shared/model';
 export class OrtodonciaNuevoComponent implements OnInit {
   form: FormGroup;
   clientes: ClienteDto[];
+  estaRegistrado: boolean = false;
+  ItemOrtodoncia: OrtodonciaDto | undefined;
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +35,6 @@ export class OrtodonciaNuevoComponent implements OnInit {
     this.getClientes();
   }
 
-  //get formHeader(): FormGroup { return this.form.get('header') as FormGroup }
   get formBody(): FormArray { return this.form.get('detOrtodoncia') as FormArray }
   get fechaInstalacion(): string { return this.form.get('dFechaInstalacion')?.value }
 
@@ -51,7 +52,10 @@ export class OrtodonciaNuevoComponent implements OnInit {
 
   saveOrtodoncia(): void {
     console.log('OrtodonciaForm:', this.form.getRawValue());
-    if (this.form.invalid) return Object.values(this.form.controls).forEach(control => { control.markAllAsTouched() });
+    if (this.ItemOrtodoncia)
+      return this.alert.showMessage('info', `El paciente ${this.ItemOrtodoncia?.sNomPaciente} ya está registrado`);
+    if (this.form.invalid)
+      return Object.values(this.form.controls).forEach(control => { control.markAllAsTouched() });
 
     const request = new OrtodonciaRequest(this.form.getRawValue() as OrtodonciaUI);
 
@@ -64,5 +68,14 @@ export class OrtodonciaNuevoComponent implements OnInit {
         else this.alert.showMessage('error')
       }
     );
+  }
+
+  validatePacienteOrtodoncia(pIdPaciente: number): void {
+    this.ortodonciaHttp.getOrtodonciaSearch().subscribe(res => {
+      this.ItemOrtodoncia = res.find(item => item.nIdPaciente == pIdPaciente);
+      if (this.ItemOrtodoncia) {
+        this.alert.showMessage('info', `El paciente ${this.ItemOrtodoncia?.sNomPaciente} ya está registrado`);
+      }
+    });
   }
 }

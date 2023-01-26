@@ -1,10 +1,10 @@
 <mat-card>
   <app-page-title
     title="LISTADO DE ATENCIONES"
-    suffixIcon="add"
+    suffixIcon="fa-solid fa-calendar-plus"
     suffixTooltip="Nueva Atención"
     [showSuffixButton]="true"
-    (clickSuffix)="goAtencionForm()"
+    (clickSuffix)="goAtencionNewForm()"
   ></app-page-title>
   <app-atencion-table
     [atenciones]="atenciones">

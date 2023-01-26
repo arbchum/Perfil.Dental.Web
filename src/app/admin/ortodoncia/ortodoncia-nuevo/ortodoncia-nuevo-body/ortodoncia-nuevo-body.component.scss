@@ -6,3 +6,7 @@
   block-size: "end";
   inline-size: "nearest";
 }
+
+:host ::ng-deep table .mat-form-field-infix {
+  border-top: 0 solid transparent !important;
+}

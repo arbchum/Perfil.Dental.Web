@@ -14,22 +14,22 @@ export class AdminComponent implements OnInit {
   allMenuOptions: MenuOption[] = [
     {
       title: 'Atenciones',
-      icon: 'insert_invitation',
+      icon: 'fa-solid fa-calendar-day',
       url: '/atencion/listado'
     },
     {
       title: 'Pacientes',
-      icon: 'group',
+      icon: 'fa-solid fa-hospital-user',
       url: '/cliente/listado'
     },
     {
       title: 'Ortodoncia',
-      icon: 'group',
+      icon: 'fa-regular fa-face-grimace',
       url: '/ortodoncia/listado'
     },
     {
       title: 'Tratamientos',
-      icon: 'volunteer_activism',
+      icon: 'fa-solid fa-hand-holding-medical',
       url: '/tratamiento/listado'
     }
   ];

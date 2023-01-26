@@ -5,8 +5,7 @@
     prefixIcon="keyboard_arrow_left" 
     prefixTooltip="Regresar"
     (clickPrefix)="goAtencionListado()" 
-    suffixIcon="save" 
-    suffixTooltip="Guardar" 
+    suffixIcon="fa-solid fa-floppy-disk"
     [showSuffixButton]="true"
     (clickSuffix)="saveAtencion()">
   </app-page-title>
@@ -70,7 +69,7 @@
                 </span>
                 <span *ngSwitchCase="'accion'">
                   <button mat-mini-fab color="accent" matTooltip="Eliminar" (click)="quitTratamiento(i)" [disabled]="hasOneDetail">
-                    <mat-icon>close</mat-icon>
+                    <mat-icon style="display: flex; justify-content: center;"><i class="fa-solid fa-xmark"></i></mat-icon>
                   </button>
                 </span>
               </td>

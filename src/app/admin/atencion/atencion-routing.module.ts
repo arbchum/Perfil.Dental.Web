@@ -9,7 +9,11 @@ const routes: Routes = [
     component: AtencionListadoComponent
   },
   {
-    path: 'nuevo/:id',
+    path: 'nuevo',
+    component: AtencionFormComponent
+  },
+  {
+    path: 'edicion/:id',
     component: AtencionFormComponent
   }
 ];

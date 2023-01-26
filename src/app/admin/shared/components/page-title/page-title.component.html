@@ -13,7 +13,8 @@
   </div>
   <div class="item-container" *ngIf="showSuffixButton && suffixIcon">
     <button mat-fab style="background-color: #0975bb;" [matTooltip]="suffixTooltip" (click)="clickSuffix.emit()">
-      <mat-icon class="suffixIcon">{{ suffixIcon }}</mat-icon>
+      <!-- <mat-icon class="suffixIcon">{{ suffixIcon }}</mat-icon> -->
+      <mat-icon class="suffixIcon"><i [ngClass]="suffixIcon"></i></mat-icon>
     </button>
   </div>
 </div>

@@ -16,9 +16,6 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor {
   @Input() apariencia: MatFormFieldAppearance;
   @Input() showMessage = true;
   @Input() configuracion: ConfigAutocomplete;
-  // @Output() blur: EventEmitter<void> = new EventEmitter<void>();
-  // onChange: (value: any) => void = () => { };
-  // onTouched: () => void = () => { };
   ctrl = new FormControl('');
   dataFiltered: any[];
   hideButtonCancel = true;

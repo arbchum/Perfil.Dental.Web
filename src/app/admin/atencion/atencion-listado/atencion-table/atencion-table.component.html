@@ -18,7 +18,7 @@
         <span *ngSwitchCase="'deci2'"> {{row[col.field] | number : '1.2-2'}} </span>
         <span *ngSwitchCase="'accion'">
           <button mat-stroked-button matTooltip="Ver Detalle" (click)="sendIdAtencion.emit(row.nIdAtencion)">
-            <mat-icon>remove_red_eye</mat-icon>
+            <mat-icon><i class="fa-solid fa-eye" style="display: flex;"></i></mat-icon>
           </button>
         </span>
       </td>

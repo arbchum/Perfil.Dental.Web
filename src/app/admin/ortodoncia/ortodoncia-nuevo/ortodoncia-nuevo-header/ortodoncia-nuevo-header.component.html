@@ -5,7 +5,8 @@
         formControlName="nIdPaciente"
         apariencia="fill"
         [configuracion]="configuracionCliente"
-        [data]="clientes">
+        [data]="clientes"
+        (sendValue)="sendIdPaciente.emit($event)">
       </app-autocomplete>
     </div>
     <div class="col-md-3">
@@ -20,7 +21,7 @@
             <button mat-raised-button color="primary" matDatepickerApply>Aplicar</button>
           </mat-datepicker-actions>
         </mat-datepicker>
-        <!-- <mat-error *ngIf="dFechaIngresoError">{{ dFechaIngresoError }}</mat-error> -->
+        <mat-error *ngIf="dFechaIngresoInstalacionError">{{ dFechaIngresoInstalacionError }}</mat-error>
       </mat-form-field>
     </div>
   </div>

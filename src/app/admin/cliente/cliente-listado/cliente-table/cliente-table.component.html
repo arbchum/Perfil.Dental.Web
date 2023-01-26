@@ -17,7 +17,7 @@
         <span *ngSwitchCase="null"> {{row[col.field]}} </span>
         <span *ngSwitchCase="'accion'">
           <button mat-stroked-button matTooltip="Editar" (click)="sendIdCliente.emit(row.nIdCliente)">
-            <mat-icon>edit</mat-icon>
+            <mat-icon><i class="fa-regular fa-pen-to-square" style="display: flex;"></i></mat-icon>
           </button>
         </span>
       </td>

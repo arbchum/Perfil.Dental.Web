@@ -35,4 +35,8 @@ export class AtencionListadoComponent implements OnInit {
     this.router.navigate(['../nuevo', id ?? 0], { relativeTo: this.activatedRoute });
   }
 
+
+  goAtencionNewForm(): void {
+    this.router.navigateByUrl('/atencion/nuevo');
+  }
 }

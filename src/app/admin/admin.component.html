@@ -7,7 +7,8 @@
     <mat-nav-list>
       <mat-list-item routerLinkActive="active-list-item" *ngFor="let option of allMenuOptions"
         [routerLink]="option.url">
-        <mat-icon mat-list-icon>{{ option.icon }}</mat-icon>
+        <!-- <mat-icon mat-list-icon>{{ option.icon }}</mat-icon> -->
+        <mat-icon mat-list-icon><i [ngClass]="option.icon"></i></mat-icon>
         <div mat-line>{{ option.title }}</div>
       </mat-list-item>
     </mat-nav-list>

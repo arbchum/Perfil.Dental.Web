@@ -9,7 +9,7 @@ const Toast = Swal.mixin({
   showConfirmButton: false,
   timer: 3000,
   timerProgressBar: true,
-  backdrop:true,
+  backdrop: true,
   allowOutsideClick: false,
   allowEscapeKey: false,
   allowEnterKey: false,
@@ -53,12 +53,16 @@ export class PerfildSweetAlertService {
       this.iconColor = '#E64442';
       this.backgroundColor = '#ffcdd2';
       this.message = title ?? 'Ha ocurrido un error';
-    }else if (icon == 'warning') {
+    } else if (icon == 'warning') {
       this.iconColor = '#d9a300';
       this.backgroundColor = '#FFECB3';
       this.message = title ?? 'Advertencia';
+    } else if (icon == 'info') {
+      this.iconColor = '#696cff';
+      this.backgroundColor = '#e9e9ff';
+      this.message = title ?? 'Información';
     }
-    
+
 
     setTimeout(() => {
       Swal.fire({
@@ -74,12 +78,12 @@ export class PerfildSweetAlertService {
     });
   }
 
-  showToast(typeIcon: SweetAlertIcon, title?: string):void{
+  showToast(typeIcon: SweetAlertIcon, title?: string): void {
     if (typeIcon == 'success') {
       this.message = title ?? 'Registro exitoso';
     } else if (typeIcon == 'error') {
       this.message = title ?? 'Ha ocurrido un error';
-    }else if (typeIcon == 'warning') {
+    } else if (typeIcon == 'warning') {
       this.message = title ?? 'Advertencia';
     }
     Toast.fire({

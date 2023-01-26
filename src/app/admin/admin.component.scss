@@ -4,46 +4,7 @@ $header-height: 48px;
   display: none !important;
 }
 
-// ::ng-serve .mat-drawer-container.mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
-//   background-color: #80D2CE;
-//   border-radius: 20px;
-//   border: 2px solid #f1f2f3;
-// }
-
-// ::ng-serve .mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
-//   background-color: #80D2CE;
-//   border-radius: 20px;
-//   border: 2px solid #f1f2f3;
-// }
-
-// ::ng-serve .mat-drawer.mat-drawer-inner-container::-webkit-scrollbar {
-//   //-webkit-appearance: none !important;
-// }
-
-// mat-drawer.mat-drawer-inner-container::-webkit-scrollbar:vertical {
-//   width: 10px !important;
-// }
-
-// mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-button:increment,
-// .mat-drawer::-webkit-scrollbar-button {
-//   display: none !important;
-// }
-
-// mat-drawer.mat-drawer-inner-container::-webkit-scrollbar:horizontal {
-//   height: 10px !important;
-// }
-
-// mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
-//   background-color: #797979 !important;
-//   border-radius: 20px !important;
-//   border: 2px solid #f1f2f3 !important;
-// }
-
-// mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-track {
-//   border-radius: 10px;
-// }
-
-mat-drawer-container {
+:host::ng-deep mat-drawer-container {
   display: block;
   position: absolute;
   top: 0;
@@ -70,6 +31,10 @@ mat-drawer-container {
       -webkit-animation: animatedBackground 10s linear infinite;
       -ms-animation: animatedBackground 10s linear infinite;
       -o-animation: animatedBackground 10s linear infinite;
+    }
+
+    .mat-list-text{
+      padding: 10px 0px 0px 20px !important;
     }
   }
 
@@ -123,6 +88,7 @@ mat-drawer-container {
 }
 
 ::ng-deep mat-list-item:hover {
+  opacity: 1;
   background-color: #0975bb !important;
 }
 
