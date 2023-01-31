@@ -7,6 +7,8 @@
     (clickSuffix)="goOrtodonciaForm()"
   ></app-page-title>
   <app-ortodoncia-table
-    [ortodoncias]="ortodoncias">
+    [ortodoncias]="ortodoncias"
+    [dataSourceDet]="detOrtodoncia"
+    (sendOrtodoncia)="listarDetOrtodoncia($event)">
   </app-ortodoncia-table>
 </mat-card>

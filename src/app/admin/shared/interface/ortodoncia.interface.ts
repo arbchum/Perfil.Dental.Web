@@ -8,3 +8,9 @@ export interface OrtodonciaDto {
   nCantidadSesiones: number;
   sFechaReg: string;
 }
+
+export interface DetOrtodonciaDto{
+  sControl: number;
+  sFechaControl: string;
+  sDescripcion: string;
+}

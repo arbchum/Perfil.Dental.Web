@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ApiResponse, OrtodonciaDto } from '../interface';
+import { ApiResponse, DetOrtodonciaDto, OrtodonciaDto } from '../interface';
 import { OrtodonciaRequest } from '../model';
 import { AdminHttpModule } from './http.module';
 
@@ -26,6 +26,13 @@ export class OrtodonciaHttp {
 
   createOrtodoncia(request: OrtodonciaRequest): Observable<boolean> {
     return this.http.post<ApiResponse<boolean>>(`${this.api}/Create`, request).pipe(
+      map(res => res.response)
+    );
+  }
+
+  getDetailOrtodoncia(nIdOrtodoncia: number): Observable<DetOrtodonciaDto[]> {
+    let params = new HttpParams().set('nIdOrtodoncia', JSON.stringify(nIdOrtodoncia));
+    return this.http.get<ApiResponse<DetOrtodonciaDto[]>>(`${this.api}/GetDetail`, { params }).pipe(
       map(res => res.response)
     );
   }
