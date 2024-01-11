@@ -1,11 +1,11 @@
 export interface OrtodonciaUI {
   nIdPaciente: number;
-  dFechaInstalacion: Date;
   detOrtodoncia: DetOrtodonciaUI[];
 }
 
 export interface DetOrtodonciaUI {
-  sDescripcion: string;
+  nNroSesion: number;
+  sComentario: string;
   dFechaControl: Date;
   dFechaMin: Date;
 }

@@ -1,0 +1,50 @@
+
+<h1 mat-dialog-title style="text-align: center">{{title}}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form" autocomplete="off">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field>
+          <mat-label>Paciente</mat-label>
+          <input matInput [value]="data.ortodoncia.sNomPaciente" readonly>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label>Fecha de control</mat-label>
+          <input matInput formControlName="dFechaControl" [matDatepicker]="datepicker"
+            [min]="fechaMin" readonly>
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="datepicker" cdkFocusInitial></mat-datepicker-toggle>
+          <mat-datepicker #datepicker>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancelar</button>
+              <button mat-raised-button color="primary" matDatepickerApply>Aplicar</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+          <mat-error *ngIf="dFechaControlError">{{ dFechaControlError }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field appearance="fill">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput formControlName="sDescripcion" 
+          [maxLength]="sDescrpcionMaxLength" 
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="5"
+          cdkAutosizeMaxRows="5"
+          uppercase>
+          </textarea>
+          <mat-hint align="end">{{sDescripcionCtrl.value?.length ?? 0}}/{{sDescrpcionMaxLength}}</mat-hint>
+          <mat-error *ngIf="sDescripcionError">{{ sDescripcionError }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions class="space_center">
+  <button mat-button color="primary" class="cms-btn-primary" (click)="saveControl()">Guardar
+  </button>
+  <button mat-button mat-dialog-close class="cms-btn-secondary" (click)="dialogRef.close()">Cerrar
+  </button>
+</div>

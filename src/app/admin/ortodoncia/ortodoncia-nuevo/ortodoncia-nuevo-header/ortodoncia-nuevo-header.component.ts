@@ -11,16 +11,16 @@ export class OrtodonciaNuevoHeaderComponent implements OnInit {
   @Output() sendIdPaciente: EventEmitter<number> = new EventEmitter<number>();
   @Input() form: FormGroup;
   @Input() clientes: ClienteDto[];
-  @Input() estaRegistrado: boolean;
-  configuracionCliente: ConfigAutocomplete = { idField: 'nIdCliente', textField: 'sNomCliente', label: 'Paciente' };
+  configCliente: ConfigAutocomplete = { idField: 'nIdCliente', textField: 'sNomCliente', label: 'Paciente' };
+  //sNotaMaxLength: number = 500;
 
   constructor(
   ) { }
 
-  //get nIdPacienteCtrl(): FormControl { return this.form.get('nIdPaciente') as FormControl }
-  get dFechaInstalacionCtrl(): FormControl { return this.form.get('dFechaInstalacion') as FormControl }
+  // get dFechaInstalacionCtrl(): FormControl { return this.form.get('dFechaInstalacion') as FormControl }
+  // get sNotaCtrl(): FormControl { return this.form.get('sNota') as FormControl }
 
-  get dFechaIngresoInstalacionError(): unknown { return this.dFechaInstalacionCtrl.hasError('required') ? 'campo requerido' : null }
+  // get dFechaIngresoInstalacionError(): unknown { return this.dFechaInstalacionCtrl.hasError('required') ? 'campo requerido' : null }
 
   ngOnInit(): void {
   }

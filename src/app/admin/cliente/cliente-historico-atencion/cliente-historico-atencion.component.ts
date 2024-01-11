@@ -49,7 +49,7 @@ export class ClienteHistoricoAtencionComponent implements OnInit {
 
   getCliente(nIdCliente: number) {
     this.clienteHttp.getClienteOne(nIdCliente).subscribe(res => {
-      this.paciente = `${res.sNombres} ${res.sApePaterno} ${res.sApeMaterno}`;
+      this.paciente = `Historia clínica de\n\n${res.sNombres} ${res.sApePaterno} ${res.sApeMaterno}`;
     });
   }
 

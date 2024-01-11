@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PerfildSweetAlertService } from 'src/app/common';
 import { ClienteHttp, OrtodonciaHttp } from '../../shared/http';
-import { ClienteDto, OrtodonciaDto } from '../../shared/interface';
+import { ClienteDto, OrtodonciaDataDto } from '../../shared/interface';
 import { OrtodonciaRequest, OrtodonciaUI } from '../../shared/model';
 
 @Component({
@@ -14,8 +14,7 @@ import { OrtodonciaRequest, OrtodonciaUI } from '../../shared/model';
 export class OrtodonciaNuevoComponent implements OnInit {
   form: FormGroup;
   clientes: ClienteDto[];
-  estaRegistrado: boolean = false;
-  ItemOrtodoncia: OrtodonciaDto | undefined;
+  ItemOrtodoncia: OrtodonciaDataDto | undefined;
 
   constructor(
     private fb: FormBuilder,
@@ -25,8 +24,7 @@ export class OrtodonciaNuevoComponent implements OnInit {
     private alert: PerfildSweetAlertService
   ) {
     this.form = this.fb.group({
-      nIdPaciente: ['', Validators.required],
-      dFechaInstalacion: ['', Validators.required],
+      nIdPaciente: [null, Validators.required],
       detOrtodoncia: this.fb.array([])
     })
   }
@@ -36,7 +34,6 @@ export class OrtodonciaNuevoComponent implements OnInit {
   }
 
   get formBody(): FormArray { return this.form.get('detOrtodoncia') as FormArray }
-  get fechaInstalacion(): string { return this.form.get('dFechaInstalacion')?.value }
 
   getClientes(): void {
     this.clienteHttp.getClienteSearch().subscribe(res => {
@@ -51,7 +48,6 @@ export class OrtodonciaNuevoComponent implements OnInit {
   }
 
   saveOrtodoncia(): void {
-    console.log('OrtodonciaForm:', this.form.getRawValue());
     if (this.ItemOrtodoncia)
       return this.alert.showMessage('info', `El paciente ${this.ItemOrtodoncia?.sNomPaciente} ya está registrado`);
     if (this.form.invalid)

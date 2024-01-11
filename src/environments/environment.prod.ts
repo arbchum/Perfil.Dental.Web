@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  api: 'http://www.perfildentalnetcore.somee.com/api',
+  // api: 'http://perfildentalback-001-site1.atempurl.com/api'
+  api: 'http://localhost:9091/api'
 };

@@ -12,11 +12,9 @@
   <app-ortodoncia-nuevo-header
     [form]="form"
     [clientes]="clientes"
-    [estaRegistrado]="estaRegistrado"
     (sendIdPaciente)="validatePacienteOrtodoncia($event)">
   </app-ortodoncia-nuevo-header>
   <app-ortodoncia-nuevo-body
-    [detOrtodonciaArray]="formBody"
-    [fechaInstalacion]="fechaInstalacion"> 
+    [detOrtodonciaArray]="formBody"> 
   </app-ortodoncia-nuevo-body>
 </mat-card>

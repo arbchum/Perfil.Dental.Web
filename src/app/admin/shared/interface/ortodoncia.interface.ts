@@ -1,16 +1,14 @@
-export interface OrtodonciaDto {
-  nIdOrtodoncia: number;
+export interface OrtodonciaDataDto {
   sCodigo: string;
   nIdPaciente: number;
   sNomPaciente: string;
-  sFechaInstalacion: string;
-  sFechaTermino: string;
-  nCantidadSesiones: number;
+  nCantidadControles: number; 
+  sEstado: string;
   sFechaReg: string;
 }
 
-export interface DetOrtodonciaDto{
-  sControl: number;
+export interface DetOrtodonciaDataDto{
+  sControl: string;
   sFechaControl: string;
-  sDescripcion: string;
+  sComentario: string;
 }

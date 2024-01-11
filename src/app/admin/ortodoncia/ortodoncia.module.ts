@@ -24,6 +24,8 @@ import { OrtodonciaTableComponent } from './ortodoncia-listado/ortodoncia-table/
 import { OrtodonciaNuevoComponent } from './ortodoncia-nuevo/ortodoncia-nuevo.component';
 import { OrtodonciaNuevoHeaderComponent } from './ortodoncia-nuevo/ortodoncia-nuevo-header/ortodoncia-nuevo-header.component';
 import { OrtodonciaNuevoBodyComponent } from './ortodoncia-nuevo/ortodoncia-nuevo-body/ortodoncia-nuevo-body.component';
+import { OrtodonciaAddControlComponent } from './ortodoncia-listado/ortodoncia-add-control/ortodoncia-add-control.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const ANGULAR_MODULES = [
   CommonModule,
@@ -42,7 +44,8 @@ const MATERIAL_MODULES = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatTooltipModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatDialogModule,
 ];
 
 @NgModule({
@@ -51,7 +54,8 @@ const MATERIAL_MODULES = [
     OrtodonciaTableComponent,
     OrtodonciaNuevoComponent,
     OrtodonciaNuevoHeaderComponent,
-    OrtodonciaNuevoBodyComponent
+    OrtodonciaNuevoBodyComponent,
+    OrtodonciaAddControlComponent
   ],
   imports: [
     CommonModule,

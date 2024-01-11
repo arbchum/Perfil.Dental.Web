@@ -11,16 +11,15 @@ import { PerfildSweetAlertService } from 'src/app/common';
 })
 export class OrtodonciaNuevoBodyComponent implements OnInit {
   @Input() detOrtodonciaArray: FormArray;
-  @Input() fechaInstalacion: string;
   dataSource: MatTableDataSource<AbstractControl> = new MatTableDataSource();
   displayedColumns: string[] = [];
   sDescrpcionMaxLength: number = 500;
 
   /* #region   Asignación nombres de campos y columnas*/
   cols: any[] = [
-    { header: 'Nro.', field: 'index', type: 'index', width: '30', align: 'center' },
-    { header: 'Descripción', field: 'sDescripcion', type: 'sDescripcion', width: '400', align: 'left' },
-    { header: 'Fecha de control', field: 'dFechaControl', type: 'dFechaControl', width: '80', align: 'center' },
+    { header: 'Nro.', field: 'index', type: 'index', width: '60', align: 'center' },
+    { header: 'Comentario', field: 'sComentario', type: 'sComentario', width: '400', align: 'left' },
+    { header: 'Fecha', field: 'dFechaControl', type: 'dFechaControl', width: '80', align: 'center' },
     { header: 'Acción', field: 'accion', type: 'accion', width: '40', align: 'center' }
   ];
   /* #endregion */
@@ -33,28 +32,29 @@ export class OrtodonciaNuevoBodyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.addControlOrtodoncia();
   }
 
   indexReverse(index: number): number {
     return this.detOrtodonciaArray.length - index;
   }
 
+  textControl(nNroSesion: number): string {
+    return nNroSesion == 0 ? 'Instalación' : `Control\nNro. ${("00" + nNroSesion).slice(-2)}`;
+  }
+
   addControlOrtodoncia(): void {
-    if(this.fechaInstalacion == ''){
-      this.alert.showMessage('warning', 'Seleccione una fecha de ingreso');
-      return;
-    }
     const pForm = this.detOrtodonciaArray.at(0) as FormGroup;
     if (pForm) {
-      if (pForm.invalid) {
+      if (pForm.invalid)
         return Object.values(pForm.controls).forEach(control => { control.markAllAsTouched() });
-      }
     }
     this.detOrtodonciaArray.insert(0,
       this.fb.group({
-        sDescripcion: ['', Validators.required],
-        dFechaControl: ['', Validators.required],
-        dFechaMin: [this.getFechaRowPrevio(pForm)]
+        nNroSesion: [this.detOrtodonciaArray.length],
+        sComentario: [null, Validators.required],
+        dFechaControl: [null, Validators.required],
+        dFechaMin: [pForm ? this.getFechaRowPrevio(pForm) : null]
       })
     );
     this.dataSource = new MatTableDataSource(this.detOrtodonciaArray.controls);
@@ -68,7 +68,7 @@ export class OrtodonciaNuevoBodyComponent implements OnInit {
   }
 
   getFechaRowPrevio(form: FormGroup): Date {
-    const fechaPrevia = (form) ? form.get('dFechaControl')?.value : this.fechaInstalacion;
+    const fechaPrevia = form.get('dFechaControl')?.value;
     form?.get('dFechaControl')?.disable();
     return moment(fechaPrevia).add(1, 'days').toDate();
   }

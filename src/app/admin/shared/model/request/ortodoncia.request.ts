@@ -1,21 +1,27 @@
 import { DetOrtodonciaUI, OrtodonciaUI } from "..";
+import { EOrtodonciaEstado } from "../../enum/_index";
+
 
 export class OrtodonciaRequest {
   nIdPaciente: number;
-  dFechaInstalacion: Date;
+  nIdEstado: EOrtodonciaEstado;
   detOrtodoncia: DetOrtodonciaRequest[];
-  constructor(form: OrtodonciaUI) {
+  constructor(form: OrtodonciaUI, pIdEstado: EOrtodonciaEstado = EOrtodonciaEstado.Instalado) {
     this.nIdPaciente = form.nIdPaciente;
-    this.dFechaInstalacion = form.dFechaInstalacion;
+    this.nIdEstado = pIdEstado;
     this.detOrtodoncia = form.detOrtodoncia.map((item) => new DetOrtodonciaRequest(item));
   }
 }
 
 export class DetOrtodonciaRequest {
-  sDescripcion: string;
+  nIdPaciente : number;
+  nNroSesion: number;
+  sComentario: string;
   dFechaControl: Date;
-  constructor(form: DetOrtodonciaUI) {
-    this.sDescripcion = form.sDescripcion;
+  constructor(form: DetOrtodonciaUI, pIdPaciente: number = 0) {
+    this.nIdPaciente = pIdPaciente;
+    this.nNroSesion = form.nNroSesion;
+    this.sComentario = form.sComentario;
     this.dFechaControl = form.dFechaControl;
   }
 }

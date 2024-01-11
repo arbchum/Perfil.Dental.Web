@@ -9,11 +9,10 @@
     <div>
       <img src="../../../../../assets/gif/diente-animado-2.gif">
     </div>
-    <div class="test">{{ title }}</div>
+    <p class="test">{{ title }}</p>
   </div>
   <div class="item-container" *ngIf="showSuffixButton && suffixIcon">
-    <button mat-fab style="background-color: #0975bb;" [matTooltip]="suffixTooltip" (click)="clickSuffix.emit()">
-      <!-- <mat-icon class="suffixIcon">{{ suffixIcon }}</mat-icon> -->
+    <button mat-fab color="primary" style="background-color: #2bb4ba;" [matTooltip]="suffixTooltip" (click)="clickSuffix.emit()">
       <mat-icon class="suffixIcon"><i [ngClass]="suffixIcon"></i></mat-icon>
     </button>
   </div>

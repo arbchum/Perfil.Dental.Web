@@ -21,7 +21,7 @@ table {
 
   .mat-header-cell {
     color: #ffffff;
-    background-color: #0975bb;
+    background-color: #703459;
     border-right-width: 1px;
     border-right-style: solid;
   }
@@ -35,7 +35,7 @@ table {
   th.mat-header-cell:last-of-type {
     padding: 0 0.25em;
     border-bottom-color: #9fdce5 !important;
-
+  
     mat-form-field {
       display: block;
     }
@@ -79,6 +79,12 @@ table {
   // .mat-form-field-suffix{
   //   top: 0.5em !important;
   // }
+  button:hover{
+    background: #2bb4ba !important;
+    mat-icon{
+      color: white;
+    }
+  }
 }
 
 .container {
@@ -316,10 +322,10 @@ table {
 }
 
 .cms-btn-primary {
-  background: #80D2CE !important;
+  background: #2bb4ba !important;
   color: white !important;
   border-radius: 0 10px 0 10px !important;
-  font-weight: 900;
+  //font-weight: 900;
   cursor: pointer;
   position: relative;
   font-style: normal;
@@ -336,8 +342,8 @@ table {
   }
 
   &:hover {
-    background-color: #d8da00 !important;
-    border: solid 1px #d8da00 !important;
+    background-color: #703459 !important;
+    border: solid 1px #703459 !important;
     -webkit-box-shadow: 0 6px 8px rgb(251 51 72 / 32%) !important;
     box-shadow: 0 6px 8px rgb(251 51 72 / 32%) !important;
   }

@@ -16,15 +16,17 @@
       <td mat-cell *matCellDef="let row; let i = index" [style.textAlign]="col.align">
         <span *ngSwitchCase="null"> {{row[col.field]}} </span>
         <span *ngSwitchCase="'accion'">
-          <button *ngIf="expandedRow !== row" mat-stroked-button matTooltip="Ver Detalle">
+          <button mat-stroked-button *ngIf="expandedRow !== row" matTooltip="Ver">
             <mat-icon><i class="fa-solid fa-eye" style="display: flex;"></i></mat-icon>
           </button>
-          <button class="pink" *ngIf="expandedRow === row" mat-stroked-button matTooltip="Agregar Control">
+          <button mat-stroked-button *ngIf="expandedRow === row" class="pink" matTooltip="Agregar Control"
+            (click)="addControl(row)">
             <mat-icon><i class="fa-solid fa-square-plus" style="display: flex;"></i></mat-icon>
           </button>
         </span>
         <span *ngSwitchCase="'expand'">
-          <button mat-icon-button (click)="(expandedRow = expandedRow === row ? null : row); $event.stopPropagation()">
+          <button mat-icon-button (click)="openDetail(row);$event.stopPropagation()"
+            matTooltip="{{expandedRow !== row ? 'Mostrar':'Ocultar'}} comentarios">
             <mat-icon *ngIf="expandedRow !== row" (click)="sendOrtodoncia.emit(row);">keyboard_arrow_down</mat-icon>
             <mat-icon *ngIf="expandedRow === row">keyboard_arrow_up</mat-icon>
           </button>
@@ -57,18 +59,18 @@
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let element"></td>
                   </ng-container>
-                  <ng-container matColumnDef="sDescripcion">
-                    <th mat-header-cell *matHeaderCellDef> Descripción </th>
-                    <td mat-cell class="descripcion" *matCellDef="let element"
+                  <ng-container matColumnDef="sComentario">
+                    <th mat-header-cell *matHeaderCellDef> Comentario </th>
+                    <td mat-cell class="comentario" *matCellDef="let element"
                       [attr.colspan]="displayedColumnsDet.length">
                       <div>
-                        {{element.sDescripcion}}
+                        {{element.sComentario}}
                       </div>
                     </td>
                   </ng-container>
                   <tr mat-header-row *matHeaderRowDef="displayedColumnsDet" hidden></tr>
                   <tr mat-row *matRowDef="let row; columns: displayedColumnsDet;"></tr>
-                  <tr mat-row *matRowDef="let row; columns: ['sDescripcion']"></tr>
+                  <tr mat-row *matRowDef="let row; columns: ['sComentario']"></tr>
                 </table>
                 <div *ngIf="isDetEmpty">No hay controles registrados.</div>
               </mat-card>

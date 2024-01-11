@@ -9,6 +9,7 @@
   <app-ortodoncia-table
     [ortodoncias]="ortodoncias"
     [dataSourceDet]="detOrtodoncia"
-    (sendOrtodoncia)="listarDetOrtodoncia($event)">
+    (sendOrtodoncia)="listarDetOrtodoncia($event)"
+    (sendFormOrtodoncia)="UpdateOrtodoncia($event)">
   </app-ortodoncia-table>
 </mat-card>

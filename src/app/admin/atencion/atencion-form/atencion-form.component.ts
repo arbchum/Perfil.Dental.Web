@@ -78,9 +78,8 @@ export class AtencionFormComponent implements OnInit {
   addTratamiento(): void {
     const pForm = this.detAtencionArray.at(this.detAtencionArray.length - 1) as FormGroup;
     if (pForm) {
-      if (pForm.invalid) {
+      if (pForm.invalid) 
         return Object.values(pForm.controls).forEach(control => { control.markAllAsTouched() });
-      }
       pForm.get('nIdTratamiento')?.disable();
     }
     const lstIdTratamiento = (this.detAtencionArray.getRawValue() as DetAtencion[]).map(item => item.nIdTratamiento);

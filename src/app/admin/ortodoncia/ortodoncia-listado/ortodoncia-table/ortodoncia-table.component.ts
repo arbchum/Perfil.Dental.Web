@@ -2,7 +2,10 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewC
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { DetOrtodonciaDto, OrtodonciaDto } from 'src/app/admin/shared/interface/ortodoncia.interface';
+import { DetOrtodonciaDataDto, OrtodonciaDataDto } from 'src/app/admin/shared/interface/ortodoncia.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { OrtodonciaAddControlComponent } from '../ortodoncia-add-control/ortodoncia-add-control.component';
+import { DetOrtodonciaRequest, OrtodonciaUI } from 'src/app/admin/shared/model';
 
 @Component({
   selector: 'app-ortodoncia-table',
@@ -19,37 +22,39 @@ import { DetOrtodonciaDto, OrtodonciaDto } from 'src/app/admin/shared/interface/
 export class OrtodonciaTableComponent implements OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Output() sendIdAtencion: EventEmitter<number> = new EventEmitter<number>();
-  @Output() sendOrtodoncia: EventEmitter<OrtodonciaDto> = new EventEmitter<OrtodonciaDto>();
-  @Input() ortodoncias: OrtodonciaDto[] = [];
-  @Input() dataSourceDet: DetOrtodonciaDto[] = [];
+  @Output() sendOrtodoncia: EventEmitter<OrtodonciaDataDto> = new EventEmitter<OrtodonciaDataDto>();
+  @Output() sendFormOrtodoncia: EventEmitter<OrtodonciaUI> = new EventEmitter<OrtodonciaUI>();
+  @Input() ortodoncias: OrtodonciaDataDto[] = [];
+  @Input() dataSourceDet: DetOrtodonciaDataDto[] = [];
 
-  dataSource: MatTableDataSource<OrtodonciaDto>;
+  dataSource: MatTableDataSource<OrtodonciaDataDto>;
   displayedColumns: string[];
   pageSizeOptions: number[] = [5, 10, 50];
-  expandedRow: OrtodonciaDto | null;
+  expandedRow: OrtodonciaDataDto | null;
 
-  displayedColumnsDet: string[] = ['sControl','sFechaControl','none'];
+  displayedColumnsDet: string[] = ['sControl', 'sFechaControl', 'none'];
 
   /* #region   Asignación nombres de campos y columnas*/
   cols: any[] = [
-    { header: 'Código', field: 'sCodigo', type: null, width: '50', align: 'center' },
+    { header: 'Código', field: 'sCodigo', type: null, width: '60', align: 'center' },
     { header: 'Paciente', field: 'sNomPaciente', type: null, width: '200', align: 'left' },
-    { header: 'Controles atendidos', field: 'nCantidadSesiones', type: null, width: '50', align: 'right' },
-    { header: 'Instalación', field: 'sFechaInstalacion', type: null, width: '100', align: 'center' },
-    { header: 'Término', field: 'sFechaTermino', type: null, width: '100', align: 'center' },
-    { header: 'Fecha de registro', field: 'sFechaReg', type: null, width: '100', align: 'center' },
+    { header: 'Controles atendidos', field: 'nCantidadControles', type: null, width: '50', align: 'right' },
+    { header: 'Estado', field: 'sEstado', type: null, width: '80', align: 'left' },
+    { header: 'Fecha de registro', field: 'sFechaReg', type: null, width: '150', align: 'center' },
     { header: 'Acción', field: 'accion', type: 'accion', width: '60', align: 'center' },
     { header: '', field: 'expand', type: 'expand', width: '30', align: 'center' },
   ];
   /* #endregion */
 
-  constructor() {
+  constructor(
+    private dialog: MatDialog
+  ) {
     this.displayedColumns = this.cols.map(({ field }) => field);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['ortodoncias'] && this.ortodoncias) {
-      this.dataSource = new MatTableDataSource<OrtodonciaDto>(this.ortodoncias);
+      this.dataSource = new MatTableDataSource<OrtodonciaDataDto>(this.ortodoncias);
       this.dataSource.paginator = this.paginator;
     }
   }
@@ -75,4 +80,20 @@ export class OrtodonciaTableComponent implements OnChanges {
     }
   }
 
+  openDetail(row: OrtodonciaDataDto): void {
+    this.expandedRow = this.expandedRow === row ? null : row;
+  }
+
+  addControl(row: OrtodonciaDataDto) {
+    this.dialog.open(OrtodonciaAddControlComponent, {
+      width: '600px',
+      disableClose: true,
+      data: { 'ortodoncia': row, 'lastDetOrtodoncia': this.dataSourceDet[0] }
+    }).afterClosed()
+      .subscribe((result: any) => {
+        if (result) {
+          this.sendFormOrtodoncia.emit(result);
+        }
+      });
+  }
 }
