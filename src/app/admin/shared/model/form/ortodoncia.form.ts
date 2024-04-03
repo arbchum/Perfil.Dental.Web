@@ -5,7 +5,6 @@ export interface OrtodonciaUI {
 
 export interface DetOrtodonciaUI {
   nNroSesion: number;
-  sComentario: string;
   dFechaControl: Date;
-  dFechaMin: Date;
+  sComentario: string;
 }

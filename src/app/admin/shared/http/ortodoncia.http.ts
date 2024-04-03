@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ApiResponse, DetOrtodonciaDataDto, OrtodonciaDataDto } from '../interface';
-import { DetOrtodonciaRequest, OrtodonciaRequest } from '../model';
+import { DetOrtodonciaRequest, OrtodonciaGetResponse, OrtodonciaRequest } from '../model';
 import { AdminHttpModule } from './http.module';
 
 @Injectable({
@@ -20,6 +20,12 @@ export class OrtodonciaHttp {
 
   getOrtodonciaSearch(): Observable<OrtodonciaDataDto[]> {
     return this.http.get<ApiResponse<OrtodonciaDataDto[]>>(`${this.api}/GetSearch`).pipe(
+      map(res => res.response)
+    );
+  }
+
+  getOrtodonciaOne(nIdPaciente: number): Observable<OrtodonciaGetResponse> {
+    return this.http.get<ApiResponse<OrtodonciaGetResponse>>(`${this.api}/GetOne/${nIdPaciente}`).pipe(
       map(res => res.response)
     );
   }

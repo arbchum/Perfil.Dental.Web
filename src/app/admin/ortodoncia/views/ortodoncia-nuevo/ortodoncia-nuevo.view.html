@@ -1,0 +1,20 @@
+<mat-card>
+  <app-page-title 
+    title="NUEVO PACIENTE DE ORTODONCIA" 
+    prefixIcon="keyboard_arrow_left" 
+    prefixTooltip="Regresar"
+    (clickPrefix)="presenter.goOrtodonciaListado()" 
+    suffixIcon="fa-solid fa-floppy-disk" 
+    suffixTooltip="Guardar" 
+    [showSuffixButton]="true"
+    (clickSuffix)="presenter.saveOrtodoncia()">
+  </app-page-title>
+  <section-ortodoncia-nuevo-header
+    [form]="presenter.form"
+    [clientes]="presenter.clientes"
+    (sendIdPaciente)="presenter.validatePacienteOrtodoncia($event)">
+  </section-ortodoncia-nuevo-header>
+  <section-ortodoncia-nuevo-body
+    [detOrtodonciaArray]="presenter.formBody"> 
+  </section-ortodoncia-nuevo-body>
+</mat-card>

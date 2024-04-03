@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ClienteHttp } from 'src/app/admin/shared/http';
 import { Cliente, Distrito, Provincia } from 'src/app/admin/shared/interface';
+import { PerfildSweetAlertService } from 'src/app/common';
 
 @Component({
   selector: 'app-cliente-form',
@@ -19,23 +21,20 @@ export class ClienteFormComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { cliente: Cliente, provincias: Provincia[] },
     public dialogRef: MatDialogRef<ClienteFormComponent>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private clienteHttp: ClienteHttp,
+    private alert: PerfildSweetAlertService,
   ) {
     this.initForm();
-    this.labelDocumento = 'Documento';
-    // this.minDate = new Date(currentYear - 20, 0, 1);
-    // this.maxDate = new Date(currentYear + 1, 11, 31);
-   
+    this.labelDocumento = 'Número de documento';
   }
-
   initForm(): void {
     this.form = this.fb.group({
       sApePaterno: [null, Validators.required],
       sApeMaterno: [null, Validators.required],
       sNombres: [null, Validators.required],
-      tipo: [0, Validators.required],
       bMayor: [1, Validators.required],
-      sNroDocumento: [null, Validators.required],
+      sNroDocumento: [{ value: null, disabled: this.data.cliente }, Validators.required],
       sSexo: [null, Validators.required],
       sCelular: [null],
       sTelefono: [null],
@@ -44,7 +43,8 @@ export class ClienteFormComponent implements OnInit {
       sDireccion: [null],
       dFechaNac: [null, Validators.required],
       sCorreo: [null],
-    })
+    });
+    this.form.disable({ emitEvent: false });
   }
 
   get sApePaternoCtrl(): FormControl { return this.form.get('sApePaterno') as FormControl }
@@ -71,11 +71,29 @@ export class ClienteFormComponent implements OnInit {
     this.nIdProvinciaCtrl.setValue(153);
     this.title = 'PACIENTE';
     if (this.data.cliente) {
+      this.form.enable();
       this.form.patchValue(this.data.cliente);
+      this.sNroDocumentoCtrl.disable();
       this.title += ' EDICIÓN';
     } else {
+      this.changeNroDocumento();
+      this.sNroDocumentoCtrl.enable({ emitEvent: false });
       this.title += ' NUEVO';
     }
+  }
+
+  changeNroDocumento(): void {
+    this.sNroDocumentoCtrl.valueChanges.subscribe((value: string) => {
+      if ([8, 10].includes(value?.length))
+        this.clienteHttp.getClienteByNroDocumento(value).subscribe(
+          res => {
+            if (res)
+              this.alert.showMessage('info', 'Paciente ya se encuentra registrado');
+            else
+              this.form.enable({ emitEvent: false });
+          }
+        )
+    });
   }
 
   changeProvincia(): void {
@@ -86,14 +104,13 @@ export class ClienteFormComponent implements OnInit {
 
   changeEtapa(): void {
     this.bMenorCtrl.valueChanges.subscribe(value => {
-      this.labelDocumento = `Documento${value == 1 ? '' : ' del padre'}`;
+      this.labelDocumento = `Número de documento${value == 1 ? '' : ' del padre'}`;
     });
   }
 
   saveCliente(): void {
-    if (this.form.invalid) {
-      return Object.values(this.form.controls).forEach(ctrl => ctrl.markAsTouched());
-    }
+    if (this.form.invalid)
+      return this.form.markAllAsTouched();
     this.dialogRef.close(this.form.value);
   }
 }

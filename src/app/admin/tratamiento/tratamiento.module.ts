@@ -12,7 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TratamientoListadoComponent } from './tratamiento-listado/tratamiento-listado.component';
 import { TratamientoTableComponent } from './tratamiento-listado/tratamiento-table/tratamiento-table.component';
-import { ComponentsModule } from '../shared/components/components.module';
+import { SharedComponentsModule } from '../shared/components/components.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TratamientoFormComponent } from './tratamiento-listado/tratamiento-form/tratamiento-form.component';
 import { MatCardModule } from '@angular/material/card';
@@ -48,7 +48,7 @@ const MATERIAL_MODULES = [
     TratamientoRoutingModule,
     ...ANGULAR_MODULES,
     ...MATERIAL_MODULES,
-    ComponentsModule,
+    SharedComponentsModule,
     DirectivesModule
   ]
 })

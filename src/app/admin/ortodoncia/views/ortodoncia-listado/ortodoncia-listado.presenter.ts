@@ -1,20 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { EOrtodonciaEstado } from 'src/app/admin/shared/enum';
+import { OrtodonciaHttp } from 'src/app/admin/shared/http';
+import { DetOrtodonciaDataDto, OrtodonciaDataDto } from 'src/app/admin/shared/interface';
+import { OrtodonciaRequest, OrtodonciaUI } from 'src/app/admin/shared/model';
 import { PerfildSweetAlertService } from 'src/app/common';
-import { OrtodonciaHttp } from '../../shared/http';
-import { DetOrtodonciaDataDto, OrtodonciaDataDto } from '../../shared/interface';
-import { DetOrtodonciaRequest, OrtodonciaRequest, OrtodonciaUI } from '../../shared/model';
-import { OrtodonciaTableComponent } from './ortodoncia-table/ortodoncia-table.component';
-import { EOrtodonciaEstado } from '../../shared/enum/ortodoncia-estado.enum';
+import { OrtodonciaTableSection } from '../../components/ortodoncia-table/ortodoncia-table.section';
 
-@Component({
-  selector: 'app-ortodoncia-listado',
-  templateUrl: './ortodoncia-listado.component.html',
-  styleUrls: ['./ortodoncia-listado.component.scss']
-})
-export class OrtodonciaListadoComponent implements OnInit {
-  @ViewChild(OrtodonciaTableComponent, { static: true }) compTable: OrtodonciaTableComponent;
+@Injectable()
+export class OrtodonciaListadoPresenter {
   ortodoncias: OrtodonciaDataDto[];
   detOrtodoncia: DetOrtodonciaDataDto[];
 
@@ -24,10 +19,6 @@ export class OrtodonciaListadoComponent implements OnInit {
     private alert: PerfildSweetAlertService
   ) { }
 
-  ngOnInit(): void {
-    this.listarOrtodoncias();
-  }
-
   listarOrtodoncias(): void {
     this.ortodonciaHttp.getOrtodonciaSearch().subscribe(
       res => {
@@ -36,10 +27,13 @@ export class OrtodonciaListadoComponent implements OnInit {
     );
   }
 
-  goOrtodonciaForm(): void {
+  goNewOrtodoncia(): void {
     this.router.navigateByUrl('/ortodoncia/nuevo');
   }
 
+  goEditOrtodoncia(nIdPaciente: number): void {
+    this.router.navigateByUrl(`/ortodoncia/edicion/${nIdPaciente}`);
+  }
 
   listarDetOrtodoncia(ortodoncia: OrtodonciaDataDto): void {
     this.detOrtodoncia = []
@@ -48,7 +42,7 @@ export class OrtodonciaListadoComponent implements OnInit {
     );
   }
 
-  UpdateOrtodoncia(form: OrtodonciaUI): void {
+  updateOrtodoncia(form: OrtodonciaUI, sectionTable: OrtodonciaTableSection ): void {
     const vRequest = new OrtodonciaRequest(form, EOrtodonciaEstado.EnTratamiento);
     this.ortodonciaHttp.createOrtodoncia(vRequest)
       .pipe(
@@ -61,7 +55,7 @@ export class OrtodonciaListadoComponent implements OnInit {
             this.ortodoncias = res;
             const vRow = this.ortodoncias.find(res => res.nIdPaciente == vRequest.nIdPaciente);
             if (vRow) {
-              this.compTable.openDetail(vRow);
+              sectionTable.openDetail(vRow);
               this.listarDetOrtodoncia(vRow);
             }
           }

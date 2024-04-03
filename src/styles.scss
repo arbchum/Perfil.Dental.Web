@@ -368,3 +368,10 @@ mat-radio-group {
   display: flex;
   justify-content: space-between;
 }
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}

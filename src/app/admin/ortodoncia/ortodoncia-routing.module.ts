@@ -1,16 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { OrtodonciaListadoComponent } from './ortodoncia-listado/ortodoncia-listado.component';
-import { OrtodonciaNuevoComponent } from './ortodoncia-nuevo/ortodoncia-nuevo.component';
+
+import { OrtodonciaListadoView } from './views/ortodoncia-listado/ortodoncia-listado.view';
+import { OrtodonciaNuevoView } from './views/ortodoncia-nuevo/ortodoncia-nuevo.view';
+import { OrtodonciaEdicionView } from './views/ortodoncia-edicion/ortodoncia-edicion.view';
 
 const routes: Routes = [
   {
     path: 'listado',
-    component: OrtodonciaListadoComponent
+    component: OrtodonciaListadoView
   },
   {
     path: 'nuevo',
-    component: OrtodonciaNuevoComponent
+    component: OrtodonciaNuevoView
+  },
+  {
+    path: 'edicion/:nIdPaciente',
+    component: OrtodonciaEdicionView
   }
 ];
 

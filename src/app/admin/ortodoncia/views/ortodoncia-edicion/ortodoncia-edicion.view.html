@@ -1,0 +1,17 @@
+<mat-card>
+  <app-page-title 
+    title="EDICIÓN PACIENTE DE ORTODONCIA" 
+    prefixIcon="keyboard_arrow_left" 
+    prefixTooltip="Regresar"
+    (clickPrefix)="presenter.goOrtodonciaListado()" 
+    suffixIcon="fa-solid fa-floppy-disk">
+  </app-page-title>
+  <section-ortodoncia-edicion-header
+   [paciente]="presenter.paciente">
+  </section-ortodoncia-edicion-header>
+  <section-ortodoncia-edicion-body
+   [dataSource]="presenter.sesiones"
+   [sNomPaciente]="presenter.sNomPaciente"
+   (sendFormDetOrtodoncia)="presenter.saveOrtodoncia($event)">
+  </section-ortodoncia-edicion-body>
+</mat-card>

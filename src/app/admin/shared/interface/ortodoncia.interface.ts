@@ -9,6 +9,6 @@ export interface OrtodonciaDataDto {
 
 export interface DetOrtodonciaDataDto{
   sControl: string;
-  sFechaControl: string;
+  dFechaControl: Date;
   sComentario: string;
 }

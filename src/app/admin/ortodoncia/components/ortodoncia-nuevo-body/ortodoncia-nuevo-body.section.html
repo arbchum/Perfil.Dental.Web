@@ -15,9 +15,9 @@
             </span>
             <span *ngSwitchCase="'sComentario'">
               <mat-form-field appearance="outline">
-                <textarea matInput formControlName="sComentario" [maxLength]="sDescrpcionMaxLength" rows="3" uppercase>
+                <textarea matInput formControlName="sComentario" [maxLength]="sComentarioMaxLength" rows="3" uppercase>
                 </textarea>
-                <mat-hint align="end">{{row.get(col.field).value?.length ?? 0}}/{{sDescrpcionMaxLength}}</mat-hint>
+                <mat-hint align="end">{{row.get(col.field).value?.length ?? 0}}/{{sComentarioMaxLength}}</mat-hint>
               </mat-form-field>
             </span>
             <span *ngSwitchCase="'dFechaControl'">

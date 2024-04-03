@@ -1,5 +1,5 @@
 import { DetOrtodonciaUI, OrtodonciaUI } from "..";
-import { EOrtodonciaEstado } from "../../enum/_index";
+import { EOrtodonciaEstado } from "../../enum";
 
 
 export class OrtodonciaRequest {

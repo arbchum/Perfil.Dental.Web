@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 import { PerfildSweetAlertModule } from './sweet-alert.module';
 
-
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
@@ -40,9 +39,7 @@ export class PerfildSweetAlertService {
     });
   }
 
-  closeLoading(): void {
-    Swal.close();
-  }
+  closeLoading(): void { Swal.close() }
 
   showMessage(icon: SweetAlertIcon, title?: string, timer = 100000): void {
     if (icon == 'success') {
@@ -79,16 +76,13 @@ export class PerfildSweetAlertService {
   }
 
   showToast(typeIcon: SweetAlertIcon, title?: string): void {
-    if (typeIcon == 'success') {
+    if (typeIcon == 'success')
       this.message = title ?? 'Registro exitoso';
-    } else if (typeIcon == 'error') {
+    else if (typeIcon == 'error')
       this.message = title ?? 'Ha ocurrido un error';
-    } else if (typeIcon == 'warning') {
+    else if (typeIcon == 'warning')
       this.message = title ?? 'Advertencia';
-    }
-    Toast.fire({
-      icon: typeIcon,
-      title: this.message
-    })
+
+    Toast.fire({ 'icon': typeIcon, 'title': this.message })
   }
 }

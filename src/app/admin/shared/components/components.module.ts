@@ -44,4 +44,4 @@ const COMPONENTS = [
   ],
   exports: [...COMPONENTS]
 })
-export class ComponentsModule { }
+export class SharedComponentsModule { }

@@ -33,4 +33,8 @@ export class ClienteHttp {
   getUbigeoAll(): Observable<Provincia[]> {
     return this.http.get<Provincia[]>(`${this.api}/GetUbigeoAll`);
   }
+
+  getClienteByNroDocumento(sNroDocumento: string): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.api}/GetOneByDocument/${sNroDocumento}`);
+  }
 }

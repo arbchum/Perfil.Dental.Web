@@ -3,14 +3,14 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DetOrtodonciaDataDto, OrtodonciaDataDto } from 'src/app/admin/shared/interface/ortodoncia.interface';
-import { MatDialog } from '@angular/material/dialog';
-import { OrtodonciaAddControlComponent } from '../ortodoncia-add-control/ortodoncia-add-control.component';
-import { DetOrtodonciaRequest, OrtodonciaUI } from 'src/app/admin/shared/model';
+import { OrtodonciaAddControlSection } from '../ortodoncia-add-control/ortodoncia-add-control.section';
+import { DetOrtodonciaUI, OrtodonciaUI } from 'src/app/admin/shared/model';
+import { BaseService } from 'src/app/common';
 
 @Component({
-  selector: 'app-ortodoncia-table',
-  templateUrl: './ortodoncia-table.component.html',
-  styleUrls: ['./ortodoncia-table.component.scss'],
+  selector: 'section-ortodoncia-table',
+  templateUrl: './ortodoncia-table.section.html',
+  styleUrls: ['./ortodoncia-table.section.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -19,9 +19,9 @@ import { DetOrtodonciaRequest, OrtodonciaUI } from 'src/app/admin/shared/model';
     ]),
   ],
 })
-export class OrtodonciaTableComponent implements OnChanges {
+export class OrtodonciaTableSection implements OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @Output() sendIdAtencion: EventEmitter<number> = new EventEmitter<number>();
+  @Output() sendIdPaciente: EventEmitter<number> = new EventEmitter<number>();
   @Output() sendOrtodoncia: EventEmitter<OrtodonciaDataDto> = new EventEmitter<OrtodonciaDataDto>();
   @Output() sendFormOrtodoncia: EventEmitter<OrtodonciaUI> = new EventEmitter<OrtodonciaUI>();
   @Input() ortodoncias: OrtodonciaDataDto[] = [];
@@ -32,7 +32,7 @@ export class OrtodonciaTableComponent implements OnChanges {
   pageSizeOptions: number[] = [5, 10, 50];
   expandedRow: OrtodonciaDataDto | null;
 
-  displayedColumnsDet: string[] = ['sControl', 'sFechaControl', 'none'];
+  displayedColumnsDet: string[] = ['sControl', 'dFechaControl', 'none'];
 
   /* #region   Asignación nombres de campos y columnas*/
   cols: any[] = [
@@ -47,7 +47,7 @@ export class OrtodonciaTableComponent implements OnChanges {
   /* #endregion */
 
   constructor(
-    private dialog: MatDialog
+    private baseServ: BaseService
   ) {
     this.displayedColumns = this.cols.map(({ field }) => field);
   }
@@ -85,14 +85,19 @@ export class OrtodonciaTableComponent implements OnChanges {
   }
 
   addControl(row: OrtodonciaDataDto) {
-    this.dialog.open(OrtodonciaAddControlComponent, {
-      width: '600px',
-      disableClose: true,
-      data: { 'ortodoncia': row, 'lastDetOrtodoncia': this.dataSourceDet[0] }
-    }).afterClosed()
-      .subscribe((result: any) => {
+    const data = {
+      sNomPaciente: row.sNomPaciente,
+      nNroSesion: row.nCantidadControles,
+      dFechaMin: this.dataSourceDet[0].dFechaControl
+    };
+    this.baseServ.openDialog<DetOrtodonciaUI>(OrtodonciaAddControlSection, data)
+      .afterClosed()
+      .subscribe((result) => {
         if (result) {
-          this.sendFormOrtodoncia.emit(result);
+          const vDetOrtodoncia: DetOrtodonciaUI[] = [];
+          vDetOrtodoncia.push(result);
+          const vForm: OrtodonciaUI = { nIdPaciente: row.nIdPaciente, detOrtodoncia: vDetOrtodoncia }
+          this.sendFormOrtodoncia.emit(vForm);
         }
       });
   }

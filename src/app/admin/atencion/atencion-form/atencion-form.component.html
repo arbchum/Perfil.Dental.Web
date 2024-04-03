@@ -1,26 +1,17 @@
-
 <mat-card>
-  <app-page-title 
-    title="ATENCIÓN NUEVA" 
-    prefixIcon="keyboard_arrow_left" 
-    prefixTooltip="Regresar"
-    (clickPrefix)="goAtencionListado()" 
-    suffixIcon="fa-solid fa-floppy-disk"
-    [showSuffixButton]="true"
+  <app-page-title title="ATENCIÓN NUEVA" prefixIcon="keyboard_arrow_left" prefixTooltip="Regresar"
+    (clickPrefix)="goAtencionListado()" suffixIcon="fa-solid fa-floppy-disk" [showSuffixButton]="true"
     (clickSuffix)="saveAtencion()">
   </app-page-title>
 
   <form [formGroup]="form" autocomplete="off">
     <div class="row">
       <div class="col-md-5">
-        <app-autocomplete *ngIf="clientes"
-          formControlName="nIdCliente"
-          apariencia="fill"
-          [configuracion]="configuracionCliente"
-          [data]="clientes">
+        <app-autocomplete *ngIf="clientes" formControlName="nIdCliente" apariencia="fill"
+          [configuracion]="configuracionCliente" [data]="clientes">
         </app-autocomplete>
       </div>
-      <div class="col-md-7">  
+      <div class="col-md-7">
         <mat-form-field appearance="outline">
           <mat-label>Notas</mat-label>
           <textarea matInput formControlName="sNota" [maxLength]="sNotaMaxLength" rows="4" uppercase>
@@ -48,12 +39,8 @@
                   {{i + 1}}
                 </span>
                 <span *ngSwitchCase="'nIdTratamiento'">
-                  <app-autocomplete
-                    formControlName="nIdTratamiento"                  
-                    [configuracion]="configuracionTratamiento"
-                    apariencia="outline"
-                    [showMessage]="false"
-                    [data]="row.get('lstTratamiento').value"
+                  <app-autocomplete formControlName="nIdTratamiento" [configuracion]="configuracionTratamiento"
+                    apariencia="outline" [showMessage]="false" [data]="row.get('lstTratamiento').value"
                     (sendValue)="getPrice(i, $event)">
                   </app-autocomplete>
                 </span>
@@ -68,15 +55,18 @@
                   </mat-form-field>
                 </span>
                 <span *ngSwitchCase="'accion'">
-                  <button mat-mini-fab color="accent" matTooltip="Eliminar" (click)="quitTratamiento(i)" [disabled]="hasOneDetail">
-                    <mat-icon style="display: flex; justify-content: center;"><i class="fa-solid fa-xmark"></i></mat-icon>
+                  <button mat-mini-fab color="accent" matTooltip="Eliminar" matTooltipPosition="before"
+                    (click)="quitTratamiento(i)" [disabled]="hasOneDetail">
+                    <mat-icon style="display: flex; justify-content: center;">
+                      <i class="fa-solid fa-xmark"></i></mat-icon>
                   </button>
                 </span>
               </td>
               <td mat-footer-cell class="atencion_foot" *matFooterCellDef [hidden]="col.hidefooter"
                 [attr.colspan]="col.colspan" [style.textAlign]="col.alignfoot">
                 <span *ngSwitchCase="'index'" style="text-align: right;">Total</span>
-                <span *ngSwitchCase="'nPrecio'" style="text-align: center;">{{getMontoTotal() | number : '1.2-2'}}</span>
+                <span *ngSwitchCase="'nPrecio'" style="text-align: center;">{{getMontoTotal() | number :
+                  '1.2-2'}}</span>
               </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

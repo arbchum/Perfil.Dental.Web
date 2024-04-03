@@ -1,17 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ClienteHttp, OrtodonciaHttp } from 'src/app/admin/shared/http';
+import { ClienteDto, OrtodonciaDataDto } from 'src/app/admin/shared/interface';
+import { OrtodonciaRequest, OrtodonciaUI } from 'src/app/admin/shared/model';
 import { PerfildSweetAlertService } from 'src/app/common';
-import { ClienteHttp, OrtodonciaHttp } from '../../shared/http';
-import { ClienteDto, OrtodonciaDataDto } from '../../shared/interface';
-import { OrtodonciaRequest, OrtodonciaUI } from '../../shared/model';
 
-@Component({
-  selector: 'app-ortodoncia-nuevo',
-  templateUrl: './ortodoncia-nuevo.component.html',
-  styleUrls: ['./ortodoncia-nuevo.component.scss']
-})
-export class OrtodonciaNuevoComponent implements OnInit {
+@Injectable()
+export class OrtodonciaNuevoPresenter {
   form: FormGroup;
   clientes: ClienteDto[];
   ItemOrtodoncia: OrtodonciaDataDto | undefined;
@@ -27,10 +23,6 @@ export class OrtodonciaNuevoComponent implements OnInit {
       nIdPaciente: [null, Validators.required],
       detOrtodoncia: this.fb.array([])
     })
-  }
-
-  ngOnInit(): void {
-    this.getClientes();
   }
 
   get formBody(): FormArray { return this.form.get('detOrtodoncia') as FormArray }

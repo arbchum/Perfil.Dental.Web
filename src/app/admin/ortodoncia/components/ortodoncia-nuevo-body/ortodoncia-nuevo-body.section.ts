@@ -1,19 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import * as moment from 'moment';
 import { PerfildSweetAlertService } from 'src/app/common';
 
 @Component({
-  selector: 'app-ortodoncia-nuevo-body',
-  templateUrl: './ortodoncia-nuevo-body.component.html',
-  styleUrls: ['./ortodoncia-nuevo-body.component.scss']
+  selector: 'section-ortodoncia-nuevo-body',
+  templateUrl: './ortodoncia-nuevo-body.section.html',
+  styleUrls: ['./ortodoncia-nuevo-body.section.scss']
 })
-export class OrtodonciaNuevoBodyComponent implements OnInit {
+export class OrtodonciaNuevoBodySection implements OnInit {
   @Input() detOrtodonciaArray: FormArray;
   dataSource: MatTableDataSource<AbstractControl> = new MatTableDataSource();
   displayedColumns: string[] = [];
-  sDescrpcionMaxLength: number = 500;
+  sComentarioMaxLength: number = 1000;
 
   /* #region   Asignación nombres de campos y columnas*/
   cols: any[] = [
@@ -45,10 +45,9 @@ export class OrtodonciaNuevoBodyComponent implements OnInit {
 
   addControlOrtodoncia(): void {
     const pForm = this.detOrtodonciaArray.at(0) as FormGroup;
-    if (pForm) {
-      if (pForm.invalid)
-        return Object.values(pForm.controls).forEach(control => { control.markAllAsTouched() });
-    }
+    if (pForm?.invalid)
+      return pForm.markAllAsTouched();
+
     this.detOrtodonciaArray.insert(0,
       this.fb.group({
         nNroSesion: [this.detOrtodonciaArray.length],
@@ -70,6 +69,6 @@ export class OrtodonciaNuevoBodyComponent implements OnInit {
   getFechaRowPrevio(form: FormGroup): Date {
     const fechaPrevia = form.get('dFechaControl')?.value;
     form?.get('dFechaControl')?.disable();
-    return moment(fechaPrevia).add(1, 'days').toDate();
+    return moment(fechaPrevia).add(1, 'd').toDate();
   }
 }

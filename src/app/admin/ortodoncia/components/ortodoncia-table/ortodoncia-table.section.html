@@ -16,7 +16,8 @@
       <td mat-cell *matCellDef="let row; let i = index" [style.textAlign]="col.align">
         <span *ngSwitchCase="null"> {{row[col.field]}} </span>
         <span *ngSwitchCase="'accion'">
-          <button mat-stroked-button *ngIf="expandedRow !== row" matTooltip="Ver">
+          <button mat-stroked-button *ngIf="expandedRow !== row" matTooltip="Ver"
+            (click)="sendIdPaciente.emit(row.nIdPaciente)">
             <mat-icon><i class="fa-solid fa-eye" style="display: flex;"></i></mat-icon>
           </button>
           <button mat-stroked-button *ngIf="expandedRow === row" class="pink" matTooltip="Agregar Control"
@@ -48,11 +49,11 @@
                       {{element.sControl}}
                     </td>
                   </ng-container>
-                  <ng-container matColumnDef="sFechaControl">
+                  <ng-container matColumnDef="dFechaControl">
                     <th mat-header-cell *matHeaderCellDef> Control </th>
                     <td mat-cell class="pink" *matCellDef="let element" [style.width.px]="150"
                       [style.textAlign]="'center'">
-                      Fecha: {{element.sFechaControl}}
+                      Fecha: {{element.dFechaControl | date: 'dd/MM/yyyy'}}
                     </td>
                   </ng-container>
                   <ng-container matColumnDef="none">

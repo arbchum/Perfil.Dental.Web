@@ -1,0 +1,16 @@
+<mat-card>
+  <app-page-title
+    title="LISTADO DE PACIENTES DE ORTODONCIA"
+    suffixIcon="fa-solid fa-user-plus"
+    suffixTooltip="Nuevo paciente de ortodoncia"
+    [showSuffixButton]="true"
+    (clickSuffix)="presenter.goNewOrtodoncia()"
+  ></app-page-title>
+  <section-ortodoncia-table
+    [ortodoncias]="presenter.ortodoncias"
+    [dataSourceDet]="presenter.detOrtodoncia"
+    (sendOrtodoncia)="presenter.listarDetOrtodoncia($event)"
+    (sendFormOrtodoncia)="updateOrtodoncia($event)"
+    (sendIdPaciente)="presenter.goEditOrtodoncia($event)">
+  </section-ortodoncia-table>
+</mat-card>

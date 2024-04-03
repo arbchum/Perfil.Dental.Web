@@ -6,14 +6,18 @@
       <div class="col-md-12">
         <mat-form-field>
           <mat-label>Paciente</mat-label>
-          <input matInput [value]="data.ortodoncia.sNomPaciente" readonly>
+          <input matInput [value]="data.sNomPaciente" readonly>
         </mat-form-field>
       </div>
       <div class="col-md-6">
         <mat-form-field>
           <mat-label>Fecha de control</mat-label>
-          <input matInput formControlName="dFechaControl" [matDatepicker]="datepicker"
-            [min]="fechaMin" readonly>
+          <input matInput 
+            formControlName="dFechaControl" 
+            [matDatepicker]="datepicker"
+            [min]="fechaMin"
+            [max]="fechaMax"
+            readonly>
           <mat-hint>DD/MM/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="datepicker" cdkFocusInitial></mat-datepicker-toggle>
           <mat-datepicker #datepicker>
@@ -27,16 +31,16 @@
       </div>
       <div class="col-md-12">
         <mat-form-field appearance="fill">
-          <mat-label>Descripción</mat-label>
-          <textarea matInput formControlName="sDescripcion" 
-          [maxLength]="sDescrpcionMaxLength" 
-          cdkTextareaAutosize
-          cdkAutosizeMinRows="5"
-          cdkAutosizeMaxRows="5"
-          uppercase>
+          <mat-label>Comentario</mat-label>
+          <textarea matInput formControlName="sComentario" 
+            [maxLength]="sComentarioMaxLength" 
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="5"
+            cdkAutosizeMaxRows="5"
+            uppercase>
           </textarea>
-          <mat-hint align="end">{{sDescripcionCtrl.value?.length ?? 0}}/{{sDescrpcionMaxLength}}</mat-hint>
-          <mat-error *ngIf="sDescripcionError">{{ sDescripcionError }}</mat-error>
+          <mat-hint align="end">{{sComentarioCtrl.value?.length ?? 0}}/{{sComentarioMaxLength}}</mat-hint>
+          <mat-error *ngIf="sComentarioError">{{ sComentarioError }}</mat-error>
         </mat-form-field>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ClienteRoutingModule } from './cliente-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ComponentsModule } from '../shared/components/components.module';
+import { SharedComponentsModule } from '../shared/components/components.module';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -59,7 +59,7 @@ const MATERIAL_MODULES = [
     ClienteRoutingModule,
     ...ANGULAR_MODULES,
     ...MATERIAL_MODULES,
-    ComponentsModule,
+    SharedComponentsModule,
     DirectivesModule
   ],
   exports: [ClienteListadoComponent]
