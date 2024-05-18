@@ -8,12 +8,20 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
+        path: 'atencion',
+        loadChildren: () => import('./atencion/atencion.module').then((m) => m.AtencionModule)
+      },
+      {
         path: 'cliente',
         loadChildren: () => import('./cliente/cliente.module').then((m) => m.ClienteModule)
       },
       {
-        path: 'atencion',
-        loadChildren: () => import('./atencion/atencion.module').then((m) => m.AtencionModule)
+        path: 'ortodoncia',
+        loadChildren: () => import('./ortodoncia/ortodoncia.module').then((m) => m.OrtodonciaModule)
+      },
+      {
+        path: 'tratamiento',
+        loadChildren: () => import('./tratamiento/tratamiento.module').then((m) => m.TratamientoModule)
       }
     ],
   },

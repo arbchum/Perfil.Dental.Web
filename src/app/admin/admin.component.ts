@@ -13,19 +13,24 @@ export class AdminComponent implements OnInit {
 
   allMenuOptions: MenuOption[] = [
     {
-      title: 'Clientes',
-      icon: 'bookmark',
-      url: '/cliente/cliente-listado'
-    },
-    // {
-    //   title: 'Tratamientos',
-    //   icon: 'bookmark',
-    //   url: '/tratamiento/listado'
-    // },
-    {
       title: 'Atenciones',
-      icon: 'bookmark',
-      url: '/atencion/atencion-listado'
+      icon: 'fa-solid fa-calendar-day',
+      url: '/atencion/listado'
+    },
+    {
+      title: 'Pacientes',
+      icon: 'fa-solid fa-hospital-user',
+      url: '/cliente/listado'
+    },
+    {
+      title: 'Ortodoncia',
+      icon: 'fa-regular fa-face-grimace',
+      url: '/ortodoncia/listado'
+    },
+    {
+      title: 'Tratamientos',
+      icon: 'fa-solid fa-hand-holding-medical',
+      url: '/tratamiento/listado'
     }
   ];
 

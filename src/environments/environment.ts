@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   api: 'https://localhost:44337/api',
+  //api: 'http://perfildentalback-001-site1.atempurl.com/api',
 };
 
 

@@ -1,11 +1,14 @@
-<app-page-title
-  title="LISTADO DE CLIENTES"
-  suffixIcon="add"
-  suffixTooltip="Nuevo Cliente"
-  [showSuffixButton]="true"
-  (clickSuffix)="operModalClienteForm()"
-></app-page-title>
-<app-cliente-table
-  [clientes]="clientes"
-  (sendIdCliente)="getCliente($event)"
-></app-cliente-table>
+<mat-card>
+  <app-page-title
+    title="LISTADO DE PACIENTES"
+    suffixIcon="fa-solid fa-person-circle-plus" 
+    suffixTooltip="Nuevo Paciente"
+    [showSuffixButton]="true"
+    (clickSuffix)="operModalClienteForm()"
+  ></app-page-title>
+  <app-cliente-table
+    [clientes]="clientes"
+    (sendIdCliente)="getCliente($event)"
+    (sendIdHistorico)="navigateHistorico($event)"
+  ></app-cliente-table>
+</mat-card>

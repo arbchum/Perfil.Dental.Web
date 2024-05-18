@@ -14,15 +14,15 @@ export class AtencionTableComponent implements OnChanges {
   @Input() atenciones: AtencionDto[] = [];
   dataSource: MatTableDataSource<AtencionDto>;
   displayedColumns: string[];
-  pageSizeOptions: number[] = [10, 50, 100];
+  pageSizeOptions: number[] = [5, 10, 50];
 
   /* #region   Asignación nombres de campos y columnas*/
   cols: any[] = [
     { header: 'Código', field: 'sCodigo', type: null, width: '50', align: 'center' },
     { header: 'Fecha y Hora de Registro', field: 'sFechaReg', type: null, width: '100', align: 'center' },
-    { header: 'Nombre Completo', field: 'sNomCliente', type: null, width: '200', align: 'left' },
-    { header: 'Monto', field: 'nMonto', type: 'deci2', width: '100', align: 'right' },
-    { header: 'Acción', field: 'accion', type: 'accion', width: '40', align: 'center' },
+    { header: 'Paciente', field: 'sNomCliente', type: null, width: '200', align: 'left' },
+    { header: 'Monto Total', field: 'nMonto', type: 'deci2', width: '100', align: 'right' },
+    { header: 'Acción', field: 'accion', type: 'accion', width: '60', align: 'center' },
   ];
   /* #endregion */
 

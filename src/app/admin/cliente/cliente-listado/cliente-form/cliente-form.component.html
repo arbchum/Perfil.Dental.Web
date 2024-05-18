@@ -4,33 +4,42 @@
     <div class="row">
       <div class="col-md-6">
         <mat-form-field>
-          <mat-label>Apellido Paterno</mat-label>
-          <input matInput formControlName="sApePaterno" placeholder="Diaz" class="uppercase" maxlength="50">
-          <mat-error *ngIf="sApePaternoError">{{ sApePaternoError }}</mat-error>
+          <mat-label>{{labelDocumento}}</mat-label>
+          <input matInput formControlName="sNroDocumento" class="uppercase" maxlength="10">
+          <mat-error *ngIf="sNroDocumentoError">{{ sNroDocumentoError }}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-md-6">
         <mat-form-field>
-          <mat-label>Apellido Materno</mat-label>
-          <input matInput formControlName="sApeMaterno" placeholder="Diaz" class="uppercase" maxlength="50">
-          <mat-error *ngIf="sApeMaternoError">{{ sApeMaternoError }}</mat-error>
+          <mat-label>Nombres</mat-label>
+          <input matInput formControlName="sNombres" placeholder="Melissa Fiorella" maxlength="100" uppercase>
+          <mat-error *ngIf="sNombresError">{{ sNombresError }}</mat-error>
         </mat-form-field>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">
         <mat-form-field>
-          <mat-label>Nombres</mat-label>
-          <input matInput formControlName="sNombres" placeholder="Melissa Fiorella" class="uppercase" maxlength="100">
-          <mat-error *ngIf="sNombresError">{{ sNombresError }}</mat-error>
+          <mat-label>Apellido Paterno</mat-label>
+          <input matInput formControlName="sApePaterno" placeholder="Diaz" maxlength="50" uppercase>
+          <mat-error *ngIf="sApePaternoError">{{ sApePaternoError }}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-md-6">
         <mat-form-field>
-          <mat-label>Documento</mat-label>
-          <input matInput formControlName="sNroDocumento" class="uppercase" maxlength="10">
-          <mat-error *ngIf="sNroDocumentoError">{{ sNroDocumentoError }}</mat-error>
+          <mat-label>Apellido Materno</mat-label>
+          <input matInput formControlName="sApeMaterno" placeholder="Diaz" maxlength="50" uppercase>
+          <mat-error *ngIf="sApeMaternoError">{{ sApeMaternoError }}</mat-error>
         </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 radio_align_center">
+        <mat-radio-group formControlName="bMayor">
+          <mat-label>Etapa:</mat-label>
+          <mat-radio-button [value]="1">Adulta</mat-radio-button>
+          <mat-radio-button [value]="0">Niñez</mat-radio-button>
+        </mat-radio-group>
       </div>
     </div>
     <div class="row">
@@ -61,9 +70,38 @@
     <div class="row">
       <div class="col-md-3">
         <mat-form-field>
+          <mat-label>Provincia</mat-label>
+          <mat-select formControlName="nIdProvincia">
+            <mat-option *ngFor="let item of data.provincias" [value]="item.nIdUbigeo">
+              {{item.sNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field>
+          <mat-label>Distrito</mat-label>
+          <mat-select formControlName="nIdDistrito">
+            <mat-option *ngFor="let item of distritos" [value]="item.nIdUbigeo">
+              {{item.sNombre}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="sSexoError">{{ sSexoError }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label>Dirección</mat-label>
+          <input matInput formControlName="sDireccion" class="uppercase" maxlength="200" uppercase>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <mat-form-field>
           <mat-label>Fecha de Nac.</mat-label>
-          <input matInput [matDatepicker]="datepicker" formControlName="dFechaNac">
-          <mat-hint>MM/DD/YYYY</mat-hint>
+          <input matInput [matDatepicker]="datepicker" formControlName="dFechaNac" readonly>
+          <mat-hint>DD/MM/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
           <mat-datepicker #datepicker>
             <mat-datepicker-actions>
@@ -71,19 +109,21 @@
               <button mat-raised-button color="primary" matDatepickerApply>Aplicar</button>
             </mat-datepicker-actions>
           </mat-datepicker>
+          <mat-error *ngIf="dFechaNacError">{{ dFechaNacError }}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-md-9">
         <mat-form-field>
           <mat-label>Correo</mat-label>
           <input matInput formControlName="sCorreo" class="uppercase" maxlength="100">
+          <mat-hint>Ex. pat@example.com</mat-hint>
         </mat-form-field>
       </div>
     </div>
   </form>
 </div>
 <div mat-dialog-actions class="space_center">
-  <button mat-button color="primary" class="cms-btn-primary" (click)="saveCliente()" [disabled]="form.invalid">Guardar
+  <button mat-button color="primary" class="cms-btn-primary" (click)="saveCliente()">Guardar
   </button>
   <button mat-button mat-dialog-close class="cms-btn-secondary" (click)="dialogRef.close()">Cerrar
   </button>

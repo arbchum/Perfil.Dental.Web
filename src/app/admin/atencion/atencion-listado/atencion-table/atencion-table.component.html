@@ -2,7 +2,7 @@
   <div class="col-md-4">
     <mat-form-field>
       <mat-label>Filtrar:</mat-label>
-      <input matInput (keyup)="applyFilter($event)" autocomplete="off" #inputFilter>
+      <input matInput (keyup)="applyFilter($event)" autocomplete="off" #inputFilter uppercase>
       <button *ngIf="inputFilter.value" matSuffix mat-icon-button (click)="fnClean(); inputFilter.value = ''">
         <mat-icon>close</mat-icon>
       </button>
@@ -17,8 +17,8 @@
         <span *ngSwitchCase="null"> {{row[col.field]}} </span>
         <span *ngSwitchCase="'deci2'"> {{row[col.field] | number : '1.2-2'}} </span>
         <span *ngSwitchCase="'accion'">
-          <button mat-icon-button matTooltip="Ver Detalle" (click)="sendIdAtencion.emit(row.nIdAtencion)">
-            <mat-icon>remove_red_eye</mat-icon>
+          <button mat-stroked-button matTooltip="Ver Detalle" (click)="sendIdAtencion.emit(row.nIdAtencion)">
+            <mat-icon><i class="fa-solid fa-eye" style="display: flex;"></i></mat-icon>
           </button>
         </span>
       </td>
@@ -26,7 +26,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-  <div *ngIf="isEmpty">No hay datos que coincidan con el filtro.</div>
+  <div *ngIf="isEmpty && inputFilter.value">No hay datos que coincidan con el filtro.</div>
   <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
   </mat-paginator>
 </div>

@@ -1,0 +1,44 @@
+<form [formGroup]="form" autocomplete="off">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <app-autocomplete *ngIf="clientes"
+        formControlName="nIdPaciente"
+        apariencia="fill"
+        [configuracion]="configCliente"
+        [data]="clientes"
+        (sendValue)="sendIdPaciente.emit($event)">
+      </app-autocomplete>
+    </div>
+    <!-- <div class="col-md-3">
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha de Instalación</mat-label>
+        <input matInput [matDatepicker]="datepicker" formControlName="dFechaInstalacion" readonly>
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancelar</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Aplicar</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+        <mat-error *ngIf="dFechaIngresoInstalacionError">{{ dFechaIngresoInstalacionError }}</mat-error>
+      </mat-form-field>
+    </div> -->
+  </div>
+  <!-- <div class="row">
+    <div class="col-md-12">  
+      <mat-form-field appearance="outline">
+        <mat-label>Notas</mat-label>
+        <textarea matInput formControlName="sNota" 
+          [maxLength]="sNotaMaxLength" 
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="3"
+          cdkAutosizeMaxRows="3"
+          uppercase>
+        </textarea>
+        <mat-hint align="end">{{sNotaCtrl.value?.length ?? 0}}/{{sNotaMaxLength}}</mat-hint>
+      </mat-form-field>
+    </div>
+  </div> -->
+</form>

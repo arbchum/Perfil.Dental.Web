@@ -9,6 +9,8 @@ export interface Cliente {
   sCelular: string;
   sTelefono: string;
   sCorreo: string;
+  sDireccion: string;
+  bMayor: boolean;
 }
 
 export interface ClienteDto{
@@ -19,4 +21,5 @@ export interface ClienteDto{
   sEdad: string;
   sCelular: string;
   sActivo: string;
+  sFechaReg: string;
 }

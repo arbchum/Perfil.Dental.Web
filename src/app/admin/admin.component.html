@@ -1,11 +1,14 @@
 <mat-drawer-container>
-  <mat-drawer #drawer class="mat-elevation-z4" [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? false : true">
+  <mat-drawer #drawer class=" background" [mode]="isMobile ? 'over' : 'side'"
+    [opened]="isMobile ? false : true">
     <div class="menu-header">
       <img src="/assets/images/logo.png">
     </div>
     <mat-nav-list>
-      <mat-list-item routerLinkActive *ngFor="let option of allMenuOptions" [routerLink]="option.url">
-        <mat-icon mat-list-icon>{{ option.icon }}</mat-icon>
+      <mat-list-item routerLinkActive="active-list-item" *ngFor="let option of allMenuOptions"
+        [routerLink]="option.url">
+        <!-- <mat-icon mat-list-icon>{{ option.icon }}</mat-icon> -->
+        <mat-icon mat-list-icon><i [ngClass]="option.icon"></i></mat-icon>
         <div mat-line>{{ option.title }}</div>
       </mat-list-item>
     </mat-nav-list>
@@ -26,7 +29,6 @@
     </mat-toolbar>
     <div class="page-container">
       <router-outlet></router-outlet>
-      <!-- <app-cliente-listado></app-cliente-listado> -->
     </div>
   </mat-drawer-content>
 </mat-drawer-container>

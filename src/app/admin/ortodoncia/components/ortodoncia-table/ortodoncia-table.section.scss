@@ -1,0 +1,43 @@
+.example-container {
+  width: auto;
+  //max-width: 100%;
+  overflow: auto;
+}
+
+table {
+  width: 1400px;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+.row_close td {
+  border-bottom-width: 0;
+  // background-color: lavender;
+}
+
+.row_open td {
+  border-bottom-width: 0;
+  background-color: lavender;
+}
+
+.row-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+
+.pink {
+  background-color: hotpink;
+  color: whitesmoke;
+}
+
+.comentario {
+  border: solid 1px #9fdce5 !important;
+}
+
+.spacing {
+  border-collapse: separate !important;
+  border-spacing: 0px 8px;
+}

@@ -14,11 +14,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
+import { DirectivesModule } from 'src/app/common/directives/directives.module';
 
 import { AtencionListadoComponent } from './atencion-listado/atencion-listado.component';
 import { AtencionFormComponent } from './atencion-form/atencion-form.component';
-import { ComponentsModule } from '../shared/components/components.module';
+import { SharedComponentsModule } from '../shared/components/components.module';
 import { AtencionTableComponent } from './atencion-listado/atencion-table/atencion-table.component';
 
 const ANGULAR_MODULES = [
@@ -53,7 +55,8 @@ const MATERIAL_MODULES = [
     AtencionRoutingModule,
     ...ANGULAR_MODULES,
     ...MATERIAL_MODULES,
-    ComponentsModule
+    SharedComponentsModule,
+    DirectivesModule
   ]
 })
 export class AtencionModule { }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ClienteRoutingModule } from './cliente-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ComponentsModule } from '../shared/components/components.module';
+import { SharedComponentsModule } from '../shared/components/components.module';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,11 +15,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+
+import { DirectivesModule } from 'src/app/common/directives/directives.module';
 
 import { ClienteListadoComponent } from './cliente-listado/cliente-listado.component';
 import { ClienteTableComponent } from './cliente-listado/cliente-table/cliente-table.component';
 import { ClienteFormComponent } from './cliente-listado/cliente-form/cliente-form.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ClienteHistoricoAtencionComponent } from './cliente-historico-atencion/cliente-historico-atencion.component';
 
 const ANGULAR_MODULES = [
   CommonModule,
@@ -38,20 +43,24 @@ const MATERIAL_MODULES = [
   MatSelectModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatRadioModule,
+  MatCardModule
 ];
 
 @NgModule({
   declarations: [
     ClienteListadoComponent,
     ClienteTableComponent,
-    ClienteFormComponent
+    ClienteFormComponent,
+    ClienteHistoricoAtencionComponent
   ],
   imports: [
     ClienteRoutingModule,
     ...ANGULAR_MODULES,
     ...MATERIAL_MODULES,
-    ComponentsModule
+    SharedComponentsModule,
+    DirectivesModule
   ],
   exports: [ClienteListadoComponent]
 })

@@ -1,0 +1,13 @@
+<mat-card>
+  <app-page-title
+    title="LISTADO DE TRATAMIENTOS"
+    suffixIcon="fa-solid fa-heart-circle-plus"
+    suffixTooltip="Nuevo Tratamiento"
+    [showSuffixButton]="true"
+    (clickSuffix)="operModalTratamientoForm()"
+  ></app-page-title>
+  <app-tratamiento-table
+    [tratamientos]="tratamientos"
+    (sendTratamiento)="operModalTratamientoForm($event)">
+  </app-tratamiento-table>
+</mat-card>

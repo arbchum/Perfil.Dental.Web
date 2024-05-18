@@ -16,28 +16,27 @@ export class AtencionListadoComponent implements OnInit {
   constructor(
     private atencionHttp: AtencionHttp,
     private router: Router,
-    private activatedRoute : ActivatedRoute,
-    private alert: PerfildSweetAlertService
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.listarClientes();
+    this.listarAtenciones();
   }
 
-  listarClientes(showMessage?: true): void {
-    this.alert.showLoading();
-    this.atencionHttp
-      .getAtencionSearch()
-      .pipe(finalize(() => this.alert.closeLoading()))
-      .subscribe(res => {
+  listarAtenciones(): void {
+    this.atencionHttp.getAtencionSearch().subscribe(
+      res => {
         this.atenciones = res;
-        if (showMessage)
-          this.alert.showMessage('success');
-      });
+      }
+    );
   }
 
-  goAtencionForm(id?: number):void{
-    this.router.navigate(['../atencion-form', id ?? 0], {relativeTo: this.activatedRoute});
+  goAtencionForm(id?: number): void {
+    this.router.navigate(['../nuevo', id ?? 0], { relativeTo: this.activatedRoute });
   }
 
+
+  goAtencionNewForm(): void {
+    this.router.navigateByUrl('/atencion/nuevo');
+  }
 }

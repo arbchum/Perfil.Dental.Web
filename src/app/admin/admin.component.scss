@@ -1,45 +1,10 @@
 $header-height: 48px;
 
-::ng-serve .mat-drawer-container.mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
-  background-color: #80D2CE;
-  border-radius: 20px;
-  border: 2px solid #f1f2f3;
-}
-
-::ng-serve .mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
-  background-color: #80D2CE;
-  border-radius: 20px;
-  border: 2px solid #f1f2f3;
-}
-
-::ng-serve .mat-drawer.mat-drawer-inner-container::-webkit-scrollbar {
-  -webkit-appearance: none !important;
-}
-
-mat-drawer.mat-drawer-inner-container::-webkit-scrollbar:vertical {
-  width: 10px !important;
-}
-
-mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-button:increment,
-.mat-drawer::-webkit-scrollbar-button {
+:host::ng-deep .mat-drawer-inner-container::-webkit-scrollbar {
   display: none !important;
 }
 
-mat-drawer.mat-drawer-inner-container::-webkit-scrollbar:horizontal {
-  height: 10px !important;
-}
-
-mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-thumb {
-  background-color: #797979 !important;
-  border-radius: 20px !important;
-  border: 2px solid #f1f2f3 !important;
-}
-
-mat-drawer.mat-drawer-inner-container::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
-
-mat-drawer-container {
+:host::ng-deep mat-drawer-container {
   display: block;
   position: absolute;
   top: 0;
@@ -49,12 +14,34 @@ mat-drawer-container {
 
   mat-drawer {
     width: 250px;
-    text-align: left;
-    background: #ffffff;
-    color: rgba(0, 0, 0, 0.87);
+
+    mat-nav-list {
+      width: 100%;
+      min-height: 450px;
+      background-size: cover;
+      background-repeat: repeat-y;
+      background-image: url('../../assets/images/dentimelidiaz.jpg');
+      margin-top: -10px;
+      padding: 0 0 90% 0;
+      //background: url('../../assets/images/dentimelidiaz.jpg') no-repeat top;
+      background-position: 0px 0px;
+
+      animation: animatedBackground 10s linear infinite;
+      -moz-animation: animatedBackground 10s linear infinite;
+      -webkit-animation: animatedBackground 10s linear infinite;
+      -ms-animation: animatedBackground 10s linear infinite;
+      -o-animation: animatedBackground 10s linear infinite;
+    }
+
+    .mat-list-text{
+      padding: 10px 0px 0px 20px !important;
+    }
   }
 
   mat-drawer-content {
+    background-repeat: repeat;
+    background-image: url('../../assets/images/mosaico.jpg');
+
     mat-toolbar {
       min-height: $header-height;
 
@@ -63,7 +50,7 @@ mat-drawer-container {
         display: flex;
         color: #fff;
         justify-content: flex-end;
-        background: #80D2CE;
+        background: #703459;
         height: 64px;
       }
     }
@@ -85,7 +72,6 @@ mat-drawer-container {
 
   img {
     width: 100%;
-    margin: 20px 0px;
   }
 
   hr {
@@ -94,11 +80,70 @@ mat-drawer-container {
   }
 }
 
-mat-list-item {
-  & mat-icon {
-    height: 20px;
-    font-size: 20px;
-    background-position: center;
-    // margin-right: 15px;
+::ng-deep mat-list-item {
+  background-color: darkgray;
+  opacity: 0.7;
+  color: white !important;
+  font-size: x-large;
+}
+
+::ng-deep mat-list-item:hover {
+  opacity: 1;
+  background-color: #703459 !important;
+}
+
+.active-list-item {
+  color: gold !important;
+  background-color: black !important;
+}
+
+
+@keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -180px 0;
+  }
+}
+
+@-moz-keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -180px 0;
+  }
+}
+
+@-webkit-keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -180px 0;
+  }
+}
+
+@-ms-keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -180px 0;
+  }
+}
+
+@-o-keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -180px 0;
   }
 }
