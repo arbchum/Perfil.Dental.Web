@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { ClienteModule } from './admin/cliente/cliente.module';
 import { AtencionModule } from './admin/atencion/atencion.module';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { AtencionModule } from './admin/atencion/atencion.module';
     ClienteModule,
     AtencionModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
