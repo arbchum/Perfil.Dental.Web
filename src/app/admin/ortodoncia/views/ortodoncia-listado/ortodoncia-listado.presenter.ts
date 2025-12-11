@@ -31,19 +31,19 @@ export class OrtodonciaListadoPresenter {
     this.router.navigateByUrl('/ortodoncia/nuevo');
   }
 
-  goEditOrtodoncia(nIdPaciente: number): void {
-    this.router.navigateByUrl(`/ortodoncia/edicion/${nIdPaciente}`);
+  goEditOrtodoncia(nIdOrtodoncia: number): void {
+    this.router.navigateByUrl(`/ortodoncia/edicion/${nIdOrtodoncia}`);
   }
 
-  listarDetOrtodoncia(ortodoncia: OrtodonciaDataDto): void {
+  listarDetOrtodoncia(nIdOrtodoncia: number): void {
     this.detOrtodoncia = []
-    this.ortodonciaHttp.getDetailOrtodoncia(ortodoncia.nIdPaciente, 3).subscribe(
+    this.ortodonciaHttp.getDetailOrtodoncia(nIdOrtodoncia, 3).subscribe(
       res => this.detOrtodoncia = res
     );
   }
 
   updateOrtodoncia(form: OrtodonciaUI, sectionTable: OrtodonciaTableSection ): void {
-    const vRequest = new OrtodonciaRequest(form, EOrtodonciaEstado.EnTratamiento);
+    const vRequest = new OrtodonciaRequest(form, EOrtodonciaEstado.EnControles);
     this.ortodonciaHttp.createOrtodoncia(vRequest)
       .pipe(
         switchMap(() => this.ortodonciaHttp.getOrtodonciaSearch())
@@ -53,10 +53,10 @@ export class OrtodonciaListadoPresenter {
           if (res) {
             this.alert.showToast('success');
             this.ortodoncias = res;
-            const vRow = this.ortodoncias.find(res => res.nIdPaciente == vRequest.nIdPaciente);
+            const vRow = this.ortodoncias.find(res => res.nIdOrtodoncia == vRequest.nIdOrtodoncia);
             if (vRow) {
               sectionTable.openDetail(vRow);
-              this.listarDetOrtodoncia(vRow);
+              this.listarDetOrtodoncia(vRow.nIdOrtodoncia);
             }
           }
         }

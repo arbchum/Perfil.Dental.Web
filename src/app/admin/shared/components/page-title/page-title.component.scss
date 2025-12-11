@@ -19,6 +19,7 @@
     font-family: "Callgest", Arial, Helvetica, sans-serif;
     color: gold;
     white-space: pre;
+    margin: 0;
   }
   .prefixIcon{
     color: #3D4C53;
@@ -26,7 +27,7 @@
 
   .flex-container-bt {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     margin-bottom: 20px;
   }

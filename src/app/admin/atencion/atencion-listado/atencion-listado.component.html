@@ -7,6 +7,7 @@
     (clickSuffix)="goAtencionNewForm()"
   ></app-page-title>
   <app-atencion-table
-    [atenciones]="atenciones">
+    [atenciones]="atenciones"
+    (sendIdAtencion)="goAtencionVer($event)">
   </app-atencion-table>
 </mat-card>

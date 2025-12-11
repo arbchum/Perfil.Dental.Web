@@ -1,11 +1,30 @@
-<form autocomplete="off">
+<ng-container>
   <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-6">
-      <mat-form-field>
-        <mat-label>Paciente</mat-label>
-        <input matInput [value]="paciente" readonly>
-      </mat-form-field>
+    <div class="col-md-4">
+      <div class="field-view">
+        <mat-label>Código:</mat-label>
+        <div class="value">{{ ortodoncia.sCodigo}}</div>
+      </div>
+    </div>
+    <div class="col-md-auto">
+      <div class="field-view">
+        <mat-label>Fecha y hora de registro:</mat-label>
+        <div class="value">{{ ortodoncia.dFechaReg | date: 'dd/MM/yyyy hh:mm aa'}}</div>
+      </div>
     </div>
   </div>
-</form>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="field-view">
+        <mat-label>Paciente:</mat-label>
+        <div class="value">{{ ortodoncia.sNomPaciente }}</div>
+      </div>
+    </div>
+    <div class="col-md-auto">
+      <div class="field-view">
+        <mat-label>Estado:</mat-label>
+        <div class="value">{{ ortodoncia.sNomEstado }}</div>
+      </div>
+    </div>
+  </div>
+</ng-container>

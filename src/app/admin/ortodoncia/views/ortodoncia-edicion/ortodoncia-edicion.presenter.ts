@@ -9,10 +9,10 @@ import { switchMap } from 'rxjs';
 
 @Injectable()
 export class OrtodonciaEdicionPresenter {
-  nIdPaciente: number;
-  paciente: string;
+  nIdOrtodoncia: number;
+  ortodoncia: OrtodonciaGetResponse;
   sNomPaciente: string;
-  sesiones: DetOrtodonciaGetResponse[];
+  controles: DetOrtodonciaGetResponse[];
 
   constructor(
     private router: Router,
@@ -21,7 +21,7 @@ export class OrtodonciaEdicionPresenter {
     private baseServ: BaseService,
     private ortodonciaHttp: OrtodonciaHttp,
   ) {
-    this.nIdPaciente = Number(this.activateRoute.snapshot.paramMap.get('nIdPaciente'));
+    this.nIdOrtodoncia = Number(this.activateRoute.snapshot.paramMap.get('nIdOrtodoncia'));
   }
 
   goOrtodonciaListado(): void {
@@ -29,11 +29,11 @@ export class OrtodonciaEdicionPresenter {
   }
 
   init(): void {
-    this.ortodonciaHttp.getOrtodonciaOne(this.nIdPaciente).subscribe(
+    this.ortodonciaHttp.getOrtodonciaOne(this.nIdOrtodoncia).subscribe(
       res => {
         this.sNomPaciente = res.sNomPaciente;
-        this.paciente = `${res.sCodigo} - ${res.sNomPaciente}`;
-        this.sesiones = res.sesiones;
+        this.ortodoncia = res;
+        this.controles = res.controles;
       }
     )
   }
@@ -41,17 +41,17 @@ export class OrtodonciaEdicionPresenter {
   saveOrtodoncia(formDet: DetOrtodonciaUI): void {
     const vDetOrtodoncia: DetOrtodonciaUI[] = [];
     vDetOrtodoncia.push(formDet);
-    const vForm: OrtodonciaUI = { nIdPaciente: this.nIdPaciente, detOrtodoncia: vDetOrtodoncia }
-    const vRequest = new OrtodonciaRequest(vForm, EOrtodonciaEstado.EnTratamiento);
+    const vForm: OrtodonciaUI = { nIdOrtodoncia: this.nIdOrtodoncia, detOrtodoncia: vDetOrtodoncia }
+    const vRequest = new OrtodonciaRequest(vForm);
     this.ortodonciaHttp.createOrtodoncia(vRequest)
       .pipe(
-        switchMap(() => this.ortodonciaHttp.getOrtodonciaOne(this.nIdPaciente))
+        switchMap(() => this.ortodonciaHttp.getOrtodonciaOne(this.nIdOrtodoncia))
       )
       .subscribe(
         res => {
           if (res) {
             this.alert.showToast('success');
-            this.sesiones = res.sesiones;
+            this.controles = res.controles;
           }
         }
       );

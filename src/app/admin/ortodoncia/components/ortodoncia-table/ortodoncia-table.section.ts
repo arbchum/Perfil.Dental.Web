@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,44 +19,43 @@ import { BaseService } from 'src/app/common';
     ]),
   ],
 })
-export class OrtodonciaTableSection implements OnChanges {
+export class OrtodonciaTableSection {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @Output() sendIdPaciente: EventEmitter<number> = new EventEmitter<number>();
-  @Output() sendOrtodoncia: EventEmitter<OrtodonciaDataDto> = new EventEmitter<OrtodonciaDataDto>();
+  @Output() sendIdOrtodoncia: EventEmitter<number> = new EventEmitter<number>();
+  @Output() sendLookAtDetail: EventEmitter<number> = new EventEmitter<number>();
   @Output() sendFormOrtodoncia: EventEmitter<OrtodonciaUI> = new EventEmitter<OrtodonciaUI>();
-  @Input() ortodoncias: OrtodonciaDataDto[] = [];
+  @Input() set ortodoncias(value: OrtodonciaDataDto[] | null | undefined) {
+    this.dataSource.data = value ?? [];
+  }
   @Input() dataSourceDet: DetOrtodonciaDataDto[] = [];
 
-  dataSource: MatTableDataSource<OrtodonciaDataDto>;
+  dataSource = new MatTableDataSource<OrtodonciaDataDto>([]);
   displayedColumns: string[];
   pageSizeOptions: number[] = [5, 10, 50];
   expandedRow: OrtodonciaDataDto | null;
 
-  displayedColumnsDet: string[] = ['sControl', 'dFechaControl', 'none'];
+  displayedColumnsDet: string[] = ['sNroControl', 'dFechaControl', 'none'];
 
   /* #region   Asignación nombres de campos y columnas*/
   cols: any[] = [
     { header: 'Código', field: 'sCodigo', type: null, width: '60', align: 'center' },
     { header: 'Paciente', field: 'sNomPaciente', type: null, width: '200', align: 'left' },
-    { header: 'Controles atendidos', field: 'nCantidadControles', type: null, width: '50', align: 'right' },
+    { header: 'Controles hechos', field: 'nCantidadControles', type: null, width: '50', align: 'right' },
     { header: 'Estado', field: 'sEstado', type: null, width: '80', align: 'left' },
-    { header: 'Fecha de registro', field: 'sFechaReg', type: null, width: '150', align: 'center' },
+    { header: 'Fecha de registro', field: 'dFechaReg', type: 'date', width: '150', align: 'center' },
     { header: 'Acción', field: 'accion', type: 'accion', width: '60', align: 'center' },
     { header: '', field: 'expand', type: 'expand', width: '30', align: 'center' },
   ];
   /* #endregion */
 
   constructor(
-    private baseServ: BaseService
+    private baseServ: BaseService,
   ) {
     this.displayedColumns = this.cols.map(({ field }) => field);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['ortodoncias'] && this.ortodoncias) {
-      this.dataSource = new MatTableDataSource<OrtodonciaDataDto>(this.ortodoncias);
-      this.dataSource.paginator = this.paginator;
-    }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   get isEmpty(): boolean {
@@ -75,29 +74,27 @@ export class OrtodonciaTableSection implements OnChanges {
   /* #endregion */
 
   fnClean(): void {
-    if (this.dataSource) {
-      this.dataSource.filter = '';
-    }
+    if (this.dataSource) this.dataSource.filter = ''
   }
 
   openDetail(row: OrtodonciaDataDto): void {
-    this.expandedRow = this.expandedRow === row ? null : row;
+    this.expandedRow = this.expandedRow === row ? null : row
   }
 
   addControl(row: OrtodonciaDataDto) {
     const data = {
       sNomPaciente: row.sNomPaciente,
-      nNroSesion: row.nCantidadControles,
+      nNroControl: row.nCantidadControles + 1,
       dFechaMin: this.dataSourceDet[0].dFechaControl
     };
     this.baseServ.openDialog<DetOrtodonciaUI>(OrtodonciaAddControlSection, data)
       .afterClosed()
       .subscribe((result) => {
         if (result) {
-          const vDetOrtodoncia: DetOrtodonciaUI[] = [];
-          vDetOrtodoncia.push(result);
-          const vForm: OrtodonciaUI = { nIdPaciente: row.nIdPaciente, detOrtodoncia: vDetOrtodoncia }
-          this.sendFormOrtodoncia.emit(vForm);
+          const vDetOrtodoncia: DetOrtodonciaUI[] = []
+          vDetOrtodoncia.push(result)
+          const vForm: OrtodonciaUI = { nIdOrtodoncia: row.nIdOrtodoncia, detOrtodoncia: vDetOrtodoncia }
+          this.sendFormOrtodoncia.emit(vForm)
         }
       });
   }

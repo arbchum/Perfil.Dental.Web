@@ -65,8 +65,7 @@
               <td mat-footer-cell class="atencion_foot" *matFooterCellDef [hidden]="col.hidefooter"
                 [attr.colspan]="col.colspan" [style.textAlign]="col.alignfoot">
                 <span *ngSwitchCase="'index'" style="text-align: right;">Total</span>
-                <span *ngSwitchCase="'nPrecio'" style="text-align: center;">{{getMontoTotal() | number :
-                  '1.2-2'}}</span>
+                <span *ngSwitchCase="'nPrecio'" style="text-align: center;">{{getMontoTotal() | currency:'PEN' }}</span>
               </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

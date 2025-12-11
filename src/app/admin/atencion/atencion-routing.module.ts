@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AtencionFormComponent } from './atencion-form/atencion-form.component';
 import { AtencionListadoComponent } from './atencion-listado/atencion-listado.component';
+import { AtencionVerComponent } from './atencion-ver/atencion-ver.component';
 
 const routes: Routes = [
   {
@@ -13,8 +14,8 @@ const routes: Routes = [
     component: AtencionFormComponent
   },
   {
-    path: 'edicion/:id',
-    component: AtencionFormComponent
+    path: 'ver/:id',
+    component: AtencionVerComponent
   }
 ];
 

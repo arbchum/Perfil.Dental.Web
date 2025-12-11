@@ -13,9 +13,9 @@ export class AdminComponent implements OnInit {
 
   allMenuOptions: MenuOption[] = [
     {
-      title: 'Atenciones',
-      icon: 'fa-solid fa-calendar-day',
-      url: '/atencion/listado'
+      title: 'Tratamientos',
+      icon: 'fa-solid fa-hand-holding-medical',
+      url: '/tratamiento/listado'
     },
     {
       title: 'Pacientes',
@@ -23,14 +23,14 @@ export class AdminComponent implements OnInit {
       url: '/cliente/listado'
     },
     {
+      title: 'Atenciones',
+      icon: 'fa-solid fa-calendar-day',
+      url: '/atencion/listado'
+    },
+    {
       title: 'Ortodoncia',
       icon: 'fa-regular fa-face-grimace',
       url: '/ortodoncia/listado'
-    },
-    {
-      title: 'Tratamientos',
-      icon: 'fa-solid fa-hand-holding-medical',
-      url: '/tratamiento/listado'
     }
   ];
 

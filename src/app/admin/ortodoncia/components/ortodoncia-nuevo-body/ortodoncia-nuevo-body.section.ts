@@ -39,8 +39,8 @@ export class OrtodonciaNuevoBodySection implements OnInit {
     return this.detOrtodonciaArray.length - index;
   }
 
-  textControl(nNroSesion: number): string {
-    return nNroSesion == 0 ? 'Instalación' : `Control\nNro. ${("00" + nNroSesion).slice(-2)}`;
+  textControl(nNroControl: number): string {
+    return nNroControl == 0 ? 'Instalación' : `Control\nNro. ${("00" + nNroControl).slice(-2)}`;
   }
 
   addControlOrtodoncia(): void {
@@ -50,7 +50,7 @@ export class OrtodonciaNuevoBodySection implements OnInit {
 
     this.detOrtodonciaArray.insert(0,
       this.fb.group({
-        nNroSesion: [this.detOrtodonciaArray.length],
+        nNroControl: [this.detOrtodonciaArray.length],
         sComentario: [null, Validators.required],
         dFechaControl: [null, Validators.required],
         dFechaMin: [pForm ? this.getFechaRowPrevio(pForm) : null]

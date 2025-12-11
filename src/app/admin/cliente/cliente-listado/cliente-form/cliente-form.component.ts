@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ClienteHttp } from 'src/app/admin/shared/http';
 import { Cliente, Distrito, Provincia } from 'src/app/admin/shared/interface';
 import { PerfildSweetAlertService } from 'src/app/common';
@@ -24,6 +25,7 @@ export class ClienteFormComponent implements OnInit {
     private fb: FormBuilder,
     private clienteHttp: ClienteHttp,
     private alert: PerfildSweetAlertService,
+    private router: Router,
   ) {
     this.initForm();
     this.labelDocumento = 'Número de documento';
@@ -57,14 +59,6 @@ export class ClienteFormComponent implements OnInit {
   get dFechaNacCtrl(): FormControl { return this.form.get('dFechaNac') as FormControl }
   get bMenorCtrl(): FormControl { return this.form.get('bMayor') as FormControl }
 
-  get sApePaternoError(): unknown { return this.sApePaternoCtrl.hasError('required') ? 'campo requerido' : null }
-  get sApeMaternoError(): unknown { return this.sApeMaternoCtrl.hasError('required') ? 'campo requerido' : null }
-  get sNombresError(): unknown { return this.sNombresCtrl.hasError('required') ? 'campo requerido' : null }
-  get sNroDocumentoError(): unknown { return this.sNroDocumentoCtrl.hasError('required') ? 'campo requerido' : null }
-  get sSexoError(): unknown { return this.sSexoCtrl.hasError('required') ? 'campo requerido' : null }
-  get nIdDistritoError(): unknown { return this.nIdDistritoCtrl.hasError('required') ? 'campo requerido' : null }
-  get dFechaNacError(): unknown { return this.dFechaNacCtrl.hasError('required') ? 'campo requerido' : null }
-
   ngOnInit(): void {
     this.changeProvincia();
     this.changeEtapa();
@@ -87,10 +81,20 @@ export class ClienteFormComponent implements OnInit {
       if ([8, 10].includes(value?.length))
         this.clienteHttp.getClienteByNroDocumento(value).subscribe(
           res => {
-            if (res)
-              this.alert.showMessage('info', 'Paciente ya se encuentra registrado');
-            else
+            if (res) {
+              this.alert.ShowConfirmacion('El paciente está registrado\n¿desea registrarle una atención?')
+                .then((result: any) => {
+                  if (result?.isConfirmed) {
+                    this.dialogRef.close()
+                    this.goAtencionForm(res.nIdCliente)
+                  } else
+                    this.sNroDocumentoCtrl.reset()
+                });
+            }
+            else {
               this.form.enable({ emitEvent: false });
+              this.form.markAsUntouched()
+            }
           }
         )
     });
@@ -111,6 +115,18 @@ export class ClienteFormComponent implements OnInit {
   saveCliente(): void {
     if (this.form.invalid)
       return this.form.markAllAsTouched();
-    this.dialogRef.close(this.form.value);
+    this.dialogRef.close(this.form.getRawValue());
   }
+
+  goAtencionForm(idCliente: number): void {
+    this.router.navigate(['/atencion/nuevo'], { state: { idCliente: idCliente } });
+  }
+
+  get sApePaternoError(): unknown { return this.sApePaternoCtrl.hasError('required') ? 'campo requerido' : null }
+  get sApeMaternoError(): unknown { return this.sApeMaternoCtrl.hasError('required') ? 'campo requerido' : null }
+  get sNombresError(): unknown { return this.sNombresCtrl.hasError('required') ? 'campo requerido' : null }
+  get sNroDocumentoError(): unknown { return this.sNroDocumentoCtrl.hasError('required') ? 'campo requerido' : null }
+  get sSexoError(): unknown { return this.sSexoCtrl.hasError('required') ? 'campo requerido' : null }
+  get nIdDistritoError(): unknown { return this.nIdDistritoCtrl.hasError('required') ? 'campo requerido' : null }
+  get dFechaNacError(): unknown { return this.dFechaNacCtrl.hasError('required') ? 'campo requerido' : null }
 }

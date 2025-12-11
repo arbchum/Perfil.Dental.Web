@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { forkJoin, map, startWith } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { PerfildSweetAlertService } from 'src/app/common';
 import { dataAutocompleteValidator } from '../../shared/components/autocomplete/autocomplete.component';
 import { AtencionHttp, ClienteHttp, TratamientoHttp } from '../../shared/http';
@@ -51,14 +51,21 @@ export class AtencionFormComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.init();
-  }
-
   get isEmpty(): boolean { return this.dataSource?.data?.length == 0 }
   get detAtencionArray(): FormArray { return this.form.get('detAtencion') as FormArray; }
   get hasOneDetail(): boolean { return this.detAtencionArray.controls.length == 1 }
+  get nIdClienteCtrl(): FormControl { return this.form.get('nIdCliente') as FormControl }
   get sNotaCtrl(): FormControl { return this.form.get('sNota') as FormControl }
+
+  ngOnInit() {
+    this.init();
+    const state = history.state;
+    if (state && state['idCliente'])
+      this.nIdClienteCtrl.patchValue(state['idCliente']);
+  }
+
+
+
 
   init(): void {
     forkJoin({
@@ -78,7 +85,7 @@ export class AtencionFormComponent implements OnInit {
   addTratamiento(): void {
     const pForm = this.detAtencionArray.at(this.detAtencionArray.length - 1) as FormGroup;
     if (pForm) {
-      if (pForm.invalid) 
+      if (pForm.invalid)
         return Object.values(pForm.controls).forEach(control => { control.markAllAsTouched() });
       pForm.get('nIdTratamiento')?.disable();
     }
@@ -145,6 +152,8 @@ export class AtencionFormComponent implements OnInit {
       .map(item => +item.nPrecio * +item.nCantidad)
       .reduce((acc, value) => acc + value, 0);
   }
+
+
 
   // private addRow(tratamiento: Tratamiento): void {
   //   this.detAtencionArray.push(

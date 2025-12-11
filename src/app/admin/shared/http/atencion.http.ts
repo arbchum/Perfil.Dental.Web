@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AtencionRequest } from '../model';
 import { AdminHttpModule } from './http.module';
+import { AtencionGetResponse, AtencionRequest } from '../model';
 
 @Injectable({
   providedIn: AdminHttpModule
@@ -27,5 +27,9 @@ export class AtencionHttp{
 
   getAtencionHistorical(nIdCliente: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.api}/GetHistorical/${nIdCliente}`);
+  }
+
+  getAtencionResponse(id: number): Observable<AtencionGetResponse> {
+    return this.http.get<AtencionGetResponse>(`${this.api}/GetOne/${id}`);
   }
 }

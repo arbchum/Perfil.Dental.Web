@@ -36,9 +36,9 @@ export class OrtodonciaHttp {
     );
   }
 
-  getDetailOrtodoncia(nIdPaciente: number, nNumTop?: number): Observable<DetOrtodonciaDataDto[]> {
+  getDetailOrtodoncia(nIdOrtodoncia: number, nNumTop?: number): Observable<DetOrtodonciaDataDto[]> {
     let params = new HttpParams()
-      .set('nIdPaciente', JSON.stringify(nIdPaciente))
+      .set('nIdOrtodoncia', JSON.stringify(nIdOrtodoncia))
       .set('nNumTop', JSON.stringify(nNumTop));
     return this.http.get<ApiResponse<DetOrtodonciaDataDto[]>>(`${this.api}/GetDetail`, { params }).pipe(
       map(res => res.response)

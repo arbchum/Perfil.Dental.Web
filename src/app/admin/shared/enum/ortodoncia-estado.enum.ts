@@ -1,6 +1,6 @@
 export enum EOrtodonciaEstado{
   None,
   Instalado,
-  EnTratamiento,
-  Terminado
+  EnControles,
+  Concluido
 }

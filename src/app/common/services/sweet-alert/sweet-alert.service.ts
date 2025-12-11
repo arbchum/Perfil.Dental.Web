@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Swal, { SweetAlertIcon } from 'sweetalert2';
+import Swal, { SweetAlertIcon, SweetAlertResult } from 'sweetalert2';
 import { PerfildSweetAlertModule } from './sweet-alert.module';
 
 const Toast = Swal.mixin({
@@ -84,5 +84,30 @@ export class PerfildSweetAlertService {
       this.message = title ?? 'Advertencia';
 
     Toast.fire({ 'icon': typeIcon, 'title': this.message })
+  }
+
+  ShowConfirmacion(
+    title: string,
+    icon?: SweetAlertIcon
+  ): Promise<SweetAlertResult<any>> {
+    if (icon == 'success') {
+      this.iconColor = '#3679BC'
+    } else if (icon == 'error') {
+      this.iconColor = '#E64442'
+    } else if (icon == 'info') {
+      this.iconColor = '#0284c7'
+    }
+
+    return Swal.fire({
+      title: `${title}`,
+      icon: icon ?? 'question',
+      iconColor: this.iconColor,
+      showConfirmButton: true,
+      confirmButtonText: 'Sí',
+      showCancelButton: true,
+      cancelButtonText: 'No',
+      confirmButtonColor: '#3679BC',
+      cancelButtonColor: '#E64442',
+    })
   }
 }

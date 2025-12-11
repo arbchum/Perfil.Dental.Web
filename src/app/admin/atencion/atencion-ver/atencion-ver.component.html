@@ -1,0 +1,68 @@
+<mat-card *ngIf="atencion">
+  <app-page-title title="ATENCIÓN INFO" prefixIcon="keyboard_arrow_left" prefixTooltip="Regresar"
+    (clickPrefix)="goAtencionListado()">
+  </app-page-title>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="field-view">
+        <mat-label>Código:</mat-label>
+        <div class="value">{{ atencion.sCodigo}}</div>
+      </div>
+    </div>
+    <div class="col-md-auto">
+      <div class="field-view">
+        <mat-label>Fecha y hora de registro:</mat-label>
+        <div class="value">{{ atencion.dFechaReg | date: 'dd/MM/yyyy hh:mm aa'}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="field-view">
+        <mat-label>Paciente:</mat-label>
+        <div class="value">{{ atencion.sNomPaciente }}</div>
+      </div>
+    </div>
+    <div class="col-md-auto">
+      <div class="field-view">
+        <mat-label>Nota:</mat-label>
+        <div class="value">{{ atencion.sNota }}</div>
+      </div>
+    </div>
+  </div>
+  <mat-card class="mat-elevation-z2">
+    <mat-card-header class="space_between">
+      <mat-card-title>Tratamientos</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="container atencion_table">
+        <table *ngIf="atencion" mat-table [dataSource]="dataSource">
+          <ng-container *ngFor="let col of cols" matColumnDef="{{col.field}}" [ngSwitch]="col.type">
+            <th mat-header-cell class="sticky-header" *matHeaderCellDef [style.width.%]="col.width"> {{col.header}}
+            </th>
+            <td mat-cell *matCellDef="let row; let i = index;" [style.textAlign]="col.align">
+              <span *ngSwitchCase="'index'">
+                {{i + 1}}
+              </span>
+              <span *ngSwitchCase="'deci2'">
+                {{row[col.field] | currency:'PEN'}}
+              </span>
+              <span *ngSwitchDefault>
+                {{row[col.field]}}
+              </span>
+            </td>
+            <td mat-footer-cell class="atencion_foot" *matFooterCellDef [hidden]="col.hidefooter"
+              [attr.colspan]="col.colspan" [style.textAlign]="col.alignfoot">
+              <span *ngSwitchCase="'index'" style="text-align: right;">Total</span>
+              <span *ngSwitchCase="'deci2'" style="text-align: center;">{{atencion.nMonto | currency:'PEN'}}</span>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</mat-card>

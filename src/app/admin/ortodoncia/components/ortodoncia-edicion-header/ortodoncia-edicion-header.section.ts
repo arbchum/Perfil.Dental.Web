@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { OrtodonciaGetResponse } from 'src/app/admin/shared/model';
 
 @Component({
   selector: 'section-ortodoncia-edicion-header',
@@ -6,7 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./ortodoncia-edicion-header.section.scss']
 })
 export class OrtodonciaEdicionHeaderSection implements OnInit {
-  @Input() paciente: string;
+  @Input() ortodoncia: OrtodonciaGetResponse;
   @Output() sendIdEstado: EventEmitter<number> = new EventEmitter<number>();
   
   constructor() { }

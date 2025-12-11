@@ -15,7 +15,7 @@ const routes: Routes = [
     component: OrtodonciaNuevoView
   },
   {
-    path: 'edicion/:nIdPaciente',
+    path: 'edicion/:nIdOrtodoncia',
     component: OrtodonciaEdicionView
   }
 ];

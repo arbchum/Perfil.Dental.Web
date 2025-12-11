@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EOrtodonciaEstado } from 'src/app/admin/shared/enum';
 import { ClienteHttp, OrtodonciaHttp } from 'src/app/admin/shared/http';
 import { ClienteDto, OrtodonciaDataDto } from 'src/app/admin/shared/interface';
 import { OrtodonciaRequest, OrtodonciaUI } from 'src/app/admin/shared/model';
@@ -43,9 +44,11 @@ export class OrtodonciaNuevoPresenter {
     if (this.ItemOrtodoncia)
       return this.alert.showMessage('info', `El paciente ${this.ItemOrtodoncia?.sNomPaciente} ya está registrado`);
     if (this.form.invalid)
-      return Object.values(this.form.controls).forEach(control => { control.markAllAsTouched() });
+      return this.form.markAllAsTouched()
 
-    const request = new OrtodonciaRequest(this.form.getRawValue() as OrtodonciaUI);
+    const form = this.form.getRawValue() as OrtodonciaUI
+    const pIdEstado = (form.detOrtodoncia?.length > 1) ? EOrtodonciaEstado.EnControles : EOrtodonciaEstado.Instalado;
+    const request = new OrtodonciaRequest(form, pIdEstado);
 
     this.ortodonciaHttp.createOrtodoncia(request).subscribe(
       res => {

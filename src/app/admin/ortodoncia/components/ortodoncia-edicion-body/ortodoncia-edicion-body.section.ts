@@ -17,10 +17,10 @@ export class OrtodonciaEdicionBodySection implements OnInit {
 
   /* #region   Asignación nombres de campos y columnas*/
   cols: any[] = [
-    { header: 'Nro.', field: 'nNroSesion', type: 'nNroSesion', width: '60', align: 'center' },
+    { header: 'Nro.', field: 'sNroControl', type: null, width: '60', align: 'center' },
     { header: 'Fecha', field: 'dFechaControl', type: 'dFechaControl', width: '60', align: 'center' },
-    { header: 'Comentario', field: 'sComentario', type: null, width: '400', align: 'left' },
-    { header: 'Acción', field: 'accion', type: 'accion', width: '40', align: 'center' },
+    { header: 'Comentario', field: 'sComentario', type: 'sComentario', width: '400', align: 'left' },
+    { header: 'Acción', field: 'accion', type: 'accion', width: '50', align: 'center' },
   ];
   /* #endregion */
 
@@ -31,15 +31,11 @@ export class OrtodonciaEdicionBodySection implements OnInit {
   ngOnInit(): void {
   }
 
-  textControl(nNroSesion: number): string {
-    return nNroSesion == 0 ? 'Instalación' : `Control\nNro. ${("00" + nNroSesion).slice(-2)}`;
-  }
-
   newOrtodoncia(): void {
     const data = {
       sNomPaciente: this.sNomPaciente,
-      nNroSesion: this.dataSource[0].nNroSesion,
-      dFechaMin: this.getFecha(this.dataSource[0].nNroSesion)
+      nNroControl: this.dataSource[0].nNroControl,
+      dFechaMin: this.getFecha(this.dataSource[0].nNroControl)
     };
 
     this.openModalOrtodoncia(data);
@@ -47,16 +43,16 @@ export class OrtodonciaEdicionBodySection implements OnInit {
 
   updateOrtodoncia(row: DetOrtodonciaGetResponse): void {
     const vForm: DetOrtodonciaUI = {
-      'nNroSesion': row.nNroSesion, 
+      'nNroControl': row.nNroControl, 
       'dFechaControl': row.dFechaControl, 
       'sComentario': row.sComentario
     };
 
     const data = {
       sNomPaciente: this.sNomPaciente,
-      nNroSesion: row.nNroSesion,
-      dFechaMin: this.getFecha(row.nNroSesion - 1),
-      dFechaMax: this.getFecha(row.nNroSesion + 1),
+      nNroControl: row.nNroControl,
+      dFechaMin: this.getFecha(row.nNroControl - 1),
+      dFechaMax: this.getFecha(row.nNroControl + 1),
       formData: vForm
     };
 
@@ -72,8 +68,8 @@ export class OrtodonciaEdicionBodySection implements OnInit {
       });
   }
 
-  getFecha(pNroSesion: number) {
-    const detail = this.dataSource.find(item => item.nNroSesion == pNroSesion);
+  getFecha(nNroControl: number) {
+    const detail = this.dataSource.find(item => item.nNroControl == nNroControl);
     return detail?.dFechaControl;
   }
 }

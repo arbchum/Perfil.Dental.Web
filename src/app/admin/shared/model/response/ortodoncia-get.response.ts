@@ -1,14 +1,14 @@
 export interface OrtodonciaGetResponse {
   sCodigo: string;
   sNomPaciente: string;
-  nIdEstado: string;
+  sNomEstado: string;
   dFechaReg: Date;
   dFechaMod: string;
-  sesiones: DetOrtodonciaGetResponse[];
+  controles: DetOrtodonciaGetResponse[];
 }
 
 export interface DetOrtodonciaGetResponse {
-  nNroSesion: number;
+  nNroControl: number;
   dFechaControl: Date;
   sComentario: string;
 }

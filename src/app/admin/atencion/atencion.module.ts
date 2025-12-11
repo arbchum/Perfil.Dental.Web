@@ -22,6 +22,7 @@ import { AtencionListadoComponent } from './atencion-listado/atencion-listado.co
 import { AtencionFormComponent } from './atencion-form/atencion-form.component';
 import { SharedComponentsModule } from '../shared/components/components.module';
 import { AtencionTableComponent } from './atencion-listado/atencion-table/atencion-table.component';
+import { AtencionVerComponent } from './atencion-ver/atencion-ver.component';
 
 const ANGULAR_MODULES = [
   CommonModule,
@@ -48,7 +49,8 @@ const MATERIAL_MODULES = [
   declarations: [
     AtencionListadoComponent,
     AtencionFormComponent,
-    AtencionTableComponent
+    AtencionTableComponent,
+    AtencionVerComponent
   ],
   imports: [
     CommonModule,

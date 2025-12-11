@@ -31,12 +31,16 @@ export class AtencionListadoComponent implements OnInit {
     );
   }
 
+  goAtencionNewForm(): void {
+    this.router.navigateByUrl('/atencion/nuevo');
+  }
+
   goAtencionForm(id?: number): void {
     this.router.navigate(['../nuevo', id ?? 0], { relativeTo: this.activatedRoute });
   }
 
-
-  goAtencionNewForm(): void {
-    this.router.navigateByUrl('/atencion/nuevo');
+  goAtencionVer(id: number): void {
+    this.router.navigate(['../ver', id], { relativeTo: this.activatedRoute });
   }
+
 }

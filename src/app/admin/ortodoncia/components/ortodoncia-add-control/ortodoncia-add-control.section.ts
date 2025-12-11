@@ -15,12 +15,12 @@ export class OrtodonciaAddControlSection implements OnInit {
   sComentarioMaxLength: number = 1000;
   fechaMin: Date | null;
   fechaMax: Date | null;
-  numSesion: number;
+  nNroControl: number;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {
       sNomPaciente: string,
-      nNroSesion: number,
+      nNroControl: number,
       dFechaMin: Date,
       dFechaMax: Date,
       formData: DetOrtodonciaUI
@@ -31,8 +31,8 @@ export class OrtodonciaAddControlSection implements OnInit {
   }
 
   ngOnInit(): void {
-    this.numSesion = this.data.nNroSesion + (this.data.formData ? 0 : 1);
-    this.title = this.numSesion == 0 ? 'Instalación' : `Control Nro. ${("00" + (this.numSesion)).slice(-2)}`;
+    this.nNroControl = this.data.nNroControl;
+    this.title = this.nNroControl > 0 ?  `Control Nro. ${("00" + (this.nNroControl)).slice(-2)}` : 'Instalación';
     this.fechaMin = this.data.dFechaMin ? moment(this.data.dFechaMin).add(1, 'd').toDate() : null;
     this.fechaMax = this.data.dFechaMax ? moment(this.data.dFechaMax).add(-1, 'd').toDate() : null;
     this.initForm();
@@ -42,7 +42,7 @@ export class OrtodonciaAddControlSection implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      nNroSesion: [this.numSesion, Validators.required],
+      nNroControl: [this.nNroControl, Validators.required],
       dFechaControl: [null, Validators.required],
       sComentario: [null, Validators.required]
     })
